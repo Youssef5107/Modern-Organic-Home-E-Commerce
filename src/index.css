@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
+@import "tailwindcss";
+
+@theme {
+  --animate-*: initial; /* Clears default if needed, otherwise just extend */
+
+  /* Custom Colors */
+  --color-on-secondary-fixed-variant: #444937;
+  --color-tertiary-fixed-dim: #f0bd8b;
+  --color-outline-variant: #d8c2bd;
+  --color-on-error-container: #93000a;
+  --color-on-background: #1b1c19;
+  --color-on-tertiary-fixed: #2c1600;
+  --color-surface-variant: #e4e2dd;
+  --color-surface-dim: #dbdad5;
+  --color-error: #ba1a1a;
+  --color-inverse-primary: #ffb4a5;
+  --color-on-secondary: #ffffff;
+  --color-primary-fixed-dim: #ffb4a5;
+  --color-on-tertiary: #ffffff;
+  --color-on-primary-fixed: #390b04;
+  --color-tertiary: #613e17;
+  --color-surface-container-highest: #e4e2dd;
+  --color-on-surface-variant: #534340;
+  --color-surface-container: #f0eee9;
+  --color-surface-container-high: #eae8e3;
+  --color-inverse-on-surface: #f2f1ec;
+  --color-on-primary-container: #ffcbc0;
+  --color-primary-fixed: #ffdad3;
+  --color-error-container: #ffdad6;
+  --color-on-tertiary-container: #ffcd9f;
+  --color-background: #fbf9f4;
+  --color-on-tertiary-fixed-variant: #623f18;
+  --color-secondary-container: #e0e5cc;
+  --color-on-primary: #ffffff;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-secondary-container: #626753;
+  --color-surface-tint: #8d4c3f;
+  --color-outline: #86736f;
+  --color-surface-bright: #fbf9f4;
+  --color-on-secondary-fixed: #191d0e;
+  --color-surface-container-low: #f5f3ee;
+  --color-tertiary-fixed: #ffdcbd;
+  --color-surface: #fbf9f4;
+  --color-inverse-surface: #30312e;
+  --color-primary: #6f3429;
+  --color-primary-container: #8c4b3e;
+  --color-on-surface: #1b1c19;
+  --color-secondary-fixed-dim: #c4c9b1;
+  --color-tertiary-container: #7c552c;
+  --color-on-error: #ffffff;
+  --color-on-primary-fixed-variant: #71352a;
+  --color-secondary: #5c614d;
+  --color-secondary-fixed: #e0e5cc;
+
+  /* Custom Spacing */
+  --spacing-stack-md: 32px;
+  --spacing-margin-desktop: 64px;
+  --spacing-stack-lg: 64px;
+  --spacing-container-max: 1280px;
+  --spacing-base: 8px;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 20px;
+  --spacing-stack-sm: 16px;
+
+  /* Custom Font Families */
+  --font-label-sm: "Plus Jakarta Sans";
+  --font-body-lg: "Plus Jakarta Sans";
+  --font-body-md: "Plus Jakarta Sans";
+  --font-headline-lg: "Libre Caslon Text";
+  --font-label-md: "Plus Jakarta Sans";
+  --font-headline-xl: "Libre Caslon Text";
+  --font-headline-lg-mobile: "Libre Caslon Text";
+  --font-headline-md: "Libre Caslon Text";
+
+  /* Custom Font Sizes */
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 16px;
+  --text-label-sm--letter-spacing: 0.04em;
+  --text-label-sm--font-weight: 500;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+  --text-body-md--font-weight: 400;
+
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 40px;
+  --text-headline-lg--letter-spacing: -0.01em;
+  --text-headline-lg--font-weight: 400;
+
+  --text-label-md: 14px;
+  --text-label-md--line-height: 20px;
+  --text-label-md--letter-spacing: 0.02em;
+  --text-label-md--font-weight: 600;
+
+  --text-headline-xl: 48px;
+  --text-headline-xl--line-height: 56px;
+  --text-headline-xl--letter-spacing: -0.02em;
+  --text-headline-xl--font-weight: 400;
+
+  --text-headline-lg-mobile: 28px;
+  --text-headline-lg-mobile--line-height: 36px;
+  --text-headline-lg-mobile--font-weight: 400;
+
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-headline-md--font-weight: 400;
+}
