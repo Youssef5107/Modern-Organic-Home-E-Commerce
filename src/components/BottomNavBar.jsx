@@ -1,8 +1,18 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function BottomNavBar() {
-  const [activeTab, setActiveTab] = useState("home");
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  const getActiveTab = () => {
+    if (pathname === "/" || pathname === "/home") return "home";
+    if (pathname === "/shop") return "shop";
+    if (pathname === "/cart") return "cart";
+    if (pathname === "/profile") return "profile";
+    return "home";
+  };
+
+  const activeTab = getActiveTab();
 
   // Hardcoded cart count representation
   const cartItemCount = 2;
@@ -23,9 +33,6 @@ export default function BottomNavBar() {
           <Link
             to={item.id === "home" ? "/home" : `/${item.id}`}
             key={item.id}
-            onClick={() => {
-              setActiveTab(item.id);
-            }}
             className={`flex flex-col items-center justify-center px-5 py-1 transition-all active:scale-90 relative rounded-full ${
               isActive
                 ? "bg-[#e0e5cc] text-[#626753]"

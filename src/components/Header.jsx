@@ -6,6 +6,7 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import PublicIcon from "@mui/icons-material/Public";
 import ShareIcon from "@mui/icons-material/Share";
 import MailIcon from "@mui/icons-material/Mail";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -141,9 +142,12 @@ export default function Header() {
           <button className="hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 duration-200 flex items-center justify-center">
             <SearchIcon style={muiIconStyle} />
           </button>
-          <button className="hidden md:flex hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 duration-200 items-center justify-center">
+          <Link
+            to={"/cart"}
+            className="hidden md:flex hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 duration-200 items-center justify-center"
+          >
             <ShoppingBagIcon style={muiIconStyle} />
-          </button>
+          </Link>
         </div>
       </header>
     </>
