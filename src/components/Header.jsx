@@ -15,7 +15,6 @@ export default function Header() {
 
   return (
     <>
-      {/* Texture Paper Grain Overlay */}
       <div
         className="fixed inset-0 pointer-events-none z-[9999] opacity-[0.03]"
         style={{

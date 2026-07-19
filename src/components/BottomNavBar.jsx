@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function BottomNavBar() {
   const [activeTab, setActiveTab] = useState("home");
@@ -19,11 +20,10 @@ export default function BottomNavBar() {
         const isActive = activeTab === item.id;
 
         return (
-          <a
+          <Link
+            to={`/${item.label}`}
             key={item.id}
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={() => {
               setActiveTab(item.id);
             }}
             className={`flex flex-col items-center justify-center px-5 py-1 transition-all active:scale-90 relative rounded-full ${
@@ -41,7 +41,7 @@ export default function BottomNavBar() {
                 {cartItemCount}
               </span>
             )}
-          </a>
+          </Link>
         );
       })}
     </nav>
