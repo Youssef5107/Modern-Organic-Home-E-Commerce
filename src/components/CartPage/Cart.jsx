@@ -1,29 +1,10 @@
 export default function Cart() {
   return (
     <>
-      {/* !-- TopAppBar --> */}
-      <header className="w-full top-0 sticky z-50 bg-background dark:bg-background shadow-sm shadow-primary/5 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full">
-        <div className="flex items-center gap-4">
-          <button className="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors active:scale-95 duration-200 p-2 rounded-full">
-            menu
-          </button>
-          <h1 className="font-headline-md text-headline-md-mobile md:text-headline-md tracking-tight text-primary dark:text-primary-fixed-dim">
-            Modern Organic Home
-          </h1>
-        </div>
-        <div className="flex items-center gap-2">
-          <button className="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors active:scale-95 duration-200 p-2 rounded-full">
-            search
-          </button>
-          <button className="hidden md:flex material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors active:scale-95 duration-200 p-2 rounded-full">
-            shopping_bag
-          </button>
-        </div>
-      </header>
-      <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-stack-md pb-32">
+      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-stack-md pb-32 reveal-on-scroll animate-page-enter ">
         <div className="flex flex-col lg:grid lg:grid-cols-12 gap-gutter">
           {/* <!-- Shopping Cart List --> */}
-          <section className="lg:col-span-8 flex flex-col gap-stack-md">
+          <section className="lg:col-span-8 flex flex-col gap-stack-md reveal-on-scroll">
             <div className="flex items-baseline justify-between border-b border-outline-variant pb-base">
               <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">
                 Your Basket{" "}
@@ -403,43 +384,7 @@ export default function Cart() {
             </div>
           </aside>
         </div>
-      </main>
-      {/* <!-- BottomNavBar --> */}
-      <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-2 pb-6 md:pb-4 bg-surface dark:bg-surface-container-low shadow-[0_-4px_20px_rgba(111,52,41,0.08)] rounded-t-xl md:hidden">
-        <a
-          className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-5 py-1 hover:text-primary transition-all active:scale-90 duration-200"
-          href="#"
-        >
-          <span className="material-symbols-outlined">home</span>
-          <span className="font-label-sm text-label-sm mt-1">Home</span>
-        </a>
-        <a
-          className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-5 py-1 hover:text-primary transition-all active:scale-90 duration-200"
-          href="#"
-        >
-          <span className="material-symbols-outlined">storefront</span>
-          <span className="font-label-sm text-label-sm mt-1">Shop</span>
-        </a>
-        <a
-          className="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-5 py-1 transition-all active:scale-90 duration-200"
-          href="#"
-        >
-          <span
-            className="material-symbols-outlined"
-            style="font-variation-settings: 'FILL' 1;"
-          >
-            shopping_bag
-          </span>
-          <span className="font-label-sm text-label-sm mt-1">Cart</span>
-        </a>
-        <a
-          className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-5 py-1 hover:text-primary transition-all active:scale-90 duration-200"
-          href="#"
-        >
-          <span className="material-symbols-outlined">person</span>
-          <span className="font-label-sm text-label-sm mt-1">Profile</span>
-        </a>
-      </nav>
+      </div>
     </>
   );
 }

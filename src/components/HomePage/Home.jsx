@@ -3,7 +3,7 @@ export default function Home() {
   const muiIconStyle = { color: "inherit", fontSize: "24px" };
 
   return (
-    <>
+    <div className="animate-page-enter ">
       {/* Hero Section */}
       <section className="relative w-full h-[618px] md:h-[707px] overflow-hidden reveal-on-scroll">
         <div
@@ -203,6 +203,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

@@ -2,7 +2,7 @@ export default function Shop() {
   return (
     <>
       {/* Main Content */}
-      <div className="max-w-[1280px] mx-auto px-5 md:px-16 pt-8 pb-16">
+      <div className="max-w-[1280px] mx-auto px-5 md:px-16 pt-8 pb-16 animate-page-enter ">
         {/* Filter/Sort Bar */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-stack-lg animate-fade-in">
           <div>
