@@ -21,7 +21,7 @@ export default function BottomNavBar() {
 
         return (
           <Link
-            to={`/${item.label}`}
+            to={item.id === "home" ? "/home" : `/${item.id}`}
             key={item.id}
             onClick={() => {
               setActiveTab(item.id);

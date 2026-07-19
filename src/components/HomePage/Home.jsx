@@ -42,7 +42,7 @@ export default function Home() {
       <section className="mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal-on-scroll">
         <div className="flex justify-between items-end mb-stack-md">
           <div>
-            <h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">
+            <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">
               Shop by Room
             </h3>
             <p className="font-body-md text-body-md text-on-surface-variant">

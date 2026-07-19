@@ -159,7 +159,7 @@ export default function ProductDetails() {
                   natural minerals.
                 </p>
                 <div className="space-y-3">
-                  <h4 class="font-label-md text-label-md text-on-surface">
+                  <h4 className="font-label-md text-label-md text-on-surface">
                     Details &amp; Materials
                   </h4>
                   <ul className="font-body-md text-body-md text-on-surface-variant space-y-2 list-none p-0">

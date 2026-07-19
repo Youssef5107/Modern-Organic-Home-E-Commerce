@@ -81,7 +81,7 @@ export default function Header() {
             Journal
           </a>
           <a
-            class="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
+            className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
             href="#"
           >
             Account
@@ -90,7 +90,7 @@ export default function Header() {
 
         {/* Brand Details / Footer */}
         <div className="p-8 bg-surface-container-low/50 mt-auto border-t border-outline-variant/20">
-          <p class="font-headline-md text-sm text-primary mb-6 italic">
+          <p className="font-headline-md text-sm text-primary mb-6 italic">
             Built by Hand, Inspired by Earth
           </p>
           <div className="flex gap-6 items-center text-primary">
