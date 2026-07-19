@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative w-full h-[618px] md:h-[707px] overflow-hidden">
+      <section className="relative w-full h-[618px] md:h-[707px] overflow-hidden reveal-on-scroll">
         <div
           className="absolute inset-0 w-full h-full bg-cover bg-center"
           style={{
@@ -39,7 +39,7 @@ export default function Home() {
       </section>
 
       {/* Categories Section */}
-      <section className="mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <section className="mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal-on-scroll">
         <div className="flex justify-between items-end mb-stack-md">
           <div>
             <h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">
@@ -117,7 +117,7 @@ export default function Home() {
       </section>
 
       {/* New Arrivals Product Cards Section */}
-      <section className="mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <section className="mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal-on-scroll">
         <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-stack-md">
           New Arrivals
         </h3>
@@ -179,7 +179,7 @@ export default function Home() {
       </section>
 
       {/* Editorial Content Section */}
-      <section className="mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <section className="mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal-on-scroll">
         <div className="relative w-full h-[500px] rounded-2xl overflow-hidden flex items-center justify-center text-center p-12">
           <div
             className="absolute inset-0 bg-cover bg-center"
