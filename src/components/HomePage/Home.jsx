@@ -3,24 +3,6 @@ export default function Home() {
     <>
       <div className="grain-overlay"></div>
       {/* <!-- TopAppBar --> */}
-      <header className="w-full top-0 sticky z-50 bg-background/80 backdrop-blur-md shadow-sm shadow-primary/5 h-16 flex justify-between items-center px-margin-mobile md:px-margin-desktop">
-        <div className="flex items-center gap-4">
-          <button className="material-symbols-outlined text-primary hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 duration-200">
-            menu
-          </button>
-          <h1 className="font-headline-md text-headline-md-mobile md:text-headline-md tracking-tight text-primary dark:text-primary-fixed-dim">
-            Modern Organic Home
-          </h1>
-        </div>
-        <div className="flex items-center gap-2">
-          <button className="material-symbols-outlined text-primary hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 duration-200">
-            search
-          </button>
-          <button className="hidden md:flex material-symbols-outlined text-primary hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 duration-200">
-            shopping_bag
-          </button>
-        </div>
-      </header>
       <main className="pb-32">
         {/* <!-- Hero Section: The Autumn Collection --> */}
         <section className="relative w-full h-[618px] md:h-[707px] overflow-hidden">
