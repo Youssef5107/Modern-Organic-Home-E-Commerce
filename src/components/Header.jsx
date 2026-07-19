@@ -14,7 +14,7 @@ export default function Header() {
   const muiIconStyle = { color: "inherit", fontSize: "24px" };
 
   return (
-    <div className="bg-background text-on-background font-body-md min-h-screen selection:bg-primary/20 relative">
+    <>
       {/* Texture Paper Grain Overlay */}
       <div
         className="fixed inset-0 pointer-events-none z-[9999] opacity-[0.03]"
@@ -147,6 +147,6 @@ export default function Header() {
           </button>
         </div>
       </header>
-    </div>
+    </>
   );
 }
