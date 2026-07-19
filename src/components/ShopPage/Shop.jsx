@@ -176,7 +176,71 @@ export default function Shop() {
           </div>
         </section>
 
-        {/* Section 3: Bedroom */}
+        {/* Section 3: Dining */}
+        <section className="mb-stack-lg reveal-on-scroll">
+          <div className="flex items-end justify-between mb-stack-sm">
+            <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
+              Dining
+            </h3>
+            <a
+              className="font-label-md text-primary underline underline-offset-4 hover:opacity-70 transition-opacity"
+              href="#"
+            >
+              View All
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+            {/* Product 1: Earthen Pitcher */}
+            <div className="group relative overflow-hidden bg-white rounded-xl product-card-hover transition-all duration-300 md:col-span-1">
+              <div className="aspect-video overflow-hidden">
+                <img
+                  alt="Earthen Pitcher"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzkU2o5AIefoOtm1Falr8OksOv3i050xwvBvtS5iOmRtV7g1fjv4Eu0Qor-Q2qvM3M9KJDm_siVU0DEZGHFtDwlLoDHapSxUMgUNOgXYxcOqC4c_btBFpDm5uTvMTRlnUDRojH9YXtWUXSiu4wVtu92BEt1BjHnvGhZ59cYbnsSy1n9jDKJhsx9OzHqNhASeJUj2TbacJyGfm3XrPqPktwoP1ixm0bXI7FIk7_EdcxrrCgZD88dqM"
+                />
+              </div>
+              <div className="p-6">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="font-label-sm text-label-sm text-on-surface-variant mb-1">
+                      DAILY RITUAL
+                    </p>
+                    <h4 className="font-headline-md text-headline-md text-on-surface mb-1">
+                      Earthen Pitcher
+                    </h4>
+                  </div>
+                  <p className="text-primary font-semibold text-lg">$84.00</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Product 2: Reclaimed Oak Serving Board */}
+            <div className="group relative overflow-hidden bg-white rounded-xl product-card-hover transition-all duration-300 md:col-span-1">
+              <div className="aspect-video overflow-hidden">
+                <img
+                  alt="Reclaimed Oak Serving Board"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy4c9AeByxgNarlcyA4jdGeB7IAQE3qt0zTZsEhfL2PEp38Cpr4mczk-szQFy1hU12_2EYgBEKiFx_CHtujCQVDvJKHkg5A_vVxNddNDFJ5jdvb6PKZxvCF1zFaGXvIUMH3lTbygPY15-xNZIVqTpwpKcoLJi9Y_Pr-6AtVZUktLge5NnclcLruvEd8UU1bq7_2TiREJ13dp8k97qCIsExqG_8PFrKwhAAYCdoLiU6ayTLPS9bK8k"
+                />
+              </div>
+              <div className="p-6">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="font-label-sm text-label-sm text-on-surface-variant mb-1">
+                      SUSTAINABLE WOOD
+                    </p>
+                    <h4 className="font-headline-md text-headline-md text-on-surface mb-1">
+                      Reclaimed Oak Serving Board
+                    </h4>
+                  </div>
+                  <p className="text-primary font-semibold text-lg">$125.00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* Section 4: Bedroom */}
         <section className="mb-stack-lg reveal-on-scroll">
           <div className="flex items-end justify-between mb-stack-sm">
             <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
