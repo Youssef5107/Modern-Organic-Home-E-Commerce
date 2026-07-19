@@ -1,0 +1,215 @@
+{
+  "site_name": "Modern Organic Home",
+  "currency": "USD",
+  "collections": [
+    {
+      "id": "ceramics",
+      "title": "Ceramics Collection",
+      "description": "Artisanal vessels for the curated home. Hand-thrown or slab-built by master potters using ethically sourced clays and natural pigment glazes.",
+      "products": [
+        {
+          "id": "handcrafted-ceramic-vase",
+          "name": "Handcrafted Ceramic Vase",
+          "series": "Signature Sculptural Series",
+          "price": 185.0,
+          "tags": ["Signature Piece"],
+          "glaze": "Natural Sandstone",
+          "image": "{{DATA:IMAGE:IMAGE_4}}"
+        },
+        {
+          "id": "earthen-pitcher",
+          "name": "Earthen Pitcher",
+          "glaze": "Natural Sandstone Glaze",
+          "price": 92.0
+        },
+        {
+          "id": "basin-bowls",
+          "name": "Basin Bowls",
+          "set_info": "Set of 3",
+          "finish": "Charcoal Matte",
+          "price": 145.0
+        },
+        {
+          "id": "modern-amphora",
+          "name": "Modern Amphora",
+          "material_wash": "Terracotta & Iron Wash",
+          "price": 210.0
+        },
+        {
+          "id": "ritual-burner",
+          "name": "Ritual Burner",
+          "glaze": "Speckled Stone Glaze",
+          "price": 45.0
+        },
+        {
+          "id": "sipping-cups",
+          "name": "Sipping Cups",
+          "set_info": "Duo Set",
+          "wash": "Indigo Wash",
+          "price": 64.0
+        },
+        {
+          "id": "crackle-platter",
+          "name": "Crackle Platter",
+          "details": "Hand-etched Detailing",
+          "price": 110.0
+        }
+      ]
+    },
+    {
+      "id": "living-room",
+      "title": "Living Room Collection",
+      "description": "Thoughtfully selected pieces designed to ground your space. From hand-finished walnut to organic textiles, our living room collection celebrates the harmony of natural materials and modern design.",
+      "products": [
+        {
+          "id": "solid-walnut-coffee-table",
+          "name": "Solid Walnut Coffee Table",
+          "category": "Furniture",
+          "price": 840.0,
+          "tags": ["New Arrival"]
+        },
+        {
+          "id": "textured-wool-throw",
+          "name": "Textured Wool Throw",
+          "category": "Textiles",
+          "price": 125.0
+        },
+        {
+          "id": "sculptural-ceramic-vase",
+          "name": "Sculptural Ceramic Vase",
+          "category": "Accessories",
+          "price": 68.0
+        },
+        {
+          "id": "linen-slub-sofa",
+          "name": "Linen Slub Sofa",
+          "category": "Furniture",
+          "price": 2450.0
+        },
+        {
+          "id": "hand-woven-jute-rug",
+          "name": "Hand-Woven Jute Rug",
+          "category": "Textiles",
+          "price": 420.0
+        },
+        {
+          "id": "matte-black-floor-lamp",
+          "name": "Matte Black Floor Lamp",
+          "category": "Lighting",
+          "price": 290.0
+        },
+        {
+          "id": "oak-sideboard",
+          "name": "Oak Sideboard",
+          "category": "Furniture",
+          "price": 1150.0
+        },
+        {
+          "id": "amber-oak-candle",
+          "name": "Amber & Oak Candle",
+          "category": "Home Fragrance",
+          "price": 34.0
+        }
+      ]
+    },
+    {
+      "id": "dining",
+      "title": "Dining Collection",
+      "description": "Elevate your gathering rituals with our curated collection of handcrafted kitchenware. From artisanal ceramics to sustainably sourced wood, each piece is designed for the tactile beauty of daily use.",
+      "products": [
+        {
+          "id": "earthen-pitcher-dining",
+          "name": "Earthen Pitcher",
+          "details": "Hand-thrown stoneware",
+          "price": 68.0
+        },
+        {
+          "id": "reclaimed-oak-board",
+          "name": "Reclaimed Oak Board",
+          "details": "Sustainably harvested",
+          "price": 120.0
+        },
+        {
+          "id": "terracotta-nesting-bowls",
+          "name": "Terracotta Nesting Bowls",
+          "set_info": "Set of 4",
+          "price": 85.0
+        },
+        {
+          "id": "forged-brass-spoon",
+          "name": "Forged Brass Spoon",
+          "finish": "Aged patina finish",
+          "price": 32.0
+        },
+        {
+          "id": "washed-linen-napkins",
+          "name": "Washed Linen Napkins",
+          "material": "European Flax",
+          "set_info": "Set of 2",
+          "price": 45.0
+        },
+        {
+          "id": "charcoal-stem-vase",
+          "name": "Charcoal Stem Vase",
+          "finish": "Matte reactive glaze",
+          "price": 54.0
+        }
+      ]
+    },
+    {
+      "id": "bedroom",
+      "title": "Bedroom Collection",
+      "description": "Sanctuaries for rest. Organic linens and soft lighting for the ultimate retreat.",
+      "products": [
+        {
+          "id": "washed-linen-pillow-cover",
+          "name": "Washed Linen Pillow Cover",
+          "color": "Terracotta",
+          "price": 48.0
+        },
+        {
+          "id": "hand-stitched-heirloom-quilt",
+          "name": "Hand-Stitched Heirloom Quilt",
+          "color": "Sage Mist",
+          "price": 240.0
+        },
+        {
+          "id": "artisan-ceramic-table-lamp",
+          "name": "Artisan Ceramic Table Lamp",
+          "color": "Sandstone",
+          "price": 185.0
+        },
+        {
+          "id": "organic-cotton-percale-set",
+          "name": "Organic Cotton Percale Set",
+          "color": "Charcoal",
+          "price": 160.0
+        },
+        {
+          "id": "hand-blown-bedside-carafe",
+          "name": "Hand-Blown Bedside Carafe",
+          "color": "Smoke",
+          "price": 65.0
+        },
+        {
+          "id": "chunky-merino-throw",
+          "name": "Chunky Merino Throw",
+          "color": "Oatmeal",
+          "price": 120.0
+        },
+        {
+          "id": "brass-glass-wall-sconce",
+          "name": "Brass & Glass Wall Sconce",
+          "finish": "Brushed Brass",
+          "price": 145.0
+        },
+        {
+          "id": "evening-ritual-candle-set",
+          "name": "Evening Ritual Candle Set",
+          "scent": "Cedar & Lavender",
+          "price": 72.0
+        }
+      ]
+    }
+  ]
+}
