@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Shop() {
   return (
     <>
@@ -40,12 +42,12 @@ export default function Shop() {
             <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
               Ceramics
             </h3>
-            <a
+            <Link
               className="font-label-md text-primary underline underline-offset-4 hover:opacity-70 transition-opacity"
-              href="#"
+              to={"./ceramics"}
             >
               View All
-            </a>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
@@ -117,12 +119,12 @@ export default function Shop() {
             <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
               Living Room
             </h3>
-            <a
+            <Link
               className="font-label-md text-primary underline underline-offset-4 hover:opacity-70 transition-opacity"
-              href="#"
+              to={"./living-rooms"}
             >
               View All
-            </a>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
@@ -182,12 +184,12 @@ export default function Shop() {
             <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
               Dining
             </h3>
-            <a
+            <Link
               className="font-label-md text-primary underline underline-offset-4 hover:opacity-70 transition-opacity"
-              href="#"
+              to={"./dining-rooms"}
             >
               View All
-            </a>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
@@ -246,12 +248,12 @@ export default function Shop() {
             <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
               Bedroom
             </h3>
-            <a
+            <Link
               className="font-label-md text-primary underline underline-offset-4 hover:opacity-70 transition-opacity"
-              href="#"
+              to={"./bedrooms"}
             >
               View All
-            </a>
+            </Link>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter">

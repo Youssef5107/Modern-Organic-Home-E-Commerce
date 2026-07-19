@@ -6,6 +6,10 @@ export default function BottomNavBar() {
 
   const getActiveTab = () => {
     if (pathname === "/" || pathname === "/home") return "home";
+    if (pathname === "/shop/ceramics") return "shop";
+    if (pathname === "/shop/living-rooms") return "shop";
+    if (pathname === "/shop/dining-rooms") return "shop";
+    if (pathname === "/shop/bedrooms") return "shop";
     if (pathname === "/shop") return "shop";
     if (pathname === "/cart") return "cart";
     if (pathname === "/cart/checkout") return "cart";
