@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Cart() {
   return (
     <>
@@ -356,10 +358,13 @@ export default function Cart() {
                 </div>
               </div>
               {/* <!-- Checkout Button --> */}
-              <button className="w-full bg-primary text-on-primary py-4 rounded-xl font-label-md text-lg tracking-wide hover:bg-primary-container transition-all active:scale-[0.98] duration-200 shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+              <Link
+                to={"./checkout"}
+                className="w-full bg-primary text-on-primary py-4 rounded-xl font-label-md text-lg tracking-wide hover:bg-primary-container transition-all active:scale-[0.98] duration-200 shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+              >
                 Checkout Now
                 <span className="material-symbols-outlined">arrow_forward</span>
-              </button>
+              </Link>
               {/* <!-- Trust Badges --> */}
               <div className="mt-8 pt-8 border-t border-outline-variant">
                 <div className="flex flex-col gap-4">

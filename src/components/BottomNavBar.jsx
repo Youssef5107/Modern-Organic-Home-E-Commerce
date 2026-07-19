@@ -8,6 +8,7 @@ export default function BottomNavBar() {
     if (pathname === "/" || pathname === "/home") return "home";
     if (pathname === "/shop") return "shop";
     if (pathname === "/cart") return "cart";
+    if (pathname === "/cart/checkout") return "cart";
     if (pathname === "/profile") return "profile";
     return "home";
   };
