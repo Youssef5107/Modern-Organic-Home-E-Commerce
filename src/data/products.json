@@ -14,15 +14,18 @@
           "price": 185.0,
           "tags": ["Signature Piece"],
           "glaze": "Natural Sandstone",
-          "image": "{{DATA:IMAGE:IMAGE_4}}",
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuCk0jKdAY-ROqADg-308IK14qb7jBa_Q-fVXXWCG_9Up2RCl9f2qlzguPZRw8WZ3p_sdnhvh2ZmiBZ7yLnr0WYqapYyznAfK9fJULyBNlg7mfG67d6z6O8EctSuStrNy-GFCwGUEjOx-p0OS9Dq2nZj7Xv7ott3aKtBH9myyChUTF8bT8GKkqj6UkSS2bfctOJVdaOrqLMnW_nloimx3xwZP5o3BfCNDFrcCtqY4K7fqCGNb4iI84w",
+          "is_favorite": false,
+          "is_new_arrival": true
         },
         {
           "id": "earthen-pitcher",
           "name": "Earthen Pitcher",
           "glaze": "Natural Sandstone Glaze",
           "price": 92.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuBKblhZ9obhUpH6rpxB19Q0syB7mJXWI0esYR9FuDH0zOacEJeCYWeCU-1YeQW9saf72up1SMFckeoNfmw6llUR3I5-HDOuQ8LuogmvLcHVi7OEWUp5NMcBXcJvT4w0LLMQFQ7x3dG5uWNwsLZa60HXHai5YLx3f-aAPWCPGjx-KFCDz_NU165GTYPVfG3CUGG2J1EM57hvvKGbF3jGLlSa7gzZQX_Hd4K-UCiNn4XnQzHzKYy-1zw",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "basin-bowls",
@@ -30,21 +33,27 @@
           "set_info": "Set of 3",
           "finish": "Charcoal Matte",
           "price": 145.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuBeRCLZPxdl9GQWCJ5AxWTBBhkYW5fARcFJOr0oIX8MAGOFypDhc_HNxGXX_tLs4tBT7LreRcS523GCc-P3xxNY0cY_w4wNbszN4No6BkKmud_AMsdLHtmQJWN7fKlCC-41g_vtRtqWpWwRzY8bBPuir6gdQANKhLwlWP2titdwEzfj_BREFvfiz-FE7gmmW8iGoqFRsYtS0JkouhPn1hd9IYcW-fDgPFOsyG_Qz8iY_jasWlD9q_M",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "modern-amphora",
           "name": "Modern Amphora",
           "material_wash": "Terracotta & Iron Wash",
           "price": 210.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuBINY8kcQAH0zjg-OCX6Hs4GZ7CU9QwXQtvuB2AhocV7-F_IMLYjCQQNxp4DTkvcXBS-E__2HwkOanP43nrROxh6ordWKHuOBCSQSfhZXDRGXa5ElcUkz_n-pZMa1XU80oUwQ00ULkH6sWmRPTm1ytdTi_G8_cPgjq-ZPIxlpLNDBZJVDX_84ilqL-UhSpkcdLxmHH54knrfgPGpmdyhGTZ0ibYvX9eiPSpzseRvdiOG3dySf8J1OM",
+          "is_favorite": false,
+          "is_new_arrival": true
         },
         {
           "id": "ritual-burner",
           "name": "Ritual Burner",
           "glaze": "Speckled Stone Glaze",
           "price": 45.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuCZvbjgINTCI70IGcOMw7ro5qzDeL5tA8A1EOice2vsu7bElNwpCgmn5HUhwLcDM4fJlMF4dz_zxuo19ir_jq2r-2Pwr3tVUS5T9vZ9jPY7TK9pjXppKKRvhc58BtD6T2gPhBaSnmf2ANrD-91DnxhE2VutDS6WN3-alh7yg8DUq0tLG-NsUuVikqo7I5s5dne8daGICHsrhjpEku4VmoLydCDHnTywdRdu56csepSN1JBVP5z4sxk",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "sipping-cups",
@@ -52,14 +61,18 @@
           "set_info": "Duo Set",
           "wash": "Indigo Wash",
           "price": 64.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuCIXR3GNE2c5MYwX-fLOGmW_hgJKj1pEPa6l1fcngFsFm0vnYcbYwFQtcSydVaBXgkCNiXPJjWRirLHlQTREm_hGV_5w8U5zZM3lhEnaOU6Bmf8BMmPY4bb83rwEYJ1aSTwY05AaIXF3atsG6BBohjfL6dy2i2WlDSC3GMckQAgy2AGUwXio921e30F020kELX6pfXfeKuP_NRlmMGbrnowtiO-W2b3RE3ISHABMdsQWoWlujuYgMM",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "crackle-platter",
           "name": "Crackle Platter",
           "details": "Hand-etched Detailing",
           "price": 110.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDXn458s8Rl91Z6yYHB2kjlRbJ4OCpSbQlJOBH9G9GEyA1Niv2kCnfMM-w3S_5WXDFd5EYHXCaEFMkSjA5NsoN1dxkiPL8ITWDr--Eb6Iozf43BZT8khJKIrKztqgx2qeb5mY7ZyHWfku13ciiD2Jtl1yKSe9_3zdwCwv-YU55xXytTWjYhB7krMH80F5Zo5H38xg6HxHa1MkGy7vZqKbgsyUuXy0MfLOeWYnwbZr78yIefm7IPdBM",
+          "is_favorite": false,
+          "is_new_arrival": false
         }
       ]
     },
@@ -74,56 +87,72 @@
           "category": "Furniture",
           "price": 840.0,
           "tags": ["New Arrival"],
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuCANTj-W0xA0EeWtY83j6w9SCCku4uQWoamVYUrAWtiOBv7wx2zH0PZSXu_Y_IQeWGJR57VT8tkPAMZGeGLTSqYVmhvguHDB6_1cvQ8gy48Y3CBrIzbDQt0INcDxb1KR2Otqwa_mtMssChWx7wRGQ7r6dkOk8q-n2VUPCLAZlbPCybNhWOiC9uqgrvzMmj8qNZhEMc8buFR1nWLwlIwZMu_f7MP6vCX2I2HVnFmJVI0bPrFzeaG00o",
+          "is_favorite": false,
+          "is_new_arrival": true
         },
         {
           "id": "textured-wool-throw",
           "name": "Textured Wool Throw",
           "category": "Textiles",
           "price": 125.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDSG7kPDHErRgzCgdFA6yJsgfJZQkmn35AR29DrAm7dJcDOHTUJId9BwDZbRyMIJ_0-Vl3Dup5Yp-l2VbRYEtmJDIwwBEwU8rmccsITYodCU--KsngRjM9dOtO-hwGOUrnxKRsdXCq1LVDJd8WDFa_QD3zLV2XGVg5ehDmsfES0xz7QiWe2DyBuB92RnfJOrdb_UXIbj2BK74etLACluGaLvFI4n2_YjydCDzPYYPB2aRDMQWRrb4Q",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "sculptural-ceramic-vase",
           "name": "Sculptural Ceramic Vase",
           "category": "Accessories",
           "price": 68.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG7EDGPUGMYhPBXK_QaiPOQfZZwSqgcCjBr0YXT0Z4B86wEEtb8MVNubdaJAnm4WnRXg_elFhk2N0058YVtOafyzn_udQpRshG7ZbrRyzZJ0S8x1Gfrdb_cVEqWKUidfbPf50MW6PKdy5h0DLy1zueXnILfYydvNwDEU5Tv_fAp_GyHtcbAVjbHFFD_aN7YDIZ0znDvpq1y5hvibjys8CrUWJYs1GHynopZJA4PWGENdrd96UVJu0",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "linen-slub-sofa",
           "name": "Linen Slub Sofa",
           "category": "Furniture",
           "price": 2450.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDE2eKuuyKkqPczoebJ56wEsRy5wRVDIEN5SA-UIQMVzJs7QKhHiqqd0HwpM6F_DdqfLJgTmXx623wVfCkZPCJIipD8UzN3UN7ciduaAKWwh6HoEvYwXBt1UDYS31dlzOW3S9ZfH4WXh6DQfmrywVl7fGfWIVFQMjdz64NmYv9H5UlD4W11FQFTz9c6lJUqdlT31xJklwfvfJ0pZPiHnM1I3nbVuaL7GX20aMQ-rmSKH6I77Er93tM",
+          "is_favorite": false,
+          "is_new_arrival": true
         },
         {
           "id": "hand-woven-jute-rug",
           "name": "Hand-Woven Jute Rug",
           "category": "Textiles",
           "price": 420.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuB_Bpww44TsOZJTAI7ZsKuPNEkBjrz7LTTScCU56liGnvVJg0WtqZnrqh3u456pqScUSJ0I3Nrobp81mymqLD_wJ1pF7VSng1ieGeGD_PdfUWQ1uFzP5Ny5hqk9W2G0SSBQM_vSv4VqH778Ec6KQW11j2-kPFOFM5Ajou-wbGuBL8Bs8hVCBjw9jnuZqMxwotpl-uoM7MnGuWU1TuuSFJxNy69_e_HVmu2A-lug0c743jX6mKHwg3g",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "matte-black-floor-lamp",
           "name": "Matte Black Floor Lamp",
           "category": "Lighting",
           "price": 290.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDg43E2ugfrgqABzXyo4iAcnmVyjh2euF6cYGksJMYqwoIquPcSjxqrtUB2t4POhB6I2JUQ9ubh_B32XEiCE9nt0tmqYUu2APPhLH7w2miNKbB7lQya6gxMDYJaWkuHC_2Add0khCNFYKE2Dk0o9LNTCbjfDz1KOnJ9tfV_1vWtnCmpNIw6-dYuqwAXIbJjKxawiHAZziyBSwdayI7fPJxh4mzZ_IvzfZ_MZnADe2-H_M4pP56vLLo",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "oak-sideboard",
           "name": "Oak Sideboard",
           "category": "Furniture",
           "price": 1150.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDcKPz6z11DlV_bvDbV_hiiwAoCpPJGpLCwls3krq6Y1J1pox-4cbbgDbgNW7qyQCXeXge9yFpymjnM0pPM1bmnQwY3lvz_zw0m1QEDTE0lN_wFc1Dro9GAPcz1sJOKM1JklIDGYhK1_lrQFD68YtrRd-qOMfLba2Yy3bTNbbz9ESCIFyHwVyffGDASxBmNSXYtz84kxUZ3Es8Jyg68J9DAZLarJi83pnLaZn0bWVthWBCFbb3c-iQ",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "amber-oak-candle",
           "name": "Amber & Oak Candle",
           "category": "Home Fragrance",
           "price": 34.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuBrnXUdx16bjaaZPHfTouA9WYR-ZXxI5hf-4ilHu9nFRQ2nTZOTbBMO9OWd5a4AWry_WaqpL0jKAUaoNDtqNzjTAbcmC_ErYDp3yqrAFy_6vWKJAWvgCwElZT-lXMdvMD_3k_Z0X8IHnQJizwK9DEVFsyfeKvwAxUct_RZtX6ovEVqci0N2Rh9BNe6I3sEljcrZ5ebfaev3nmVMOz-0TF0R2h9fXHBoOg34XS-pWFFBrFWZmhco2TY",
+          "is_favorite": false,
+          "is_new_arrival": true
         }
       ]
     },
@@ -137,28 +166,36 @@
           "name": "Earthen Pitcher",
           "details": "Hand-thrown stoneware",
           "price": 68.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDc_a2tD9wZLt1wv_CAFBCjf8MPBIG4AQx7nsoNCsrtKN1UDfn8NZCgUVGFsW20-fouafruhbukfKrwgn5C1h9XRbjj6XM7UL3U6VDCwHB_IoZonSvaEUInr8zNndDZO-_-ytkNiDkjhRC_Oq9uJYl2FdvZ6Ov_Fsd-kBYBObUp2Fd-VVEo4LnXAk9KA_fUoGeV9ahsCkWRcfzUsWwEo1VO6NHLrTKK57lGqxqBry-wMWlTyHdx5ps",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "reclaimed-oak-board",
           "name": "Reclaimed Oak Board",
           "details": "Sustainably harvested",
           "price": 120.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuAdjwenHbuBYF2cQSXrinKHRpoDWjisgeaCoLXiJfj8r-Gz2rP2dEVXHh4nSzPVmRNt9ik3OEb7yXA-DhoDkUOQ-VvYn7K1doK-KRo7Ta1Ijknrx2aSgNhevw114rz9mw3BLCltOq0b5kh-FpCEPZbZhUjF9MvqiZQWpFoRYyUle8caE8PCY2NYQM_o7GMOMR4XBlAllajKhIjwzZKSSm2zaKixUPgha3V0niac9IgQOe8hY6dIRyY",
+          "is_favorite": false,
+          "is_new_arrival": true
         },
         {
           "id": "terracotta-nesting-bowls",
           "name": "Terracotta Nesting Bowls",
           "set_info": "Set of 4",
           "price": 85.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuCdoChxnxjGJM3K-FTnIUB80vUhPTmsTR-kEFt9HcfnZDtSMETYpTMmBrsHmtWeU_UwfO_V-oNG8a4oFW8ZKCOjRSmPZnbCLRpd1m4prIMfoQl94-IRz6ldDfUNPvcYUw5AI7BJgtMLMtGXClCqL5_ccRMu2WPUQWno0r1F1_ssVswIxqZI7AlNrhiEJQzqr8X6EAWn59QF2A9v0waU03--2g7uBvTh2XTIuH-kEldqSE-pN0qPkNU",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "forged-brass-spoon",
           "name": "Forged Brass Spoon",
           "finish": "Aged patina finish",
           "price": 32.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDhCVH5o7eG1-LuAa3xBaAe6DsGruYeprfBy_ptg4OzLXn0_zEIlbAg756W2gnDnrYVs_xhdtUjL2upYB4OiYK0RiiofIVit3wVSPcmJo47zg56tGcWsNhzxrCjPA1cFhCyxiaRTxprLHHsSdMCDB7fBxRqa1nmPD2RSUFHtyySbLxgUI76sTb7-0EF7ktqacXrVVquadwZd1uC0c8DhoHG4K9Mq9_DnU0fEc8i6n-YnTDJGII2pS4",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "washed-linen-napkins",
@@ -166,14 +203,18 @@
           "material": "European Flax",
           "set_info": "Set of 2",
           "price": 45.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDmPxdJej48lU8Qpp8DcGbM2tlHo5wDpz6BSO9X0KcU4-RsfdUyrSVewvm2Np5z4hXaP104ZF7qBm7qmt922CxZxIBWE2lm1klI0R0oEwdTYnApLKu1pIg_2cv64PzuP0VwSV6LfgsASHGq0BjY4emAXgWKJiG1cH8CnmLnid9pdmpsOiH7j_ABfZVHmrEX4EcE_NMnhO5WgH57M9DMENW_0lHloJgwI1V1tVfaXisPkDSSAR6Qsp4",
+          "is_favorite": false,
+          "is_new_arrival": true
         },
         {
           "id": "charcoal-stem-vase",
           "name": "Charcoal Stem Vase",
           "finish": "Matte reactive glaze",
           "price": 54.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuAIN52M59yuduK-zxslPrbAGWW0ITyO1LSAROVW9Odr0FncZF6y_bLZ8gU7CtmvhytRSnr8hF6lInt0tSG5Rx5ftCClHQux9A1Vz-5zeq1k5HsKxJ_P76UTxjKvphXhQlvHkF4GC0cb_WMrVZNb1-uDguvhbRcZzYweTwqEyQq2eM3BX1HuQ-50jMcQXtSbJtZhaT8KN1olOyBke5E28BSa7uZW1IlSVNLfo0FM7KfyyeCpxfKGPG4",
+          "is_favorite": false,
+          "is_new_arrival": false
         }
       ]
     },
@@ -187,56 +228,72 @@
           "name": "Washed Linen Pillow Cover",
           "color": "Terracotta",
           "price": 48.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuAaSDkjiAs6UTxsluAg4AyuKCvI6q8al9YCx6jFmDrzO2eilTLvkRj1rubCMmvFAfQuQnrTt_lr3_3xE5qXg3ILHdHExKcz6sm7swCdGLdTo1dmIh8rnNZbT-z0ZMsk7I0pz0KsGfJ6Fz6xAPJIMY2VVNlSbM6GHArzy8QqIBJUSREUxK3lTz87NFdm8XLnpaXFFgq7KGFwfWDuYFXyCaCxhCxZ-GdKN6PuRbtlAas958F4iqIZL-Q",
+          "is_favorite": false,
+          "is_new_arrival": true
         },
         {
           "id": "hand-stitched-heirloom-quilt",
           "name": "Hand-Stitched Heirloom Quilt",
           "color": "Sage Mist",
           "price": 240.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDqP-Z-5YU19zPqf2Xfae2qnbP_nNt-y48zYKjCC7KT29MKzeas2PtHnyf469aDD3e7FiBkJMCqUiqhxBO4KRkvo6ssvdeQJAYnP6WiV33qVdMWvHgXGBjPGJvavLZVDOSsQUXFTyQOklptrRgBZ_H2S3pxUylhPrcPl9Kb_debJEHeJwSfJqkpCe4asINREcg3eZ4jGcFInd5UwJO7pFd2kYFokmn_Bll8bw-f0r_Rx8knU3BsnCg",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "artisan-ceramic-table-lamp",
           "name": "Artisan Ceramic Table Lamp",
           "color": "Sandstone",
           "price": 185.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuB5Ir46GmA7gXfVwuNBM5In_TmGLYmdnJr00_Drf8k8MEMbSXz_qAjOR-M2AcIHl33jLMFC9hYLq5-rd-FDtPyUwDWgFcyVSAnNS8CtPvqJr82b1mC5zvsT1CUVpS14QS_4yn_OzRtY43iixcW-tZJGGY2AlIQwnWmvLoEok0oSIUIdNycpir8JP17tRoGe5D5xRybyFWTtLeVtC1Fmvizo5rpd4oQzqu_jreRAosryKLLl33Izg_I",
+          "is_favorite": false,
+          "is_new_arrival": true
         },
         {
           "id": "organic-cotton-percale-set",
           "name": "Organic Cotton Percale Set",
           "color": "Charcoal",
           "price": 160.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDyZDrQajYB4VHFCfGcdUf9wDiBM6L2sDBpMregMg5gZ2iqPVMI3Dd_q0mylqpWVzu3SOxsrTflfCfbnfBbtD6kt0I1Ax6Bxoxm71Z_dKK5vPhKQp1Cxi5CxEc7iw2cdep6uaJ8dQkc336PwkKm3ksZiykqXqO2rswzBunrF-hwkByFG3vldUtTTeaPpKLnx6e_t0IO4OJpTsFg2hxY-Id0qhR_9IgbjwJ49iyr6QaZpeNv3ZKpBII",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "hand-blown-bedside-carafe",
           "name": "Hand-Blown Bedside Carafe",
           "color": "Smoke",
           "price": 65.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuAmhzLqFCH8bXF2OMgAhLqtcuUQb_F9Ixxgj315Jw8yVayerQhwu4Y1_1EAxdNDKzdwF1QvtfI7MNfPthxx25Yy7UNrVBf7xmAlFEC0jAj3DkwH7Oacos85ls240GdsXdtiGBfd73keDHHsFYTsvD-_eLCUS0EH2piw2qxZR9UaSpZjACe9n4-cya7Yn92uyg3NjFM_zLt7_YYRMCfeae37J_xxICzj30NGSQx30vmYP7yaCxq1LBk",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "chunky-merino-throw",
           "name": "Chunky Merino Throw",
           "color": "Oatmeal",
           "price": 120.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuAkStQKgh-AIEXfLzYG4wMUwC0K6adLWVWR0NXx0lxTJrTSbBioVU-Z3903roc1AYB9Q11H8n1LKzZ8Tf64mCHwNF9yrnzYhtZAjyDPsm4FQalS_XNfh1WyWdwTXcna85NvdGJsggh1XMlnFV1e8ET4Ka8eEoSVZmdBMTiFm2A3Pu9gzMLueCYRt3MR5vC_QR-S0g7lrzKkvWlHiDeGXcNjRFP7fCC6yxJV43rRSW7ypE9wust5Atw",
+          "is_favorite": false,
+          "is_new_arrival": false
         },
         {
           "id": "brass-glass-wall-sconce",
           "name": "Brass & Glass Wall Sconce",
           "finish": "Brushed Brass",
           "price": 145.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuCoCV9ysU9iFBAyB-EleRqWswtIzvHN1j62yuTbJTJCAq42hdrX0DWYuZ6MG-13bkba-XcRDvwGRjLXGsO9ERirHnwFXPeQ_h-KBWz_oCexvfwPmJFEgBapYPcbo4dOPs1Nl9zpTgM818d-z5XhIVPP-MMzqzT8pP0JFnybCeZpoCPmQgrB3UN9UDamr3X3leqAqvvprlxDseYMiIlAcFkSDie_R7AbqeVLaBfZhBmzsqGL9kXdVKg",
+          "is_favorite": false,
+          "is_new_arrival": true
         },
         {
           "id": "evening-ritual-candle-set",
           "name": "Evening Ritual Candle Set",
           "scent": "Cedar & Lavender",
           "price": 72.0,
-          "is_favorite": false
+          "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg_9-hk4ViEk6JebRt7pZrz9pXmx2VYIAKfZwXug7GRqIRaZQLMlTrL-aHK6PcC2Yi0VrAqAdiBhGkHzIX3FfUoSLmVetm-Z5c-Z4eIokAu43wRStRi4eXiZ36I25AarySdC2LWt5tbmMXap5p06lqAkf1E8S30zheJSu8J1R87ssG7C5A2VSrG-Sxfrj4mOIS-UALPVcgcovthH33WwW_VVzm1Wfo0rAhOHRuuj1VCWRrMq7nKTk",
+          "is_favorite": false,
+          "is_new_arrival": false
         }
       ]
     }
