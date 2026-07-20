@@ -166,6 +166,24 @@ export default function Shop() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy4c9AeByxgNarlcyA4jdGeB7IAQE3qt0zTZsEhfL2PEp38Cpr4mczk-szQFy1hU12_2EYgBEKiFx_CHtujCQVDvJKHkg5A_vVxNddNDFJ5jdvb6PKZxvCF1zFaGXvIUMH3lTbygPY15-xNZIVqTpwpKcoLJi9Y_Pr-6AtVZUktLge5NnclcLruvEd8UU1bq7_2TiREJ13dp8k97qCIsExqG_8PFrKwhAAYCdoLiU6ayTLPS9bK8k"
                 />
+                <button
+                  type="button"
+                  className="card-favorite-btn absolute top-4 right-4 p-2 rounded-full"
+                  data-card-action="favorite"
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    favorite
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className="card-cart-btn absolute bottom-3 right-4 p-2 rounded-full"
+                  data-card-action="cart"
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    add_shopping_cart
+                  </span>
+                </button>
               </div>
               <div className="p-6">
                 <div className="flex justify-between items-start">
@@ -190,6 +208,24 @@ export default function Shop() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-BbskSKcsxf0j076BhHoVUW_ecrKJAq2xGUE_CmlJKBJgo2MlKCLt1VL54lcpeWCpiGfbgNtEx3dsTpdsZfRECuevQTScYYuMKt0FO_1RqBBCjtzlk2ov4r9cJjjimu7hHGF3BIM7XqsPlIv4n9BXPjaWsQZUaHbUBBa002jBdgB_AQpYh-MklXjTOmP_SN3XOGEaUfI3hjSYTcWmG5RdTpRV2WYDJ2NEmaq6CKJ4NPwUlJANUno"
                 />
+                <button
+                  type="button"
+                  className="card-favorite-btn absolute top-4 right-4 p-2 rounded-full"
+                  data-card-action="favorite"
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    favorite
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className="card-cart-btn absolute bottom-3 right-4 p-2 rounded-full"
+                  data-card-action="cart"
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    add_shopping_cart
+                  </span>
+                </button>
               </div>
               <div className="p-6">
                 <div className="flex justify-between items-start">
@@ -236,7 +272,7 @@ export default function Shop() {
                     favorite
                   </span>
                 </button>
-                <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                <button className="absolute bottom-3 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
                   <span className="material-symbols-outlined text-[18px]">
                     add_shopping_cart
                   </span>
@@ -270,7 +306,7 @@ export default function Shop() {
                     favorite
                   </span>
                 </button>
-                <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                <button className="absolute bottom-3 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
                   <span className="material-symbols-outlined text-[18px]">
                     add_shopping_cart
                   </span>
