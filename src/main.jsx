@@ -50,13 +50,21 @@ const enhanceCardButtons = () => {
 
 document.addEventListener("click", (event) => {
   const button = event.target.closest("button");
-  if (!button || !button.classList.contains("card-favorite-btn")) {
+  if (!button) {
     return;
   }
 
-  event.preventDefault();
-  event.stopPropagation();
-  button.classList.toggle("card-favorite-btn-active");
+  if (button.classList.contains("card-favorite-btn")) {
+    event.preventDefault();
+    event.stopPropagation();
+    button.classList.toggle("card-favorite-btn-active");
+  }
+
+  if (button.classList.contains("card-cart-btn")) {
+    event.preventDefault();
+    event.stopPropagation();
+    button.classList.toggle("card-cart-btn-active");
+  }
 });
 
 enhanceCardButtons();
