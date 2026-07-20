@@ -1,4 +1,9 @@
+import data from "../../data/products.json";
+
 export default function DiningCollection() {
+  const diningRoomProducts = data.collections.find(
+    (collection) => collection.id === "dining",
+  );
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-stack-md pb-32 animate-page-enter">
       {/* Collection Intro */}
@@ -72,165 +77,39 @@ export default function DiningCollection() {
           ></div>
         </div>
 
-        {/* Product Card 1 */}
-        <div className="group flex flex-col cursor-pointer">
-          <div className="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container product-card-shadow transition-all duration-500">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="A studio photograph of an Earthen Pitcher with a matte sand-colored glaze and a textured organic shape. The pitcher is set against a warm grey background with soft, diffused shadows. The lighting mimics natural window light, creating a serene and grounded atmosphere."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc_a2tD9wZLt1wv_CAFBCjf8MPBIG4AQx7nsoNCsrtKN1UDfn8NZCgUVGFsW20-fouafruhbukfKrwgn5C1h9XRbjj6XM7UL3U6VDCwHB_IoZonSvaEUInr8zNndDZO-_-ytkNiDkjhRC_Oq9uJYl2FdvZ6Ov_Fsd-kBYBObUp2Fd-VVEo4LnXAk9KA_fUoGeV9ahsCkWRcfzUsWwEo1VO6NHLrTKK57lGqxqBry-wMWlTyHdx5ps"
-            />
-            <button className="absolute top-4 right-4 w-10 h-10 bg-surface/80 backdrop-blur-md rounded-full flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="material-symbols-outlined">favorite</span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <div className="flex justify-between items-start">
-              <h4 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-                Earthen Pitcher
-              </h4>
-              <span className="font-label-md text-label-md text-on-surface-variant">
-                $68
-              </span>
+        {diningRoomProducts.products.map((product) => (
+          <div className="group flex flex-col cursor-pointer">
+            <div className="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container product-card-shadow transition-all duration-500">
+              <img
+                className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+                alt="A studio photograph of an Earthen Pitcher with a matte sand-colored glaze and a textured organic shape. The pitcher is set against a warm grey background with soft, diffused shadows. The lighting mimics natural window light, creating a serene and grounded atmosphere."
+                src={product.image_url}
+              />
+              <button className="absolute top-4 right-4 w-10 h-10 bg-surface/80 backdrop-blur-md rounded-full flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="material-symbols-outlined">favorite</span>
+              </button>
+              {product.is_new_arrival ? (
+                <div className="absolute bottom-4 left-4 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full">
+                  New Arrival
+                </div>
+              ) : null}
             </div>
-            <p className="font-label-sm text-label-sm text-outline">
-              Hand-thrown stoneware
-            </p>
-          </div>
-        </div>
-
-        {/* Product Card 2 */}
-        <div className="group flex flex-col cursor-pointer">
-          <div className="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container product-card-shadow transition-all duration-500">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="A top-down view of a Reclaimed Oak Serving Board with rich grain patterns and a live edge. It sits on a minimalist white stone surface with a sprig of dried lavender nearby. High-key lighting emphasizing the natural wood texture and organic luxury."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdjwenHbuBYF2cQSXrinKHRpoDWjisgeaCoLXiJfj8r-Gz2rP2dEVXHh4nSzPVmRNt9ik3OEb7yXA-DhoDkUOQ-VvYn7K1doK-KRo7Ta1Ijknrx2aSgNhevw114rz9mw3BLCltOq0b5kh-FpCEPZbZhUjF9MvqiZQWpFoRYyUle8caE8PCY2NYQM_o7GMOMR4XBlAllajKhIjwzZKSSm2zaKixUPgha3V0niac9IgQOe8hY6dIRyY"
-            />
-            <button className="absolute top-4 right-4 w-10 h-10 bg-surface/80 backdrop-blur-md rounded-full flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="material-symbols-outlined">favorite</span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <div className="flex justify-between items-start">
-              <h4 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-                Reclaimed Oak Board
-              </h4>
-              <span className="font-label-md text-label-md text-on-surface-variant">
-                $120
-              </span>
+            <div className="flex flex-col gap-1 px-1">
+              <div className="flex justify-between items-start">
+                <h4 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
+                  {product.name}
+                </h4>
+                <span className="font-label-md text-label-md text-on-surface-variant">
+                  {data.currency}
+                  {product.price}
+                </span>
+              </div>
+              <p className="font-label-sm text-label-sm text-outline">
+                {product.series}
+              </p>
             </div>
-            <p className="font-label-sm text-label-sm text-outline">
-              Sustainably harvested
-            </p>
           </div>
-        </div>
-
-        {/* Product Card 3 */}
-        <div className="group flex flex-col cursor-pointer">
-          <div className="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container product-card-shadow transition-all duration-500">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="Set of four handcrafted terracotta nesting bowls with a glossy white interior glaze and a raw clay exterior. The bowls are stacked artfully, showing the contrast between the textures. Soft focus background with neutral warm tones."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdoChxnxjGJM3K-FTnIUB80vUhPTmsTR-kEFt9HcfnZDtSMETYpTMmBrsHmtWeU_UwfO_V-oNG8a4oFW8ZKCOjRSmPZnbCLRpd1m4prIMfoQl94-IRz6ldDfUNPvcYUw5AI7BJgtMLMtGXClCqL5_ccRMu2WPUQWno0r1F1_ssVswIxqZI7AlNrhiEJQzqr8X6EAWn59QF2A9v0waU03--2g7uBvTh2XTIuH-kEldqSE-pN0qPkNU"
-            />
-            <button className="absolute top-4 right-4 w-10 h-10 bg-surface/80 backdrop-blur-md rounded-full flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="material-symbols-outlined">favorite</span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <div className="flex justify-between items-start">
-              <h4 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-                Terracotta Nesting Bowls
-              </h4>
-              <span className="font-label-md text-label-md text-on-surface-variant">
-                $85
-              </span>
-            </div>
-            <p className="font-label-sm text-label-sm text-outline">Set of 4</p>
-          </div>
-        </div>
-
-        {/* Product Card 4 */}
-        <div className="group flex flex-col cursor-pointer">
-          <div className="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container product-card-shadow transition-all duration-500">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="A close-up of a hand-forged brass spoon resting on a slate grey ceramic plate. The brass has a soft, brushed patina that glows in the subtle light. Minimalist kitchenware aesthetic with focus on the metallic texture and organic shape."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhCVH5o7eG1-LuAa3xBaAe6DsGruYeprfBy_ptg4OzLXn0_zEIlbAg756W2gnDnrYVs_xhdtUjL2upYB4OiYK0RiiofIVit3wVSPcmJo47zg56tGcWsNhzxrCjPA1cFhCyxiaRTxprLHHsSdMCDB7fBxRqa1nmPD2RSUFHtyySbLxgUI76sTb7-0EF7ktqacXrVVquadwZd1uC0c8DhoHG4K9Mq9_DnU0fEc8i6n-YnTDJGII2pS4"
-            />
-            <button className="absolute top-4 right-4 w-10 h-10 bg-surface/80 backdrop-blur-md rounded-full flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="material-symbols-outlined">favorite</span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <div className="flex justify-between items-start">
-              <h4 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-                Forged Brass Spoon
-              </h4>
-              <span className="font-label-md text-label-md text-on-surface-variant">
-                $32
-              </span>
-            </div>
-            <p className="font-label-sm text-label-sm text-outline">
-              Aged patina finish
-            </p>
-          </div>
-        </div>
-
-        {/* Product Card 5 */}
-        <div className="group flex flex-col cursor-pointer">
-          <div className="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container product-card-shadow transition-all duration-500">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="A stack of folded linen dinner napkins in muted sage green and oatmeal shades. The fabric texture is crisp yet soft, with fine hemstitched edges. Natural morning light creates gentle shadows between the layers."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmPxdJej48lU8Qpp8DcGbM2tlHo5wDpz6BSO9X0KcU4-RsfdUyrSVewvm2Np5z4hXaP104ZF7qBm7qmt922CxZxIBWE2lm1klI0R0oEwdTYnApLKu1pIg_2cv64PzuP0VwSV6LfgsASHGq0BjY4emAXgWKJiG1cH8CnmLnid9pdmpsOiH7j_ABfZVHmrEX4EcE_NMnhO5WgH57M9DMENW_0lHloJgwI1V1tVfaXisPkDSSAR6Qsp4"
-            />
-            <button className="absolute top-4 right-4 w-10 h-10 bg-surface/80 backdrop-blur-md rounded-full flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="material-symbols-outlined">favorite</span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <div className="flex justify-between items-start">
-              <h4 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-                Washed Linen Napkins
-              </h4>
-              <span className="font-label-md text-label-md text-on-surface-variant">
-                $45
-              </span>
-            </div>
-            <p className="font-label-sm text-label-sm text-outline">
-              European Flax, Set of 2
-            </p>
-          </div>
-        </div>
-
-        {/* Product Card 6 */}
-        <div className="group flex flex-col cursor-pointer">
-          <div className="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container product-card-shadow transition-all duration-500">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="A tall, slender stoneware vase with a charcoal black reactive glaze. It holds a single dried eucalyptus branch. The vase stands on a warm cedar wood shelf against a neutral plastered wall. Tactile and minimal design."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIN52M59yuduK-zxslPrbAGWW0ITyO1LSAROVW9Odr0FncZF6y_bLZ8gU7CtmvhytRSnr8hF6lInt0tSG5Rx5ftCClHQux9A1Vz-5zeq1k5HsKxJ_P76UTxjKvphXhQlvHkF4GC0cb_WMrVZNb1-uDguvhbRcZzYweTwqEyQq2eM3BX1HuQ-50jMcQXtSbJtZhaT8KN1olOyBke5E28BSa7uZW1IlSVNLfo0FM7KfyyeCpxfKGPG4"
-            />
-            <button className="absolute top-4 right-4 w-10 h-10 bg-surface/80 backdrop-blur-md rounded-full flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="material-symbols-outlined">favorite</span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <div className="flex justify-between items-start">
-              <h4 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-                Charcoal Stem Vase
-              </h4>
-              <span className="font-label-md text-label-md text-on-surface-variant">
-                $54
-              </span>
-            </div>
-            <p className="font-label-sm text-label-sm text-outline">
-              Matte reactive glaze
-            </p>
-          </div>
-        </div>
+        ))}
       </section>
 
       {/* Pagination / Load More */}
