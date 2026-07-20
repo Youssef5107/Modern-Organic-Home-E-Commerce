@@ -59,6 +59,16 @@ export default function Shop() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtqoAXms5j5QaYSumseDqKWED1A_gyXGyr9dr7itSHBLJgdVkGKF_HNjgsVTIiSg1E9xrkXz_eTGR5u-t_4hvKqzmAtPPyfpcOn1S6-i8bwFoyvhtrfNywKuDmfPKQTfDEl2zr6Wy7LWK97X1FiOoR1JaDFffr9BiToA2PBwTytuQ1KE2ZHLtv9pbzUEyKLslVAzt2Ps2bWOLoSnDEAmEwl-IF-SDNPbXEjK-EH53IFjYWXfMvNA8SlrAoomFcNmlm"
                 />
+                <button className="absolute top-4 right-4 bg-white/85 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    favorite
+                  </span>
+                </button>
+                <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    add_shopping_cart
+                  </span>
+                </button>
               </div>
               <div className="p-5">
                 <p className="font-label-sm text-label-sm text-on-surface-variant mb-1">
@@ -79,6 +89,16 @@ export default function Shop() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzkU2o5AIefoOtm1Falr8OksOv3i050xwvBvtS5iOmRtV7g1fjv4Eu0Qor-Q2qvM3M9KJDm_siVU0DEZGHFtDwlLoDHapSxUMgUNOgXYxcOqC4c_btBFpDm5uTvMTRlnUDRojH9YXtWUXSiu4wVtu92BEt1BjHnvGhZ59cYbnsSy1n9jDKJhsx9OzHqNhASeJUj2TbacJyGfm3XrPqPktwoP1ixm0bXI7FIk7_EdcxrrCgZD88dqM"
                 />
+                <button className="absolute top-4 right-4 bg-white/85 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    favorite
+                  </span>
+                </button>
+                <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    add_shopping_cart
+                  </span>
+                </button>
               </div>
               <div className="p-5">
                 <p className="font-label-sm text-label-sm text-on-surface-variant mb-1">
@@ -99,6 +119,16 @@ export default function Shop() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZnxBWkTL8sJHEWtsheefdb666-gLr8WgWKTsUIo2T7dKmOh3KicXAxv1BEGzD9j8jMrLeA7DBs0u08fUqGg9weYPaN-trhzLNRM--y--whaHOUa5TV5tpNvQU7BcQOXa79EMFuqML3UfWU4Gq-LVMqIVDK6wPYAidRFBGHDKaaL7ODZof7xMQnCkHII4bKNt9KSbUGrQMxxjnsyURzhVV2S5a5-wrgEGUNHqJyRLKtiyFKt-1Bx0"
                 />
+                <button className="absolute top-4 right-4 bg-white/85 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    favorite
+                  </span>
+                </button>
+                <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    add_shopping_cart
+                  </span>
+                </button>
               </div>
               <div className="p-5">
                 <p className="font-label-sm text-label-sm text-on-surface-variant mb-1">
@@ -201,6 +231,16 @@ export default function Shop() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzkU2o5AIefoOtm1Falr8OksOv3i050xwvBvtS5iOmRtV7g1fjv4Eu0Qor-Q2qvM3M9KJDm_siVU0DEZGHFtDwlLoDHapSxUMgUNOgXYxcOqC4c_btBFpDm5uTvMTRlnUDRojH9YXtWUXSiu4wVtu92BEt1BjHnvGhZ59cYbnsSy1n9jDKJhsx9OzHqNhASeJUj2TbacJyGfm3XrPqPktwoP1ixm0bXI7FIk7_EdcxrrCgZD88dqM"
                 />
+                <button className="absolute top-4 right-4 bg-white/85 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    favorite
+                  </span>
+                </button>
+                <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    add_shopping_cart
+                  </span>
+                </button>
               </div>
               <div className="p-6">
                 <div className="flex justify-between items-start">
@@ -225,6 +265,16 @@ export default function Shop() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy4c9AeByxgNarlcyA4jdGeB7IAQE3qt0zTZsEhfL2PEp38Cpr4mczk-szQFy1hU12_2EYgBEKiFx_CHtujCQVDvJKHkg5A_vVxNddNDFJ5jdvb6PKZxvCF1zFaGXvIUMH3lTbygPY15-xNZIVqTpwpKcoLJi9Y_Pr-6AtVZUktLge5NnclcLruvEd8UU1bq7_2TiREJ13dp8k97qCIsExqG_8PFrKwhAAYCdoLiU6ayTLPS9bK8k"
                 />
+                <button className="absolute top-4 right-4 bg-white/85 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    favorite
+                  </span>
+                </button>
+                <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    add_shopping_cart
+                  </span>
+                </button>
               </div>
               <div className="p-6">
                 <div className="flex justify-between items-start">
@@ -268,6 +318,16 @@ export default function Shop() {
                 <div className="absolute top-2 right-2 px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full text-[10px] font-bold tracking-widest text-primary uppercase">
                   Best Seller
                 </div>
+                <button className="absolute top-4 right-4 bg-white/85 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    favorite
+                  </span>
+                </button>
+                <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    add_shopping_cart
+                  </span>
+                </button>
               </div>
               <div>
                 <h4 className="font-label-md text-on-surface">
@@ -285,6 +345,16 @@ export default function Shop() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmuDFTBgrxQ0HveU_xce-exBenDZ8hjviwdTaX2Tp-KklgiS5DeE_LXPgRNMXMxFo1iAKnde2FSyvvLKglRLXK7FaTQHFboPWAQhWfO-r9qYsVlxSN3dYtrqHgptm3Uoekv3fJYUE_H9ewSj_kVnPsWi1YR6chgq2CRc556z5nAFEuhDXkw7QCI9y7WqGWIZ04rfOWqlmpGCsEpbVsucgP1lAuaQUwziJsER3dBEphCrfTbhyV1UE"
                 />
+                <button className="absolute top-4 right-4 bg-white/85 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    favorite
+                  </span>
+                </button>
+                <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    add_shopping_cart
+                  </span>
+                </button>
               </div>
               <div>
                 <h4 className="font-label-md text-on-surface">
@@ -302,6 +372,16 @@ export default function Shop() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFYMYrrDZfq63zEXe0yBUapG-1ggM8HsU95tLI429_0_KL4hTaqGKegf2NQU2xUhtbehX_NCamYb-MStP7Hkts40H1HS3cu-rIkCky7IWQcSkC1K6vLLW_mDTNh90A_aYDIxMI-3WNd7iRucNMhshSmWlg0wt_ecznB3-iagkLF8DWFliMWkysdOEz8Rkfw1HmZKTC2a-XqrM_-7mtaUJUlmejMFFmMdcUZlyYED9SCLlEFSsXY4M"
                 />
+                <button className="absolute top-4 right-4 bg-white/85 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    favorite
+                  </span>
+                </button>
+                <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    add_shopping_cart
+                  </span>
+                </button>
               </div>
               <div>
                 <h4 className="font-label-md text-on-surface">
@@ -319,6 +399,16 @@ export default function Shop() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXLt5NUdv3T7Xq3iiXJGJCbtSyRsnVdMDxRfh8Za-nfBz3wJG9IXO9rd2sa55c6pbj3y6DQiwgMCiLRQjJdJgVFI8wfYeD2O8jp-XqyQtHtz51sU2D_id_EjQ_uIjp6PZNNH8fc5aQMjms2j9LVkTn6xVLRKbhTgQmdIuIm5zkvtBTXVGYnl7jQI0E92Z9dfE7gC6TOVeNfiraRJBL6czvFZrsBLJV7TbrLqQnsLCx2QyyaNvyLe4"
                 />
+                <button className="absolute top-4 right-4 bg-white/85 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    favorite
+                  </span>
+                </button>
+                <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                  <span className="material-symbols-outlined text-[18px]">
+                    add_shopping_cart
+                  </span>
+                </button>
               </div>
               <div>
                 <h4 className="font-label-md text-on-surface">

@@ -143,3 +143,72 @@
 .animate-page-enter {
   animation: page-fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
+
+.card-favorite-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-primary);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 24px rgba(27, 28, 25, 0.08);
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    opacity 180ms ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.group:hover .card-favorite-btn,
+.card-favorite-btn-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.card-favorite-btn:hover {
+  transform: scale(1.05);
+}
+
+.card-favorite-btn-active {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  transform: scale(1.03);
+  box-shadow: 0 12px 24px rgba(111, 52, 41, 0.22);
+}
+
+.card-favorite-btn .material-symbols-outlined {
+  font-variation-settings: "FILL" 0;
+  font-size: 18px;
+}
+
+.card-favorite-btn-active .material-symbols-outlined {
+  font-variation-settings: "FILL" 1;
+}
+
+.card-cart-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: 0 10px 24px rgba(27, 28, 25, 0.14);
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease;
+  opacity: 0;
+  pointer-events: none;
+  margin-top: 0.5rem;
+}
+
+.group:hover .card-cart-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.card-cart-btn:hover {
+  transform: scale(1.05);
+}

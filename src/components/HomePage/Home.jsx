@@ -1,8 +1,5 @@
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from "react-router-dom";
 export default function Home() {
-  const muiIconStyle = { color: "inherit", fontSize: "24px" };
-
   return (
     <div className="animate-page-enter ">
       {/* Hero Section */}
@@ -137,8 +134,15 @@ export default function Home() {
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-LeWeFJVN_lvrScnwzwCHGEuTCg2nkXj1Pa0H5VnGu-cMWcvJ3O8e_8w-KQI4gsiS5S6VVWWVRs05WiKWq-9ltDuDq6WHP2TwZXJEaBaCd3-1D-qM_-htWmyX5PnkqSW31WSIx_16cnvyd4IKJUTDYdhRWFKdllNeKJ8FtT0lpTR9PDeTGzT_K84Tgxvl3riLEe3TwFAEYt5aEWgoLYxoVPWC0cU_hdwQ_s8qwZ761rfnB0LjNQI"
                 alt="Earthen Pitcher"
               />
-              <button className="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <FavoriteIcon style={muiIconStyle} />
+              <button className="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                <span className="material-symbols-outlined text-[18px]">
+                  favorite
+                </span>
+              </button>
+              <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                <span className="material-symbols-outlined text-[18px]">
+                  add_shopping_cart
+                </span>
               </button>
             </div>
             <div className="flex justify-between items-start">
@@ -164,8 +168,15 @@ export default function Home() {
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-LyKw3d0t5--gsUltHkjJm2CiLfI6stIJHDDE-yVYT0vT3FGFgTytQaxPQZIZQxZKDlO7aVcnnuax_ahg42aIxl2iSWF5zUYG5XQIewA3Z28-XXfcUKZXC5wYKrMdpHBOFFhH9z9fPWWJfG-dMWNIcMbxND-9NGa1nYtvXXdd2lRq-I9l1AzBppqkCpJUE7OLnOw3qboN035gRDF0Q6snnaSVjrKlaSwUWXQmN24wY0koE7ABrKg"
                 alt="Linen Pillar Lamp"
               />
-              <button className="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <FavoriteIcon style={muiIconStyle} />
+              <button className="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                <span className="material-symbols-outlined text-[18px]">
+                  favorite
+                </span>
+              </button>
+              <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                <span className="material-symbols-outlined text-[18px]">
+                  add_shopping_cart
+                </span>
               </button>
             </div>
             <div className="flex justify-between items-start">
