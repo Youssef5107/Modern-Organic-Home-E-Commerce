@@ -3,8 +3,6 @@ export default function LivingRoomCollection() {
   const livingRoomProducts = data.collections.find(
     (collection) => collection.id === "living-room",
   );
-  console.log(livingRoomProducts);
-  console.log(livingRoomProducts.products);
 
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-32 animate-page-enter">
@@ -86,10 +84,11 @@ export default function LivingRoomCollection() {
                 {product.name}
               </h3>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                Furniture
+                {product.series}
               </p>
               <p className="font-label-md text-label-md text-primary mt-1">
-                ${product.price}
+                {data.currency}
+                {product.price}
               </p>
             </div>
           </div>
