@@ -1,4 +1,5 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Link } from "react-router-dom";
 export default function Home() {
   const muiIconStyle = { color: "inherit", fontSize: "24px" };
 
@@ -27,9 +28,12 @@ export default function Home() {
               shifting light. Bring nature's quietude indoors.
             </p>
             <div className="flex gap-4">
-              <button className="bg-primary text-on-primary px-8 py-4 rounded-full font-label-md text-label-md hover:shadow-lg transition-all active:scale-95">
+              <Link
+                to={"/shop"}
+                className="bg-primary text-on-primary px-8 py-4 rounded-full font-label-md text-label-md hover:shadow-lg transition-all active:scale-95"
+              >
                 Explore Collection
-              </button>
+              </Link>
               <button className="border border-secondary text-secondary px-8 py-4 rounded-full font-label-md text-label-md hover:bg-secondary/5 transition-all active:scale-95">
                 View Lookbook
               </button>
@@ -49,13 +53,16 @@ export default function Home() {
               Functional beauty for every corner of your life.
             </p>
           </div>
-          <button className="font-label-md text-label-md text-primary underline underline-offset-4 hover:text-primary-container transition-colors">
+          <Link
+            to={"/shop"}
+            className="font-label-md text-label-md text-primary underline underline-offset-4 hover:text-primary-container transition-colors"
+          >
             View All Categories
-          </button>
+          </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
           {/* Living Room Card */}
-          <div className="group cursor-pointer">
+          <Link to={"/shop/living-rooms"} className="group cursor-pointer">
             <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
@@ -67,15 +74,15 @@ export default function Home() {
               <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
             </div>
             <h4 className="font-label-md text-label-md text-on-background group-hover:text-primary transition-colors">
-              Living Room
+              Living Rooms
             </h4>
             <span className="text-label-sm font-label-sm text-on-surface-variant">
               42 Items
             </span>
-          </div>
+          </Link>
 
           {/* Bedroom Card */}
-          <div className="group cursor-pointer">
+          <Link to={"/shop/bedrooms"} className="group cursor-pointer">
             <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
@@ -87,15 +94,15 @@ export default function Home() {
               <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
             </div>
             <h4 className="font-label-md text-label-md text-on-background group-hover:text-primary transition-colors">
-              Bedroom
+              Bedrooms
             </h4>
             <span className="text-label-sm font-label-sm text-on-surface-variant">
               28 Items
             </span>
-          </div>
+          </Link>
 
           {/* Dining Card */}
-          <div className="group cursor-pointer">
+          <Link to={"/shop/dining-rooms"} className="group cursor-pointer">
             <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
@@ -107,12 +114,12 @@ export default function Home() {
               <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
             </div>
             <h4 className="font-label-md text-label-md text-on-background group-hover:text-primary transition-colors">
-              Dining
+              Dining rooms
             </h4>
             <span className="text-label-sm font-label-sm text-on-surface-variant">
               15 Items
             </span>
-          </div>
+          </Link>
         </div>
       </section>
 

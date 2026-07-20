@@ -14,45 +14,52 @@
           "price": 185.0,
           "tags": ["Signature Piece"],
           "glaze": "Natural Sandstone",
-          "image": "{{DATA:IMAGE:IMAGE_4}}"
+          "image": "{{DATA:IMAGE:IMAGE_4}}",
+          "is_favorite": false
         },
         {
           "id": "earthen-pitcher",
           "name": "Earthen Pitcher",
           "glaze": "Natural Sandstone Glaze",
-          "price": 92.0
+          "price": 92.0,
+          "is_favorite": false
         },
         {
           "id": "basin-bowls",
           "name": "Basin Bowls",
           "set_info": "Set of 3",
           "finish": "Charcoal Matte",
-          "price": 145.0
+          "price": 145.0,
+          "is_favorite": false
         },
         {
           "id": "modern-amphora",
           "name": "Modern Amphora",
           "material_wash": "Terracotta & Iron Wash",
-          "price": 210.0
+          "price": 210.0,
+          "is_favorite": false
         },
         {
           "id": "ritual-burner",
           "name": "Ritual Burner",
           "glaze": "Speckled Stone Glaze",
-          "price": 45.0
+          "price": 45.0,
+          "is_favorite": false
         },
         {
           "id": "sipping-cups",
           "name": "Sipping Cups",
           "set_info": "Duo Set",
           "wash": "Indigo Wash",
-          "price": 64.0
+          "price": 64.0,
+          "is_favorite": false
         },
         {
           "id": "crackle-platter",
           "name": "Crackle Platter",
           "details": "Hand-etched Detailing",
-          "price": 110.0
+          "price": 110.0,
+          "is_favorite": false
         }
       ]
     },
@@ -66,49 +73,57 @@
           "name": "Solid Walnut Coffee Table",
           "category": "Furniture",
           "price": 840.0,
-          "tags": ["New Arrival"]
+          "tags": ["New Arrival"],
+          "is_favorite": false
         },
         {
           "id": "textured-wool-throw",
           "name": "Textured Wool Throw",
           "category": "Textiles",
-          "price": 125.0
+          "price": 125.0,
+          "is_favorite": false
         },
         {
           "id": "sculptural-ceramic-vase",
           "name": "Sculptural Ceramic Vase",
           "category": "Accessories",
-          "price": 68.0
+          "price": 68.0,
+          "is_favorite": false
         },
         {
           "id": "linen-slub-sofa",
           "name": "Linen Slub Sofa",
           "category": "Furniture",
-          "price": 2450.0
+          "price": 2450.0,
+          "is_favorite": false
         },
         {
           "id": "hand-woven-jute-rug",
           "name": "Hand-Woven Jute Rug",
           "category": "Textiles",
-          "price": 420.0
+          "price": 420.0,
+          "is_favorite": false
         },
         {
           "id": "matte-black-floor-lamp",
           "name": "Matte Black Floor Lamp",
           "category": "Lighting",
-          "price": 290.0
+          "price": 290.0,
+          "is_favorite": false
         },
         {
           "id": "oak-sideboard",
           "name": "Oak Sideboard",
           "category": "Furniture",
-          "price": 1150.0
+          "price": 1150.0,
+          "is_favorite": false
         },
         {
           "id": "amber-oak-candle",
           "name": "Amber & Oak Candle",
           "category": "Home Fragrance",
-          "price": 34.0
+          "price": 34.0,
+          "is_favorite": false
         }
       ]
     },
@@ -121,38 +136,44 @@
           "id": "earthen-pitcher-dining",
           "name": "Earthen Pitcher",
           "details": "Hand-thrown stoneware",
-          "price": 68.0
+          "price": 68.0,
+          "is_favorite": false
         },
         {
           "id": "reclaimed-oak-board",
           "name": "Reclaimed Oak Board",
           "details": "Sustainably harvested",
-          "price": 120.0
+          "price": 120.0,
+          "is_favorite": false
         },
         {
           "id": "terracotta-nesting-bowls",
           "name": "Terracotta Nesting Bowls",
           "set_info": "Set of 4",
-          "price": 85.0
+          "price": 85.0,
+          "is_favorite": false
         },
         {
           "id": "forged-brass-spoon",
           "name": "Forged Brass Spoon",
           "finish": "Aged patina finish",
-          "price": 32.0
+          "price": 32.0,
+          "is_favorite": false
         },
         {
           "id": "washed-linen-napkins",
           "name": "Washed Linen Napkins",
           "material": "European Flax",
           "set_info": "Set of 2",
-          "price": 45.0
+          "price": 45.0,
+          "is_favorite": false
         },
         {
           "id": "charcoal-stem-vase",
           "name": "Charcoal Stem Vase",
           "finish": "Matte reactive glaze",
-          "price": 54.0
+          "price": 54.0,
+          "is_favorite": false
         }
       ]
     },
@@ -165,49 +186,57 @@
           "id": "washed-linen-pillow-cover",
           "name": "Washed Linen Pillow Cover",
           "color": "Terracotta",
-          "price": 48.0
+          "price": 48.0,
+          "is_favorite": false
         },
         {
           "id": "hand-stitched-heirloom-quilt",
           "name": "Hand-Stitched Heirloom Quilt",
           "color": "Sage Mist",
-          "price": 240.0
+          "price": 240.0,
+          "is_favorite": false
         },
         {
           "id": "artisan-ceramic-table-lamp",
           "name": "Artisan Ceramic Table Lamp",
           "color": "Sandstone",
-          "price": 185.0
+          "price": 185.0,
+          "is_favorite": false
         },
         {
           "id": "organic-cotton-percale-set",
           "name": "Organic Cotton Percale Set",
           "color": "Charcoal",
-          "price": 160.0
+          "price": 160.0,
+          "is_favorite": false
         },
         {
           "id": "hand-blown-bedside-carafe",
           "name": "Hand-Blown Bedside Carafe",
           "color": "Smoke",
-          "price": 65.0
+          "price": 65.0,
+          "is_favorite": false
         },
         {
           "id": "chunky-merino-throw",
           "name": "Chunky Merino Throw",
           "color": "Oatmeal",
-          "price": 120.0
+          "price": 120.0,
+          "is_favorite": false
         },
         {
           "id": "brass-glass-wall-sconce",
           "name": "Brass & Glass Wall Sconce",
           "finish": "Brushed Brass",
-          "price": 145.0
+          "price": 145.0,
+          "is_favorite": false
         },
         {
           "id": "evening-ritual-candle-set",
           "name": "Evening Ritual Candle Set",
           "scent": "Cedar & Lavender",
-          "price": 72.0
+          "price": 72.0,
+          "is_favorite": false
         }
       ]
     }
