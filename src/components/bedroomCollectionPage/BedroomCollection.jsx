@@ -1,4 +1,9 @@
+import data from "../../data/products.json";
 export default function BedroomCollection() {
+  const bedroomProducts = data.collections.find(
+    (collection) => collection.id === "bedroom",
+  );
+
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md animate-page-enter">
       {/* Filter & Sort Bar */}
@@ -36,221 +41,39 @@ export default function BedroomCollection() {
 
       {/* Product Grid */}
       <section className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter reveal-on-scroll">
-        {/* Product 1 */}
-        <div className="group flex flex-col gap-3 cursor-pointer transition-transform duration-100 active:scale-[0.98]">
-          <div className="relative overflow-hidden rounded-xl bg-surface-container-low aspect-[3/4]">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="A professional product photograph of high-end, organic linen pillow covers in a soft terracotta hue. The covers are neatly stacked on a textured light oak surface."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaSDkjiAs6UTxsluAg4AyuKCvI6q8al9YCx6jFmDrzO2eilTLvkRj1rubCMmvFAfQuQnrTt_lr3_3xE5qXg3ILHdHExKcz6sm7swCdGLdTo1dmIh8rnNZbT-z0ZMsk7I0pz0KsGfJ6Fz6xAPJIMY2VVNlSbM6GHArzy8QqIBJUSREUxK3lTz87NFdm8XLnpaXFFgq7KGFwfWDuYFXyCaCxhCxZ-GdKN6PuRbtlAas958F4iqIZL-Q"
-            />
-            <button className="absolute top-3 right-3 p-2 bg-surface/80 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-colors">
-              <span className="material-symbols-outlined text-[20px]">
-                favorite
-              </span>
-            </button>
+        {bedroomProducts.products.map((product) => (
+          <div className="group flex flex-col gap-3 cursor-pointer transition-transform duration-100 active:scale-[0.98]">
+            <div className="relative overflow-hidden rounded-xl bg-surface-container-low aspect-[3/4]">
+              <img
+                className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+                alt="A professional product photograph of high-end, organic linen pillow covers in a soft terracotta hue. The covers are neatly stacked on a textured light oak surface."
+                src={product.image_url}
+              />
+              <button className="absolute top-3 right-3 p-2 bg-surface/80 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-colors">
+                <span className="material-symbols-outlined text-[20px]">
+                  favorite
+                </span>
+              </button>
+              {product.is_new_arrival ? (
+                <div className="absolute bottom-4 left-4 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full">
+                  New Arrival
+                </div>
+              ) : null}
+            </div>
+            <div className="flex flex-col gap-1 px-1">
+              <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
+                {product.name}
+              </h3>
+              <p className="font-label-sm text-label-sm text-on-surface-variant italic">
+                {product.series}
+              </p>
+              <p className="font-label-md text-label-md text-primary mt-1">
+                {data.currency}
+                {product.price}
+              </p>
+            </div>
           </div>
-          <div className="flex flex-col gap-1 px-1">
-            <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-              Washed Linen Pillow Cover
-            </h3>
-            <p className="font-label-sm text-label-sm text-on-surface-variant italic">
-              Terracotta
-            </p>
-            <p className="font-label-md text-label-md text-primary mt-1">
-              $48.00
-            </p>
-          </div>
-        </div>
-
-        {/* Product 2 */}
-        <div className="group flex flex-col gap-3 cursor-pointer transition-transform duration-100 active:scale-[0.98]">
-          <div className="relative overflow-hidden rounded-xl bg-surface-container-low aspect-[3/4]">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="An editorial close-up of a premium sage green quilted bedspread made from recycled cotton."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqP-Z-5YU19zPqf2Xfae2qnbP_nNt-y48zYKjCC7KT29MKzeas2PtHnyf469aDD3e7FiBkJMCqUiqhxBO4KRkvo6ssvdeQJAYnP6WiV33qVdMWvHgXGBjPGJvavLZVDOSsQUXFTyQOklptrRgBZ_H2S3pxUylhPrcPl9Kb_debJEHeJwSfJqkpCe4asINREcg3eZ4jGcFInd5UwJO7pFd2kYFokmn_Bll8bw-f0r_Rx8knU3BsnCg"
-            />
-            <button className="absolute top-3 right-3 p-2 bg-surface/80 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-colors">
-              <span className="material-symbols-outlined text-[20px]">
-                favorite
-              </span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-              Hand-Stitched Heirloom Quilt
-            </h3>
-            <p className="font-label-sm text-label-sm text-on-surface-variant italic">
-              Sage Mist
-            </p>
-            <p className="font-label-md text-label-md text-primary mt-1">
-              $240.00
-            </p>
-          </div>
-        </div>
-
-        {/* Product 3 */}
-        <div className="group flex flex-col gap-3 cursor-pointer transition-transform duration-100 active:scale-[0.98]">
-          <div className="relative overflow-hidden rounded-xl bg-surface-container-low aspect-[3/4]">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="A minimalist ceramic table lamp with a pleated linen shade, standing on a low wooden bedside table."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5Ir46GmA7gXfVwuNBM5In_TmGLYmdnJr00_Drf8k8MEMbSXz_qAjOR-M2AcIHl33jLMFC9hYLq5-rd-FDtPyUwDWgFcyVSAnNS8CtPvqJr82b1mC5zvsT1CUVpS14QS_4yn_OzRtY43iixcW-tZJGGY2AlIQwnWmvLoEok0oSIUIdNycpir8JP17tRoGe5D5xRybyFWTtLeVtC1Fmvizo5rpd4oQzqu_jreRAosryKLLl33Izg_I"
-            />
-            <button className="absolute top-3 right-3 p-2 bg-surface/80 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-colors">
-              <span className="material-symbols-outlined text-[20px]">
-                favorite
-              </span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-              Artisan Ceramic Table Lamp
-            </h3>
-            <p className="font-label-sm text-label-sm text-on-surface-variant italic">
-              Sandstone
-            </p>
-            <p className="font-label-md text-label-md text-primary mt-1">
-              $185.00
-            </p>
-          </div>
-        </div>
-
-        {/* Product 4 */}
-        <div className="group flex flex-col gap-3 cursor-pointer transition-transform duration-100 active:scale-[0.98]">
-          <div className="relative overflow-hidden rounded-xl bg-surface-container-low aspect-[3/4]">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="A luxurious set of organic cotton bed sheets in a deep charcoal grey, neatly folded on a minimalist white bed."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyZDrQajYB4VHFCfGcdUf9wDiBM6L2sDBpMregMg5gZ2iqPVMI3Dd_q0mylqpWVzu3SOxsrTflfCfbnfBbtD6kt0I1Ax6Bxoxm71Z_dKK5vPhKQp1Cxi5CxEc7iw2cdep6uaJ8dQkc336PwkKm3ksZiykqXqO2rswzBunrF-hwkByFG3vldUtTTeaPpKLnx6e_t0IO4OJpTsFg2hxY-Id0qhR_9IgbjwJ49iyr6QaZpeNv3ZKpBII"
-            />
-            <button className="absolute top-3 right-3 p-2 bg-surface/80 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-colors">
-              <span className="material-symbols-outlined text-[20px]">
-                favorite
-              </span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-              Organic Cotton Percale Set
-            </h3>
-            <p className="font-label-sm text-label-sm text-on-surface-variant italic">
-              Charcoal
-            </p>
-            <p className="font-label-md text-label-md text-primary mt-1">
-              $160.00
-            </p>
-          </div>
-        </div>
-
-        {/* Product 5 */}
-        <div className="group flex flex-col gap-3 cursor-pointer transition-transform duration-100 active:scale-[0.98]">
-          <div className="relative overflow-hidden rounded-xl bg-surface-container-low aspect-[3/4]">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="A beautifully crafted wooden bedside carafe and glass set made of smoke-tinted hand-blown glass."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmhzLqFCH8bXF2OMgAhLqtcuUQb_F9Ixxgj315Jw8yVayerQhwu4Y1_1EAxdNDKzdwF1QvtfI7MNfPthxx25Yy7UNrVBf7xmAlFEC0jAj3DkwH7Oacos85ls240GdsXdtiGBfd73keDHHsFYTsvD-_eLCUS0EH2piw2qxZR9UaSpZjACe9n4-cya7Yn92uyg3NjFM_zLt7_YYRMCfeae37J_xxICzj30NGSQx30vmYP7yaCxq1LBk"
-            />
-            <button className="absolute top-3 right-3 p-2 bg-surface/80 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-colors">
-              <span className="material-symbols-outlined text-[20px]">
-                favorite
-              </span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-              Hand-Blown Bedside Carafe
-            </h3>
-            <p className="font-label-sm text-label-sm text-on-surface-variant italic">
-              Smoke
-            </p>
-            <p className="font-label-md text-label-md text-primary mt-1">
-              $65.00
-            </p>
-          </div>
-        </div>
-
-        {/* Product 6 */}
-        <div className="group flex flex-col gap-3 cursor-pointer transition-transform duration-100 active:scale-[0.98]">
-          <div className="relative overflow-hidden rounded-xl bg-surface-container-low aspect-[3/4]">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="A soft, chunky knit wool throw blanket in an oatmeal color, draped casually over the corner of a contemporary bed."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkStQKgh-AIEXfLzYG4wMUwC0K6adLWVWR0NXx0lxTJrTSbBioVU-Z3903roc1AYB9Q11H8n1LKzZ8Tf64mCHwNF9yrnzYhtZAjyDPsm4FQalS_XNfh1WyWdwTXcna85NvdGJsggh1XMlnFV1e8ET4Ka8eEoSVZmdBMTiFm2A3Pu9gzMLueCYRt3MR5vC_QR-S0g7lrzKkvWlHiDeGXcNjRFP7fCC6yxJV43rRSW7ypE9wust5Atw"
-            />
-            <button className="absolute top-3 right-3 p-2 bg-surface/80 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-colors">
-              <span className="material-symbols-outlined text-[20px]">
-                favorite
-              </span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-              Chunky Merino Throw
-            </h3>
-            <p className="font-label-sm text-label-sm text-on-surface-variant italic">
-              Oatmeal
-            </p>
-            <p className="font-label-md text-label-md text-primary mt-1">
-              $120.00
-            </p>
-          </div>
-        </div>
-
-        {/* Product 7 */}
-        <div className="group flex flex-col gap-3 cursor-pointer transition-transform duration-100 active:scale-[0.98]">
-          <div className="relative overflow-hidden rounded-xl bg-surface-container-low aspect-[3/4]">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="A pair of minimalist brass wall sconces with milk glass globes, installed on a soft-textured beige wall."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoCV9ysU9iFBAyB-EleRqWswtIzvHN1j62yuTbJTJCAq42hdrX0DWYuZ6MG-13bkba-XcRDvwGRjLXGsO9ERirHnwFXPeQ_h-KBWz_oCexvfwPmJFEgBapYPcbo4dOPs1Nl9zpTgM818d-z5XhIVPP-MMzqzT8pP0JFnybCeZpoCPmQgrB3UN9UDamr3X3leqAqvvprlxDseYMiIlAcFkSDie_R7AbqeVLaBfZhBmzsqGL9kXdVKg"
-            />
-            <button className="absolute top-3 right-3 p-2 bg-surface/80 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-colors">
-              <span className="material-symbols-outlined text-[20px]">
-                favorite
-              </span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-              Brass &amp; Glass Wall Sconce
-            </h3>
-            <p className="font-label-sm text-label-sm text-on-surface-variant italic">
-              Brushed Brass
-            </p>
-            <p className="font-label-md text-label-md text-primary mt-1">
-              $145.00
-            </p>
-          </div>
-        </div>
-
-        {/* Product 8 */}
-        <div className="group flex flex-col gap-3 cursor-pointer transition-transform duration-100 active:scale-[0.98]">
-          <div className="relative overflow-hidden rounded-xl bg-surface-container-low aspect-[3/4]">
-            <img
-              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-              alt="A set of three aromatic cedarwood and lavender scented candles in minimalist matte white ceramic jars."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg_9-hk4ViEk6JebRt7pZrz9pXmx2VYIAKfZwXug7GRqIRaZQLMlTrL-aHK6PcC2Yi0VrAqAdiBhGkHzIX3FfUoSLmVetm-Z5c-Z4eIokAu43wRStRi4eXiZ36I25AarySdC2LWt5tbmMXap5p06lqAkf1E8S30zheJSu8J1R87ssG7C5A2VSrG-Sxfrj4mOIS-UALPVcgcovthH33WwW_VVzm1Wfo0rAhOHRuuj1VCWRrMq7nKTk"
-            />
-            <button className="absolute top-3 right-3 p-2 bg-surface/80 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-colors">
-              <span className="material-symbols-outlined text-[20px]">
-                favorite
-              </span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-1 px-1">
-            <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-              Evening Ritual Candle Set
-            </h3>
-            <p className="font-label-sm text-label-sm text-on-surface-variant italic">
-              Cedar &amp; Lavender
-            </p>
-            <p className="font-label-md text-label-md text-primary mt-1">
-              $72.00
-            </p>
-          </div>
-        </div>
+        ))}
       </section>
 
       {/* Editorial Lookbook Section */}
