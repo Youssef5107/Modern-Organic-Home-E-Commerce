@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
+import { store } from "./app/store";
+import { Provider } from "react-redux";
 
 const enhanceCardButtons = () => {
   const buttons = Array.from(document.querySelectorAll("button"));
@@ -76,8 +78,10 @@ observer.observe(document.body, { childList: true, subtree: true });
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </StrictMode>,
 );

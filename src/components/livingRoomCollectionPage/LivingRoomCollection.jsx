@@ -1,9 +1,29 @@
+import { useState, useEffect } from "react";
 import data from "../../data/products.json";
 export default function LivingRoomCollection() {
   const livingRoomProducts = data.collections.find(
     (collection) => collection.id === "living-room",
   );
+  const [favoriteIds, setFavoriteIds] = useState(() => {
+    const saved = localStorage.getItem("favorite_products");
+    return saved ? JSON.parse(saved) : [];
+  });
 
+  useEffect(() => {
+    localStorage.setItem("favorite_products", JSON.stringify(favoriteIds));
+  }, [favoriteIds]);
+
+  function toggleFavorite(productId) {
+    setFavoriteIds((existingIds) => {
+      const isAlreadyFavorited = existingIds.includes(productId);
+
+      if (isAlreadyFavorited) {
+        return existingIds.filter((id) => id !== productId);
+      } else {
+        return [...existingIds, productId];
+      }
+    });
+  }
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-32 animate-page-enter">
       {/* Header & Description */}
@@ -62,37 +82,50 @@ export default function LivingRoomCollection() {
       {/* Product Grid */}
 
       <section className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter reveal-on-scroll">
-        {livingRoomProducts.products.map((product) => (
-          <div className="group flex flex-col cursor-pointer">
-            <div className="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container">
-              <img
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                alt="A premium solid walnut coffee table with a smooth, hand-finished matte texture, positioned in a bright, minimalist living room with floor-to-ceiling windows. The lighting is warm and natural, casting soft, diffused shadows. The aesthetic is modern organic with a palette of deep wood tones and creamy neutrals."
-                src={product.image_url}
-              />
-              <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="material-symbols-outlined">favorite</span>
-              </button>
-              {product.is_new_arrival ? (
-                <div className="absolute bottom-4 left-4 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full">
-                  New Arrival
-                </div>
-              ) : null}
+        {livingRoomProducts.products.map((product) => {
+          const isFavorited = favoriteIds.includes(product.id);
+          console.log(isFavorited);
+          return (
+            <div
+              key={product.id}
+              className="group flex flex-col cursor-pointer"
+            >
+              <div className="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container">
+                <img
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  alt="A premium solid walnut coffee table with a smooth, hand-finished matte texture, positioned in a bright, minimalist living room with floor-to-ceiling windows. The lighting is warm and natural, casting soft, diffused shadows. The aesthetic is modern organic with a palette of deep wood tones and creamy neutrals."
+                  src={product.image_url}
+                />
+                <button
+                  className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity card-favorite-btn ${isFavorited ? "card-favorite-btn-active" : ""}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(product.id);
+                  }}
+                >
+                  <span className="material-symbols-outlined">favorite</span>
+                </button>
+                {product.is_new_arrival ? (
+                  <div className="absolute bottom-4 left-4 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full">
+                    New Arrival
+                  </div>
+                ) : null}
+              </div>
+              <div className="flex flex-col gap-1">
+                <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
+                  {product.name}
+                </h3>
+                <p className="font-body-md text-body-md text-on-surface-variant">
+                  {product.series}
+                </p>
+                <p className="font-label-md text-label-md text-primary mt-1">
+                  {data.currency}
+                  {product.price}
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col gap-1">
-              <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-                {product.name}
-              </h3>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                {product.series}
-              </p>
-              <p className="font-label-md text-label-md text-primary mt-1">
-                {data.currency}
-                {product.price}
-              </p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </section>
 
       {/* Pagination / Load More */}
