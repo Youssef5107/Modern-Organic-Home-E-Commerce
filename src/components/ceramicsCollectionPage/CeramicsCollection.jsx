@@ -1,9 +1,15 @@
 import data from "../../data/products.json";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleFavorite } from "../../features/togglreFavorites/togglreFavoritesSlice";
+
 const ceramicsProducts = data.collections.find(
   (collection) => collection.id === "ceramics",
 );
 
 export default function CeramicsCollection() {
+  const dispatch = useDispatch();
+  const favoriteIds = useSelector((state) => state.favorites.favoriteIds);
+
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md md:py-stack-lg min-h-screen animate-page-enter">
       {/* Header & Editorial Intro */}
@@ -27,7 +33,7 @@ export default function CeramicsCollection() {
           <div
             className="aspect-[4/3] rounded-xl overflow-hidden shadow-xl bg-cover bg-center"
             role="img"
-            aria-label="A macro shot of a master potter's hands shaping a wet clay vase on a wooden spinning wheel. The lighting is warm and natural, coming from a nearby workshop window, highlighting the texture of the terracotta clay and the water droplets."
+            aria-label="A macro shot of a master potter's hands shaping a wet clay vase on a wooden spinning wheel."
             style={{
               backgroundImage:
                 "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAx1bbyL8lHVcVUGUK-z1bPVlHDRigP5HdGBMQRIK57s1WbS3HuLLtxQ3mmdyzv12pFmKUj3ILFQZWDGqKuaSDep-DLrLYbDsdtK53YuaRM0XAp3Tuy32ltg6llEDnirbqNR4_-w3XuvUIpeBGJ3Zvans-rvMlmdQ-0i5Ariuk9-ZzauRMTrwLE4NA46ZAplcnjWH8Ci3m8-9AyAbz18XvI5tRz_pcvs7NqhkBrBjaJ4e744QrIb00')",
@@ -78,7 +84,7 @@ export default function CeramicsCollection() {
           <div className="relative aspect-[16/9] md:aspect-[21/9] lg:aspect-[16/9] rounded-xl overflow-hidden bg-surface-container mb-4 cursor-pointer">
             <img
               className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
-              alt="A group of handcrafted ceramic vases in varying sizes and earthy tones including terracotta, sage green, and cream white."
+              alt="Handcrafted ceramic vases"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk0jKdAY-ROqADg-308IK14qb7jBa_Q-fVXXWCG_9Up2RCl9f2qlzguPZRw8WZ3p_sdnhvh2ZmiBZ7yLnr0WYqapYyznAfK9fJULyBNlg7mfG67d6z6O8EctSuStrNy-GFCwGUEjOx-p0OS9Dq2nZj7Xv7ott3aKtBH9myyChUTF8bT8GKkqj6UkSS2bfctOJVdaOrqLMnW_nloimx3xwZP5o3BfCNDFrcCtqY4K7fqCGNb4iI84w"
             />
             <div className="absolute top-4 left-4">
@@ -107,47 +113,61 @@ export default function CeramicsCollection() {
           </div>
         </div>
 
-        {ceramicsProducts.products.map((product) => (
-          <div className="product-card group">
-            <div className="relative aspect-square rounded-xl overflow-hidden bg-surface-container mb-4 cursor-pointer">
-              <img
-                className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
-                alt="An earthen pitcher with a wide handle and a textured, unglazed exterior showing the raw beauty of the natural clay."
-                src={product.image_url}
-              />
-              <button className="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors">
-                <span
-                  className="material-symbols-outlined"
-                  style={{ fontVariationSettings: "'FILL' 0" }}
+        {/* Dynamic Product Mapping */}
+        {ceramicsProducts?.products.map((product) => {
+          const isFavorited = favoriteIds.includes(product.id);
+
+          return (
+            <div key={product.id} className="product-card group">
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-surface-container mb-4 cursor-pointer">
+                <img
+                  className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
+                  alt={product.name}
+                  src={product.image_url}
+                />
+
+                {/* Favorite Button */}
+                <button
+                  className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-all card-favorite-btn ${
+                    isFavorited
+                      ? "opacity-100 card-favorite-btn-active bg-primary text-white"
+                      : "opacity-0 group-hover:opacity-100"
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(toggleFavorite(product.id));
+                  }}
                 >
-                  favorite
-                </span>
-              </button>
-              {product.is_new_arrival ? (
-                <div className="absolute bottom-4 left-4 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full">
-                  New Arrival
-                </div>
-              ) : null}
-            </div>
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="font-label-md text-label-md text-on-surface mb-1 uppercase tracking-wider">
-                  {product.name}
-                </h3>
-                <p className="font-label-sm text-label-sm text-on-surface-variant">
-                  {product.series}
-                </p>
+                  <span className="material-symbols-outlined">favorite</span>
+                </button>
+
+                {product.is_new_arrival ? (
+                  <div className="absolute bottom-4 left-4 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full">
+                    New Arrival
+                  </div>
+                ) : null}
               </div>
-              <span className="font-label-md text-label-md text-primary">
-                {data.currency}
-                {product.price}
-              </span>
+
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-label-md text-label-md text-on-surface mb-1 uppercase tracking-wider">
+                    {product.name}
+                  </h3>
+                  <p className="font-label-sm text-label-sm text-on-surface-variant">
+                    {product.series}
+                  </p>
+                </div>
+                <span className="font-label-md text-label-md text-primary">
+                  {data.currency}
+                  {product.price}
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </section>
 
-      {/* Newsletter / Editorial Break */}
+      {/* Newsletter Section */}
       <section className="mt-stack-lg bg-surface-container-low rounded-3xl p-margin-mobile md:p-margin-desktop overflow-hidden relative reveal-on-scroll">
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-gutter items-center">
           <div>

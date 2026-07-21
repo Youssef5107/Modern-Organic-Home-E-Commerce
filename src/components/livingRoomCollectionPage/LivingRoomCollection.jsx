@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../../features/togglreFavorites/togglreFavoritesSlice";
 import data from "../../data/products.json";
+
+const livingRoomProducts = data.collections.find(
+  (collection) => collection.id === "living-room",
+);
+
 export default function LivingRoomCollection() {
   const dispatch = useDispatch();
   const favoriteIds = useSelector((state) => state.favorites.favoriteIds);
 
-  const livingRoomProducts = data.collections.find(
-    (collection) => collection.id === "living-room",
-  );
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-32 animate-page-enter">
       {/* Header & Description */}
@@ -84,7 +86,6 @@ export default function LivingRoomCollection() {
                   className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity card-favorite-btn ${isFavorited ? "card-favorite-btn-active" : ""}`}
                   onClick={(e) => {
                     e.stopPropagation();
-                    // Dispatch just the product ID payload
                     dispatch(toggleFavorite(product.id));
                   }}
                 >

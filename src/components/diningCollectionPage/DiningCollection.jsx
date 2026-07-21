@@ -1,9 +1,14 @@
 import data from "../../data/products.json";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleFavorite } from "../../features/togglreFavorites/togglreFavoritesSlice";
+
+const diningRoomProducts = data.collections.find(
+  (collection) => collection.id === "dining",
+);
 
 export default function DiningCollection() {
-  const diningRoomProducts = data.collections.find(
-    (collection) => collection.id === "dining",
-  );
+  const dispatch = useDispatch();
+  const favoriteIds = useSelector((state) => state.favorites.favoriteIds);
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-stack-md pb-32 animate-page-enter">
       {/* Collection Intro */}
@@ -77,39 +82,57 @@ export default function DiningCollection() {
           ></div>
         </div>
 
-        {diningRoomProducts.products.map((product) => (
-          <div className="group flex flex-col cursor-pointer">
-            <div className="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container product-card-shadow transition-all duration-500">
-              <img
-                className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-                alt="A studio photograph of an Earthen Pitcher with a matte sand-colored glaze and a textured organic shape. The pitcher is set against a warm grey background with soft, diffused shadows. The lighting mimics natural window light, creating a serene and grounded atmosphere."
-                src={product.image_url}
-              />
-              <button className="absolute top-4 right-4 w-10 h-10 bg-surface/80 backdrop-blur-md rounded-full flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="material-symbols-outlined">favorite</span>
-              </button>
-              {product.is_new_arrival ? (
-                <div className="absolute bottom-4 left-4 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full">
-                  New Arrival
-                </div>
-              ) : null}
-            </div>
-            <div className="flex flex-col gap-1 px-1">
+        {diningRoomProducts?.products.map((product) => {
+          const isFavorited = favoriteIds.includes(product.id);
+
+          return (
+            <div key={product.id} className="product-card group">
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-surface-container mb-4 cursor-pointer">
+                <img
+                  className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
+                  alt={product.name}
+                  src={product.image_url}
+                />
+
+                {/* Favorite Button */}
+                <button
+                  className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-all card-favorite-btn ${
+                    isFavorited
+                      ? "opacity-100 card-favorite-btn-active bg-primary text-white"
+                      : "opacity-0 group-hover:opacity-100"
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(toggleFavorite(product.id));
+                  }}
+                >
+                  <span className="material-symbols-outlined">favorite</span>
+                </button>
+
+                {product.is_new_arrival ? (
+                  <div className="absolute bottom-4 left-4 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full">
+                    New Arrival
+                  </div>
+                ) : null}
+              </div>
+
               <div className="flex justify-between items-start">
-                <h4 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-                  {product.name}
-                </h4>
-                <span className="font-label-md text-label-md text-on-surface-variant">
+                <div>
+                  <h3 className="font-label-md text-label-md text-on-surface mb-1 uppercase tracking-wider">
+                    {product.name}
+                  </h3>
+                  <p className="font-label-sm text-label-sm text-on-surface-variant">
+                    {product.series}
+                  </p>
+                </div>
+                <span className="font-label-md text-label-md text-primary">
                   {data.currency}
                   {product.price}
                 </span>
               </div>
-              <p className="font-label-sm text-label-sm text-outline">
-                {product.series}
-              </p>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </section>
 
       {/* Pagination / Load More */}

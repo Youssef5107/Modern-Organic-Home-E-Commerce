@@ -1,8 +1,14 @@
 import data from "../../data/products.json";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleFavorite } from "../../features/togglreFavorites/togglreFavoritesSlice";
+
+const bedroomProducts = data.collections.find(
+  (collection) => collection.id === "bedroom",
+);
+
 export default function BedroomCollection() {
-  const bedroomProducts = data.collections.find(
-    (collection) => collection.id === "bedroom",
-  );
+  const dispatch = useDispatch();
+  const favoriteIds = useSelector((state) => state.favorites.favoriteIds);
 
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md animate-page-enter">
@@ -41,39 +47,57 @@ export default function BedroomCollection() {
 
       {/* Product Grid */}
       <section className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter reveal-on-scroll">
-        {bedroomProducts.products.map((product) => (
-          <div className="group flex flex-col gap-3 cursor-pointer transition-transform duration-100 active:scale-[0.98]">
-            <div className="relative overflow-hidden rounded-xl bg-surface-container-low aspect-[3/4]">
-              <img
-                className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-                alt="A professional product photograph of high-end, organic linen pillow covers in a soft terracotta hue. The covers are neatly stacked on a textured light oak surface."
-                src={product.image_url}
-              />
-              <button className="absolute top-3 right-3 p-2 bg-surface/80 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-colors">
-                <span className="material-symbols-outlined text-[20px]">
-                  favorite
-                </span>
-              </button>
-              {product.is_new_arrival ? (
-                <div className="absolute bottom-4 left-4 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full">
-                  New Arrival
+        {bedroomProducts?.products.map((product) => {
+          const isFavorited = favoriteIds.includes(product.id);
+
+          return (
+            <div key={product.id} className="product-card group">
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-surface-container mb-4 cursor-pointer">
+                <img
+                  className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
+                  alt={product.name}
+                  src={product.image_url}
+                />
+
+                {/* Favorite Button */}
+                <button
+                  className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-all card-favorite-btn ${
+                    isFavorited
+                      ? "opacity-100 card-favorite-btn-active bg-primary text-white"
+                      : "opacity-0 group-hover:opacity-100"
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(toggleFavorite(product.id));
+                  }}
+                >
+                  <span className="material-symbols-outlined">favorite</span>
+                </button>
+
+                {product.is_new_arrival ? (
+                  <div className="absolute bottom-4 left-4 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full">
+                    New Arrival
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-label-md text-label-md text-on-surface mb-1 uppercase tracking-wider">
+                    {product.name}
+                  </h3>
+                  <p className="font-label-sm text-label-sm text-on-surface-variant">
+                    {product.series}
+                  </p>
                 </div>
-              ) : null}
+                <span className="font-label-md text-label-md text-primary">
+                  {data.currency}
+                  {product.price}
+                </span>
+              </div>
             </div>
-            <div className="flex flex-col gap-1 px-1">
-              <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-                {product.name}
-              </h3>
-              <p className="font-label-sm text-label-sm text-on-surface-variant italic">
-                {product.series}
-              </p>
-              <p className="font-label-md text-label-md text-primary mt-1">
-                {data.currency}
-                {product.price}
-              </p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </section>
 
       {/* Editorial Lookbook Section */}
