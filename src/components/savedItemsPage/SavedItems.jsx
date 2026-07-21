@@ -7,7 +7,7 @@ import data from "../../data/products.json";
 export default function SavedItems() {
   const muiIconStyle = { color: "inherit", fontSize: "24px" };
   const dispatch = useDispatch();
-  const favoriteIds = useSelector((state) => state.favorites.favoriteIds);
+  const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
 
   const allProducts = data.collections.flatMap(
     (collection) => collection.products,

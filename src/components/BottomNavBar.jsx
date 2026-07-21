@@ -1,8 +1,15 @@
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import data from "../data/products.json";
 
 export default function BottomNavBar() {
   const location = useLocation();
   const pathname = location.pathname;
+  const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
+  const allProducts = data.collections.flatMap((col) => col.products || []);
+  const addedProducts = allProducts.filter((product) =>
+    addedIds.includes(product.id),
+  );
 
   const getActiveTab = () => {
     if (pathname === "/" || pathname === "/home") return "home";
@@ -21,7 +28,7 @@ export default function BottomNavBar() {
   const activeTab = getActiveTab();
 
   // Hardcoded cart count representation
-  const cartItemCount = 2;
+  const cartItemCount = addedProducts.length;
 
   const navItems = [
     { id: "home", label: "Home", icon: "home" },

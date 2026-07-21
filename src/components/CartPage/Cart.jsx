@@ -1,6 +1,16 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import data from "../../data/products.json";
+import { toggleAddedProducts } from "../../features/togglreFavorites/togglreFavoritesSlice";
 
 export default function Cart() {
+  const dispatch = useDispatch();
+  const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
+  const allProducts = data.collections.flatMap((col) => col.products || []);
+  const addedProducts = allProducts.filter((product) =>
+    addedIds.includes(product.id),
+  );
+
   return (
     <>
       <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-stack-md pb-32 reveal-on-scroll animate-page-enter ">
@@ -11,202 +21,90 @@ export default function Cart() {
               <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">
                 Your Basket{" "}
                 <span className="font-body-md text-on-surface-variant font-normal">
-                  (3 Items)
+                  ({addedProducts.length}{" "}
+                  {addedProducts.length === 1 ? "Item" : "Items"})
                 </span>
               </h2>
             </div>
             {/* <!-- Cart Items --> */}
             <div className="flex flex-col gap-stack-sm">
               {/* <!-- Item 1 --> */}
-              <div className="flex flex-col sm:flex-row gap-base md:gap-stack-sm bg-surface-container-lowest p-4 rounded-xl organic-shadow group transition-all duration-300">
-                <div className="w-full sm:w-32 h-40 flex-shrink-0 bg-surface-container rounded-lg overflow-hidden relative border border-surface-variant/20">
-                  <img
-                    className="w-full h-full object-cover"
-                    data-alt="A close-up high-quality shot of a handcrafted ceramic vase with a textured matte finish in a warm terracotta color, placed against a soft-focus minimalist wooden background. The lighting is bright and natural, reflecting the modern organic aesthetic with earthy tones and tactile surfaces."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe6OFnLacIlRx5DWH47rwtc0R5SnHFNUIARd9uyGGATztsfH6uD8z73hIQBw3efSrOJEGMYXV0cn9VJC5w01pab2cWwaKfEN_IPrTSERLFWlpB9zFVKSboFUu2G8DPX0HTvn42WjSrcCqcGq4vw0-GXs1hKGjzOt_SW5JFCTqbsnKEDjVL5G5pntrNiBLKwRKzkmWQQCprKMz6sdNYQMR1KaFAttyxHM_36rlfJBPjue3Tgp4of-c"
-                  />
-                </div>
-                <div className="flex-grow flex flex-col justify-between py-1">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-label-md text-label-md text-on-surface">
-                        Artisan Earthware Vase
-                      </h3>
-                      <p className="font-label-sm text-label-sm text-on-surface-variant mt-1 uppercase tracking-wider">
-                        SKU: MO-29034
-                      </p>
-                      <div className="flex flex-wrap gap-4 mt-3">
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-label-sm text-label-sm text-on-surface-variant">
-                            Color:
-                          </span>
-                          <span className="font-label-sm text-label-sm text-on-surface font-semibold">
-                            Terracotta Matte
-                          </span>
+              {addedProducts.map((product) => {
+                return (
+                  <div className="flex flex-col sm:flex-row gap-base md:gap-stack-sm bg-surface-container-lowest p-4 rounded-xl organic-shadow group transition-all duration-300">
+                    <div className="w-full sm:w-32 h-40 flex-shrink-0 bg-surface-container rounded-lg overflow-hidden relative border border-surface-variant/20">
+                      <img
+                        className="w-full h-full object-cover"
+                        data-alt="A close-up high-quality shot of a handcrafted ceramic vase with a textured matte finish in a warm terracotta color, placed against a soft-focus minimalist wooden background. The lighting is bright and natural, reflecting the modern organic aesthetic with earthy tones and tactile surfaces."
+                        src={product.image_url}
+                      />
+                    </div>
+                    <div className="flex-grow flex flex-col justify-between py-1">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h3 className="font-label-md text-label-md text-on-surface">
+                            {product.name}
+                          </h3>
+                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-1 uppercase tracking-wider">
+                            SKU: MO-29034
+                          </p>
+                          <div className="flex flex-wrap gap-4 mt-3">
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-label-sm text-label-sm text-on-surface-variant">
+                                Color:
+                              </span>
+                              <span className="font-label-sm text-label-sm text-on-surface font-semibold">
+                                {product.series}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-label-sm text-label-sm text-on-surface-variant">
+                                Size:
+                              </span>
+                              <span className="font-label-sm text-label-sm text-on-surface font-semibold">
+                                Large (12")
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-label-sm text-label-sm text-on-surface-variant">
-                            Size:
+                        <span className="font-headline-md text-primary">
+                          {data.currency}
+                          {product.price}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between mt-4">
+                        <div className="flex items-center bg-surface-container rounded-full border border-outline-variant">
+                          <button className="p-2 hover:text-primary transition-colors active:scale-90">
+                            <span className="material-symbols-outlined text-[20px]">
+                              remove
+                            </span>
+                          </button>
+                          <span className="px-3 font-label-md text-on-surface">
+                            1
                           </span>
-                          <span className="font-label-sm text-label-sm text-on-surface font-semibold">
-                            Large (12")
-                          </span>
+                          <button className="p-2 hover:text-primary transition-colors active:scale-90">
+                            <span className="material-symbols-outlined text-[20px]">
+                              add
+                            </span>
+                          </button>
                         </div>
+                        <button
+                          className="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-label-sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            dispatch(toggleAddedProducts(product.id));
+                          }}
+                        >
+                          <span className="material-symbols-outlined text-[18px]">
+                            delete
+                          </span>
+                          <span>Remove</span>
+                        </button>
                       </div>
                     </div>
-                    <span className="font-headline-md text-primary">
-                      $84.00
-                    </span>
                   </div>
-                  <div className="flex items-center justify-between mt-4">
-                    <div className="flex items-center bg-surface-container rounded-full border border-outline-variant">
-                      <button className="p-2 hover:text-primary transition-colors active:scale-90">
-                        <span className="material-symbols-outlined text-[20px]">
-                          remove
-                        </span>
-                      </button>
-                      <span className="px-3 font-label-md text-on-surface">
-                        1
-                      </span>
-                      <button className="p-2 hover:text-primary transition-colors active:scale-90">
-                        <span className="material-symbols-outlined text-[20px]">
-                          add
-                        </span>
-                      </button>
-                    </div>
-                    <button className="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-label-sm">
-                      <span className="material-symbols-outlined text-[18px]">
-                        delete
-                      </span>
-                      <span>Remove</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              {/* <!-- Item 2 --> */}
-              <div className="flex flex-col sm:flex-row gap-base md:gap-stack-sm bg-surface-container-lowest p-4 rounded-xl organic-shadow group transition-all duration-300">
-                <div className="w-full sm:w-32 h-40 flex-shrink-0 bg-surface-container rounded-lg overflow-hidden relative border border-surface-variant/20">
-                  <img
-                    className="w-full h-full object-cover"
-                    data-alt="A soft, high-quality linen cushion in a muted sage green color, showing detailed woven fabric texture. The pillow is resting on a minimalist off-white sofa. The scene is bathed in warm, diffused afternoon sunlight, creating a tranquil and luxurious home atmosphere."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5TLPEimWNWy2i5cDMXrIx2feWvuK2E6d7Wfh3g2xO7QrWwhCuaCq1bjL1t_CuIPggJIXA1BR8JCGycso3TRO2xC0L6Hr6gra6neZkYlgdHnY_2orfTTc1pFE_MGzxivojH-9QMHRtqQTr4xoVlExDVyHlWRiX2fNtHDgY14ITm_Poi4UR6KhQRNqEGP2AR7Co2--_G9UcmvkZm0llgV3qAeCkjyMh0vDCcTZptqg3P_NAkjEfDgs"
-                  />
-                </div>
-                <div className="flex-grow flex flex-col justify-between py-1">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-label-md text-label-md text-on-surface">
-                        Stone-Washed Linen Cushion
-                      </h3>
-                      <p className="font-label-sm text-label-sm text-on-surface-variant mt-1 uppercase tracking-wider">
-                        SKU: MO-11522
-                      </p>
-                      <div className="flex flex-wrap gap-4 mt-3">
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-label-sm text-label-sm text-on-surface-variant">
-                            Color:
-                          </span>
-                          <span className="font-label-sm text-label-sm text-on-surface font-semibold">
-                            Sage Green
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-label-sm text-label-sm text-on-surface-variant">
-                            Size:
-                          </span>
-                          <span className="font-label-sm text-label-sm text-on-surface font-semibold">
-                            20" x 20"
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <span className="font-headline-md text-primary">
-                      $110.00
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between mt-4">
-                    <div className="flex items-center bg-surface-container rounded-full border border-outline-variant">
-                      <button className="p-2 hover:text-primary transition-colors active:scale-90">
-                        <span className="material-symbols-outlined text-[20px]">
-                          remove
-                        </span>
-                      </button>
-                      <span className="px-3 font-label-md text-on-surface">
-                        2
-                      </span>
-                      <button className="p-2 hover:text-primary transition-colors active:scale-90">
-                        <span className="material-symbols-outlined text-[20px]">
-                          add
-                        </span>
-                      </button>
-                    </div>
-                    <button className="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-label-sm">
-                      <span className="material-symbols-outlined text-[18px]">
-                        delete
-                      </span>
-                      <span>Remove</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              {/* <!-- Item 3 --> */}
-              <div className="flex flex-col sm:flex-row gap-base md:gap-stack-sm bg-surface-container-lowest p-4 rounded-xl organic-shadow group transition-all duration-300">
-                <div className="w-full sm:w-32 h-40 flex-shrink-0 bg-surface-container rounded-lg overflow-hidden relative border border-surface-variant/20">
-                  <img
-                    className="w-full h-full object-cover"
-                    data-alt="An elegant, hand-poured soy wax candle in a smoked glass jar with a wooden lid. The lighting is low and moody, emphasizing the warm glow of the glass and the organic texture of the wood. The background is a minimalist concrete surface, keeping the focus on the luxury home fragrance item."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0IchTznFo993KT1r3HW2UOMQplt3lma8hqxez-dIKXVKalcZlCTcycyPIijM7cXJeZBOJ5egzj5gE_mHebP6LS4pcy_sR1oqvXx8gWxbQ28ttFjl3BScqVs-GhmXRUkBs_KLy90Rm8LPqO3ZCK-PkAnQigkohkdLk0fuDveKOpSwm4SJmVqkCbtiTh_6mM05OJ-SpH-Nef9yKS9AXZlYNmfRAiLcjThgpzipk3x0TayHDjKjIniU"
-                  />
-                </div>
-                <div className="flex-grow flex flex-col justify-between py-1">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-label-md text-label-md text-on-surface">
-                        Amber &amp; Moss Candle
-                      </h3>
-                      <p className="font-label-sm text-label-sm text-on-surface-variant mt-1 uppercase tracking-wider">
-                        SKU: MO-88390
-                      </p>
-                      <div className="flex flex-wrap gap-4 mt-3">
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-label-sm text-label-sm text-on-surface-variant">
-                            Scent:
-                          </span>
-                          <span className="font-label-sm text-label-sm text-on-surface font-semibold">
-                            Amber &amp; Moss
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <span className="font-headline-md text-primary">
-                      $45.00
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between mt-4">
-                    <div className="flex items-center bg-surface-container rounded-full border border-outline-variant">
-                      <button className="p-2 hover:text-primary transition-colors active:scale-90">
-                        <span className="material-symbols-outlined text-[20px]">
-                          remove
-                        </span>
-                      </button>
-                      <span className="px-3 font-label-md text-on-surface">
-                        1
-                      </span>
-                      <button className="p-2 hover:text-primary transition-colors active:scale-90">
-                        <span className="material-symbols-outlined text-[20px]">
-                          add
-                        </span>
-                      </button>
-                    </div>
-                    <button className="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-label-sm">
-                      <span className="material-symbols-outlined text-[18px]">
-                        delete
-                      </span>
-                      <span>Remove</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
             {/* <!-- Recently Viewed --> */}
             <div className="mt-stack-lg">
