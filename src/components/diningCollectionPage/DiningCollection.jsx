@@ -1,6 +1,9 @@
 import data from "../../data/products.json";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleFavorite } from "../../features/togglreFavorites/togglreFavoritesSlice";
+import {
+  toggleFavorite,
+  toggleAddedProducts,
+} from "../../features/togglreFavorites/togglreFavoritesSlice";
 
 const diningRoomProducts = data.collections.find(
   (collection) => collection.id === "dining",
@@ -9,6 +12,8 @@ const diningRoomProducts = data.collections.find(
 export default function DiningCollection() {
   const dispatch = useDispatch();
   const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
+  const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
+
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-stack-md pb-32 animate-page-enter">
       {/* Collection Intro */}
@@ -84,6 +89,7 @@ export default function DiningCollection() {
 
         {diningRoomProducts?.products.map((product) => {
           const isFavorited = favoriteIds.includes(product.id);
+          const isAdded = addedIds.includes(product.id);
 
           return (
             <div key={product.id} className="product-card group">
@@ -107,6 +113,21 @@ export default function DiningCollection() {
                   }}
                 >
                   <span className="material-symbols-outlined">favorite</span>
+                </button>
+                <button
+                  className={`absolute bottom-4 right-4 p-2 rounded-full shadow-lg transition-all flex items-center justify-center ${
+                    isAdded
+                      ? "bg-primary text-on-primary scale-103 shadow-[0_12px_24px_rgba(111,52,41,0.22)] opacity-100"
+                      : "bg-surface/80 text-primary opacity-0 group-hover:opacity-100 hover:scale-105"
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(toggleAddedProducts(product.id));
+                  }}
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    add_shopping_cart
+                  </span>
                 </button>
 
                 {product.is_new_arrival ? (
