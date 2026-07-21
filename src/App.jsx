@@ -12,6 +12,7 @@ import CeramicsCollection from "./components/ceramicsCollectionPage/ceramicsColl
 import LivingRoomCollection from "./components/livingRoomCollectionPage/LivingRoomCollection";
 import DiningCollection from "./components/diningCollectionPage/DiningCollection";
 import BedroomCollection from "./components/bedroomCollectionPage/BedroomCollection";
+import SavedItems from "./components/savedItemsPage/SavedItems";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="cart/checkout" element={<Checkout />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/saved-items" element={<SavedItems />} />
         </Routes>
       </main>
       <BottomNavBar />
