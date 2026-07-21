@@ -1,29 +1,13 @@
-import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleFavorite } from "../../features/togglreFavorites/togglreFavoritesSlice";
 import data from "../../data/products.json";
 export default function LivingRoomCollection() {
+  const dispatch = useDispatch();
+  const favoriteIds = useSelector((state) => state.favorites.favoriteIds);
+
   const livingRoomProducts = data.collections.find(
     (collection) => collection.id === "living-room",
   );
-  const [favoriteIds, setFavoriteIds] = useState(() => {
-    const saved = localStorage.getItem("favorite_products");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("favorite_products", JSON.stringify(favoriteIds));
-  }, [favoriteIds]);
-
-  function toggleFavorite(productId) {
-    setFavoriteIds((existingIds) => {
-      const isAlreadyFavorited = existingIds.includes(productId);
-
-      if (isAlreadyFavorited) {
-        return existingIds.filter((id) => id !== productId);
-      } else {
-        return [...existingIds, productId];
-      }
-    });
-  }
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-32 animate-page-enter">
       {/* Header & Description */}
@@ -100,7 +84,8 @@ export default function LivingRoomCollection() {
                   className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity card-favorite-btn ${isFavorited ? "card-favorite-btn-active" : ""}`}
                   onClick={(e) => {
                     e.stopPropagation();
-                    toggleFavorite(product.id);
+                    // Dispatch just the product ID payload
+                    dispatch(toggleFavorite(product.id));
                   }}
                 >
                   <span className="material-symbols-outlined">favorite</span>
