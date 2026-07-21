@@ -8,7 +8,7 @@ const bedroomProducts = data.collections.find(
 
 export default function BedroomCollection() {
   const dispatch = useDispatch();
-  const favoriteIds = useSelector((state) => state.favorites.favoriteIds);
+  const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
 
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md animate-page-enter">

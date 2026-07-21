@@ -8,7 +8,7 @@ const diningRoomProducts = data.collections.find(
 
 export default function DiningCollection() {
   const dispatch = useDispatch();
-  const favoriteIds = useSelector((state) => state.favorites.favoriteIds);
+  const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-stack-md pb-32 animate-page-enter">
       {/* Collection Intro */}

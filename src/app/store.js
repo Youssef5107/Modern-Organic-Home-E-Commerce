@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import togglreFavoritesReducer from "../features/togglreFavorites/togglreFavoritesSlice";
+import toggleProductsInfoSlice from "../features/togglreFavorites/togglreFavoritesSlice";
 
 export const store = configureStore({
   reducer: {
-    favorites: togglreFavoritesReducer,
+    ProductsInfo: toggleProductsInfoSlice,
   },
 });

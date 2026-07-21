@@ -10,11 +10,22 @@ const loadFavorites = () => {
   }
 };
 
-const initialState = {
-  favoriteIds: loadFavorites(),
+const loadAddedProducts = () => {
+  try {
+    const added = localStorage.getItem("added_products");
+    return added ? JSON.parse(added) : [];
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
 };
 
-export const togglreFavoritesSlice = createSlice({
+const initialState = {
+  favoriteIds: loadFavorites(),
+  addedIds: loadAddedProducts(),
+};
+
+export const toggleProductsInfoSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
@@ -33,9 +44,22 @@ export const togglreFavoritesSlice = createSlice({
         JSON.stringify(state.favoriteIds),
       );
     },
+    toggleAddedProducts: (state, action) => {
+      const productId = action.payload;
+      const index = state.addedIds.indexOf(productId);
+
+      if (state.addedIds.includes(productId)) {
+        state.addedIds.splice(index, 1);
+      } else {
+        state.addedIds.push(productId);
+      }
+
+      localStorage.setItem("added_products", JSON.stringify(state.addedIds));
+    },
   },
 });
 
-export const { toggleFavorite } = togglreFavoritesSlice.actions;
+export const { toggleFavorite, toggleAddedProducts } =
+  toggleProductsInfoSlice.actions;
 
-export default togglreFavoritesSlice.reducer;
+export default toggleProductsInfoSlice.reducer;

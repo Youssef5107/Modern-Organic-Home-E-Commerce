@@ -8,7 +8,7 @@ const ceramicsProducts = data.collections.find(
 
 export default function CeramicsCollection() {
   const dispatch = useDispatch();
-  const favoriteIds = useSelector((state) => state.favorites.favoriteIds);
+  const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
 
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md md:py-stack-lg min-h-screen animate-page-enter">

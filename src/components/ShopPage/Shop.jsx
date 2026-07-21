@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import data from "../../data/products.json";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleFavorite } from "../../features/togglreFavorites/togglreFavoritesSlice";
+import {
+  toggleFavorite,
+  toggleAddedProducts,
+} from "../../features/togglreFavorites/togglreFavoritesSlice";
 
 const ceramicsProducts = data.collections.find(
   (collection) => collection.id === "ceramics",
@@ -18,7 +21,8 @@ const bedroomProducts = data.collections.find(
 
 export default function Shop() {
   const dispatch = useDispatch();
-  const favoriteIds = useSelector((state) => state.favorites.favoriteIds);
+  const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
+  const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
 
   return (
     <>
@@ -72,6 +76,7 @@ export default function Shop() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
             {ceramicsProducts?.products.slice(0, 3).map((product) => {
               const isFavorited = favoriteIds.includes(product.id);
+              const isAdded = addedIds.includes(product.id);
               return (
                 <div
                   key={product.id}
@@ -98,7 +103,17 @@ export default function Shop() {
                         favorite
                       </span>
                     </button>
-                    <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
+                    <button
+                      className={`absolute bottom-4 right-4 p-2 rounded-full shadow-lg transition-all flex items-center justify-center ${
+                        isAdded
+                          ? "bg-primary text-on-primary scale-103 shadow-[0_12px_24px_rgba(111,52,41,0.22)] opacity-100"
+                          : "bg-surface/80 text-primary opacity-0 group-hover:opacity-100 hover:scale-105"
+                      }`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        dispatch(toggleAddedProducts(product.id));
+                      }}
+                    >
                       <span className="material-symbols-outlined text-[18px]">
                         add_shopping_cart
                       </span>
