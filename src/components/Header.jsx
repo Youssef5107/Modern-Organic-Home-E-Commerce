@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Reusable MUI Icon inline styling to override text color parameters smoothly
   const muiIconStyle = { color: "inherit", fontSize: "24px" };
 
   return (
@@ -24,7 +23,6 @@ export default function Header() {
         }}
       />
 
-      {/* Backdrop Overlay */}
       {isMenuOpen && (
         <div
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] transition-opacity duration-300"

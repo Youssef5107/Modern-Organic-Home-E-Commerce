@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../../features/togglreFavorites/togglreFavoritesSlice";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import data from "../../data/products.json";
 
 export default function SavedItems() {
+  const muiIconStyle = { color: "inherit", fontSize: "24px" };
   const dispatch = useDispatch();
   const favoriteIds = useSelector((state) => state.favorites.favoriteIds);
 
@@ -30,12 +32,12 @@ export default function SavedItems() {
             Saved Items
           </h1>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 text-primary">
           <Link
             to={"/cart"}
-            className="text-primary dark:text-primary-fixed-dim hover:text-primary transition-colors active:scale-95 duration-200"
+            className="hidden md:flex hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 duration-200 items-center justify-center"
           >
-            <span className="material-symbols-outlined">shopping_bag</span>
+            <ShoppingBagIcon style={muiIconStyle} />
           </Link>
         </div>
       </header>
@@ -113,9 +115,12 @@ export default function SavedItems() {
               Your sanctuary of favorites is empty. Explore our collections to
               find pieces that speak to you.
             </p>
-            <button className="mt-8 px-8 py-3 bg-primary text-on-primary rounded-xl font-label-md text-label-md transition-all active:scale-95">
+            <Link
+              to={"/shop"}
+              className="mt-8 px-8 py-3 bg-primary text-on-primary rounded-xl font-label-md text-label-md transition-all active:scale-95"
+            >
               Start Exploring
-            </button>
+            </Link>
           </div>
         )}
       </main>
