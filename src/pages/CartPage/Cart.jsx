@@ -56,6 +56,9 @@ export default function Cart() {
                 <Link
                   to="/shop"
                   className="inline-block bg-primary text-on-primary px-6 py-2 rounded-full font-label-md"
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: "auto" });
+                  }}
                 >
                   Start Shopping
                 </Link>
@@ -308,6 +311,9 @@ export default function Cart() {
             <Link
               to="/cart/checkout"
               className="w-full bg-primary text-on-primary py-4 rounded-xl font-label-md text-lg tracking-wide hover:bg-primary-container transition-all active:scale-[0.98] duration-200 shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
             >
               Checkout Now
               <span className="material-symbols-outlined">arrow_forward</span>
