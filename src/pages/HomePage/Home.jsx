@@ -14,9 +14,8 @@ export default function Home() {
         const element = document.querySelector(location.hash);
         if (element) {
           const elementTop = element.getBoundingClientRect().top;
-          const HEADER_HEIGHT = 130;
+          const HEADER_HEIGHT = 160;
           const targetPosition = elementTop + window.scrollY - HEADER_HEIGHT;
-
           window.scrollTo({
             top: targetPosition,
             behavior: "smooth",

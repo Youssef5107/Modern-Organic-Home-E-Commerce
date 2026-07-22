@@ -1,37 +1,28 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function OurStory() {
+  const location = useLocation();
+
   useEffect(() => {
-    // Scroll reveal interaction
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
-    };
+    if (location.hash) {
+      const timer = setTimeout(() => {
+        const element = document.querySelector(location.hash);
+        if (element) {
+          const elementTop = element.getBoundingClientRect().top;
+          const HEADER_HEIGHT = 160;
+          const targetPosition = elementTop + window.scrollY - HEADER_HEIGHT;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "translate-y-0");
-          entry.target.classList.remove("opacity-0", "translate-y-10");
-          observer.unobserve(entry.target);
+          window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth",
+          });
         }
-      });
-    }, observerOptions);
-
-    const animateItems = document.querySelectorAll("section, .group");
-    animateItems.forEach((item) => {
-      item.classList.add(
-        "transition-all",
-        "duration-1000",
-        "ease-out",
-        "opacity-0",
-        "translate-y-10",
-      );
-      observer.observe(item);
-    });
-
-    return () => observer.disconnect();
-  }, []);
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [location]);
 
   return (
     <div className="font-body-md overflow-x-hidden min-h-screen bg-background text-on-background">
@@ -57,12 +48,19 @@ export default function OurStory() {
               purpose, and respect for the materials they are born from.
             </p>
             <div className="pt-base">
-              <button className="bg-primary text-on-primary px-8 py-4 rounded-full font-label-md hover:opacity-90 transition-all flex items-center gap-2 group">
-                Discover the Process
-                <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
-                  arrow_forward
-                </span>
-              </button>
+              <Link
+                to={"/shop"}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "auto" });
+                }}
+              >
+                <button className="bg-primary text-on-primary px-8 py-4 rounded-full font-label-md hover:opacity-90 transition-all flex items-center gap-2 group">
+                  Discover the Process
+                  <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
+                    arrow_forward
+                  </span>
+                </button>
+              </Link>
             </div>
           </div>
           <div className="w-full md:w-1/2 order-1 md:order-2">
@@ -78,7 +76,10 @@ export default function OurStory() {
         </section>
 
         {/* Philosophy Section */}
-        <section className="bg-surface-container-low py-stack-lg my-stack-lg overflow-hidden">
+        <section
+          id="our-philosophy"
+          className="bg-surface-container-low py-stack-lg my-stack-lg overflow-hidden"
+        >
           <div className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
             <div className="md:col-span-7">
               <div className="relative">
@@ -261,12 +262,15 @@ export default function OurStory() {
               your own legacy of slow, mindful living.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="#"
+              <Link
+                to={"/shop"}
                 className="bg-primary text-on-primary px-10 py-5 rounded-full font-label-md hover:scale-105 active:scale-95 transition-all shadow-lg w-full sm:w-auto"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "auto" });
+                }}
               >
                 Explore the Collection
-              </a>
+              </Link>
               <a
                 href="#"
                 className="border border-secondary text-secondary px-10 py-5 rounded-full font-label-md hover:bg-secondary-container transition-all w-full sm:w-auto"

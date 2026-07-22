@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 export default function EditorialContentSection() {
   return (
     <>
@@ -20,8 +21,11 @@ export default function EditorialContentSection() {
             objects, but stories of material, time, and touch.
           </p>
           <Link
-            to={"/home/our-story"}
+            to={"/home/our-story#our-philosophy"}
             className="bg-white text-primary px-8 py-4 rounded-full font-label-md text-label-md hover:shadow-lg transition-all active:scale-95"
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "auto" });
+            }}
           >
             Our Philosophy
           </Link>
