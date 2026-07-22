@@ -148,7 +148,7 @@ export default function Profile() {
 
             <Link
               className="flex items-center justify-between p-5 hover:bg-[#f5f3ee] transition-colors group"
-              to="/settings"
+              to="/profile/account-settings"
             >
               <div className="flex items-center gap-4">
                 <span className="material-symbols-outlined text-[#8c4b3e]">
