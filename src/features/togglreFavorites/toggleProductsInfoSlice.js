@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const loadFavorites = () => {
   try {
@@ -20,9 +20,20 @@ const loadAddedProducts = () => {
   }
 };
 
+const loadStoredQuantities = () => {
+  try {
+    const saved = localStorage.getItem("cartQuantities");
+    return saved ? JSON.parse(saved) : {};
+  } catch (error) {
+    console.error("Failed to load quantities from localStorage:", error);
+    return {};
+  }
+};
+
 const initialState = {
   favoriteIds: loadFavorites(),
   addedIds: loadAddedProducts(),
+  quantities: loadStoredQuantities(),
 };
 
 export const toggleProductsInfoSlice = createSlice({
@@ -56,10 +67,32 @@ export const toggleProductsInfoSlice = createSlice({
 
       localStorage.setItem("added_products", JSON.stringify(state.addedIds));
     },
+    incrementQuantity: (state, action) => {
+      const id = action.payload;
+      state.quantities[id] = (state.quantities[id] || 1) + 1;
+      localStorage.setItem(
+        "cartQuantities",
+        JSON.stringify(current(state.quantities)),
+      );
+    },
+    decrementQuantity: (state, action) => {
+      const id = action.payload;
+      if (state.quantities[id] > 1) {
+        state.quantities[id] -= 1;
+        localStorage.setItem(
+          "cartQuantities",
+          JSON.stringify(current(state.quantities)),
+        );
+      }
+    },
   },
 });
 
-export const { toggleFavorite, toggleAddedProducts } =
-  toggleProductsInfoSlice.actions;
+export const {
+  toggleFavorite,
+  toggleAddedProducts,
+  incrementQuantity,
+  decrementQuantity,
+} = toggleProductsInfoSlice.actions;
 
 export default toggleProductsInfoSlice.reducer;

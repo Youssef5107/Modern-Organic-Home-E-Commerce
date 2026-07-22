@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   toggleFavorite,
   toggleAddedProducts,
-} from "../../features/togglreFavorites/togglreFavoritesSlice";
+} from "../../features/togglreFavorites/toggleProductsInfoSlice";
 
 const bedroomProducts = data.collections.find(
   (collection) => collection.id === "bedroom",

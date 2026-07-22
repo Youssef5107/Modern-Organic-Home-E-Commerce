@@ -6,10 +6,16 @@ export default function BottomNavBar() {
   const location = useLocation();
   const pathname = location.pathname;
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
+  const quantities = useSelector(
+    (state) => state.ProductsInfo.quantities || {},
+  );
   const allProducts = data.collections.flatMap((col) => col.products || []);
   const addedProducts = allProducts.filter((product) =>
     addedIds.includes(product.id),
   );
+  const cartItemCount = addedProducts.reduce((sum, product) => {
+    return sum + (quantities[product.id] || 1);
+  }, 0);
 
   const getActiveTab = () => {
     if (pathname === "/" || pathname === "/home") return "home";
@@ -26,9 +32,6 @@ export default function BottomNavBar() {
   };
 
   const activeTab = getActiveTab();
-
-  // Hardcoded cart count representation
-  const cartItemCount = addedProducts.length;
 
   const navItems = [
     { id: "home", label: "Home", icon: "home" },

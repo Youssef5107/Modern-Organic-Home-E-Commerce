@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   toggleFavorite,
   toggleAddedProducts,
-} from "../../features/togglreFavorites/togglreFavoritesSlice";
+} from "../../features/togglreFavorites/toggleProductsInfoSlice";
 import data from "../../data/products.json";
 
 const livingRoomProducts = data.collections.find(

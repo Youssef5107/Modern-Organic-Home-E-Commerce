@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleFavorite } from "../../features/togglreFavorites/togglreFavoritesSlice";
+import { toggleFavorite } from "../../features/togglreFavorites/toggleProductsInfoSlice";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import data from "../../data/products.json";
 
