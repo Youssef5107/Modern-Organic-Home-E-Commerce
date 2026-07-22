@@ -1,5 +1,20 @@
 import { Link } from "react-router-dom";
+import data from "../../data/products.json";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  toggleFavorite,
+  toggleAddedProducts,
+} from "../../features/togglreFavorites/toggleProductsInfoSlice";
+
+const newArrivals = data.collections
+  .flatMap((collection) => collection.products || [])
+  .filter((product) => product.is_new_arrival)
+  .slice(0, 3);
+
 export default function Home() {
+  const dispatch = useDispatch();
+  const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
+  const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
   return (
     <div className="animate-page-enter ">
       {/* Hero Section */}
@@ -127,72 +142,65 @@ export default function Home() {
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter">
           {/* Product Card 1 */}
-          <div className="group flex flex-col">
-            <div className="relative aspect-square bg-surface-container rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-md transition-all duration-300">
-              <img
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-LeWeFJVN_lvrScnwzwCHGEuTCg2nkXj1Pa0H5VnGu-cMWcvJ3O8e_8w-KQI4gsiS5S6VVWWVRs05WiKWq-9ltDuDq6WHP2TwZXJEaBaCd3-1D-qM_-htWmyX5PnkqSW31WSIx_16cnvyd4IKJUTDYdhRWFKdllNeKJ8FtT0lpTR9PDeTGzT_K84Tgxvl3riLEe3TwFAEYt5aEWgoLYxoVPWC0cU_hdwQ_s8qwZ761rfnB0LjNQI"
-                alt="Earthen Pitcher"
-              />
-              <button className="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
-                <span className="material-symbols-outlined text-[18px]">
-                  favorite
-                </span>
-              </button>
-              <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
-                <span className="material-symbols-outlined text-[18px]">
-                  add_shopping_cart
-                </span>
-              </button>
-            </div>
-            <div className="flex justify-between items-start">
-              <div>
-                <h5 className="font-label-md text-label-md text-on-background group-hover:text-primary transition-colors">
-                  Earthen Pitcher
-                </h5>
-                <p className="font-label-sm text-label-sm text-on-surface-variant">
-                  Handmade Ceramics
-                </p>
+          {newArrivals.map((product) => {
+            const isFavorited = favoriteIds.includes(product.id);
+            const isAdded = addedIds.includes(product.id);
+            return (
+              <div className="group flex flex-col">
+                <div className="relative aspect-square bg-surface-container rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                  <img
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    src={product.image_url}
+                    alt={product.name}
+                  />
+                  <button
+                    className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-all card-favorite-btn ${
+                      isFavorited
+                        ? "opacity-100 card-favorite-btn-active bg-primary text-white"
+                        : "opacity-0 group-hover:opacity-100"
+                    }`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      dispatch(toggleFavorite(product.id));
+                    }}
+                  >
+                    <span className="material-symbols-outlined text-[18px]">
+                      favorite
+                    </span>
+                  </button>
+                  <button
+                    className={`absolute bottom-4 right-4 p-2 rounded-full shadow-lg transition-all flex items-center justify-center ${
+                      isAdded
+                        ? "bg-primary text-on-primary scale-103 shadow-[0_12px_24px_rgba(111,52,41,0.22)] opacity-100"
+                        : "bg-surface/80 text-primary opacity-0 group-hover:opacity-100 hover:scale-105"
+                    }`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      dispatch(toggleAddedProducts(product.id));
+                    }}
+                  >
+                    <span className="material-symbols-outlined text-[18px]">
+                      add_shopping_cart
+                    </span>
+                  </button>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h5 className="font-label-md text-label-md text-on-background group-hover:text-primary transition-colors">
+                      {product.name}
+                    </h5>
+                    <p className="font-label-sm text-label-sm text-on-surface-variant">
+                      {product.series}
+                    </p>
+                  </div>
+                  <span className="font-label-md text-label-md text-primary">
+                    {data.currency}
+                    {product.price}
+                  </span>
+                </div>
               </div>
-              <span className="font-label-md text-label-md text-primary">
-                $84.00
-              </span>
-            </div>
-          </div>
-
-          {/* Product Card 2 */}
-          <div className="group flex flex-col">
-            <div className="relative aspect-square bg-surface-container rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-md transition-all duration-300">
-              <img
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-LyKw3d0t5--gsUltHkjJm2CiLfI6stIJHDDE-yVYT0vT3FGFgTytQaxPQZIZQxZKDlO7aVcnnuax_ahg42aIxl2iSWF5zUYG5XQIewA3Z28-XXfcUKZXC5wYKrMdpHBOFFhH9z9fPWWJfG-dMWNIcMbxND-9NGa1nYtvXXdd2lRq-I9l1AzBppqkCpJUE7OLnOw3qboN035gRDF0Q6snnaSVjrKlaSwUWXQmN24wY0koE7ABrKg"
-                alt="Linen Pillar Lamp"
-              />
-              <button className="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
-                <span className="material-symbols-outlined text-[18px]">
-                  favorite
-                </span>
-              </button>
-              <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-105">
-                <span className="material-symbols-outlined text-[18px]">
-                  add_shopping_cart
-                </span>
-              </button>
-            </div>
-            <div className="flex justify-between items-start">
-              <div>
-                <h5 className="font-label-md text-label-md text-on-background group-hover:text-primary transition-colors">
-                  Linen Pillar Lamp
-                </h5>
-                <p className="font-label-sm text-label-sm text-on-surface-variant">
-                  Lighting
-                </p>
-              </div>
-              <span className="font-label-md text-label-md text-primary">
-                $210.00
-              </span>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </section>
 
