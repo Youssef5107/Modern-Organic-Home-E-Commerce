@@ -84,42 +84,15 @@ export default function Header() {
                 key={item.id}
                 className={`font-headline-lg py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors ${isActive ? "text-primary" : "text-on-surface"}`}
                 to={`/${item.pathName}`}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "auto" });
+                  setIsMenuOpen(false);
+                }}
               >
                 {item.name}
               </Link>
             );
           })}
-
-          {/* <Link
-            className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
-            to={"/shop"}
-          >
-            Shop All
-          </Link>
-          <Link
-            className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
-            to={"/home#New-Arrivals"}
-          >
-            New Arrivals
-          </Link>
-          <Link
-            className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
-            to={"/home/our-story"}
-          >
-            Our Story
-          </Link>
-          <Link
-            className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
-            to={"profile/saved-items"}
-          >
-            Saved Items
-          </Link>
-          <Link
-            className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
-            to={"/profile/account-settings"}
-          >
-            Account Settings
-          </Link> */}
         </nav>
 
         {/* Brand Details / Footer */}
