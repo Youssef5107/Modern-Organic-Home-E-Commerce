@@ -19,6 +19,7 @@ export default function BottomNavBar() {
 
   const getActiveTab = () => {
     if (pathname === "/" || pathname === "/home") return "home";
+    if (pathname === "/home/our-story") return "home";
     if (pathname === "/shop/ceramics") return "shop";
     if (pathname === "/shop/living-rooms") return "shop";
     if (pathname === "/shop/dining-rooms") return "shop";
@@ -50,6 +51,9 @@ export default function BottomNavBar() {
           <Link
             to={item.id === "home" ? "/home" : `/${item.id}`}
             key={item.id}
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "auto" });
+            }}
             className={`flex flex-col items-center justify-center px-5 py-1 transition-all active:scale-90 relative rounded-full ${
               isActive
                 ? "bg-[#e0e5cc] text-[#626753]"

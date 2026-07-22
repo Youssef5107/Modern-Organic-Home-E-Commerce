@@ -68,6 +68,9 @@ export default function Shop() {
             <Link
               className="font-label-md text-primary underline underline-offset-4 hover:opacity-70 transition-opacity"
               to={"./ceramics"}
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
             >
               View All
             </Link>
@@ -144,6 +147,9 @@ export default function Shop() {
               Living Room
             </h3>
             <Link
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
               className="font-label-md text-primary underline underline-offset-4 hover:opacity-70 transition-opacity"
               to={"./living-rooms"}
             >
@@ -228,6 +234,9 @@ export default function Shop() {
             <Link
               className="font-label-md text-primary underline underline-offset-4 hover:opacity-70 transition-opacity"
               to={"./dining-rooms"}
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
             >
               View All
             </Link>
@@ -311,6 +320,9 @@ export default function Shop() {
             <Link
               className="font-label-md text-primary underline underline-offset-4 hover:opacity-70 transition-opacity"
               to={"./bedrooms"}
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
             >
               View All
             </Link>

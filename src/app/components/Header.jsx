@@ -6,12 +6,40 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import PublicIcon from "@mui/icons-material/Public";
 import ShareIcon from "@mui/icons-material/Share";
 import MailIcon from "@mui/icons-material/Mail";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const muiIconStyle = { color: "inherit", fontSize: "24px" };
+
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  const getActiveLink = () => {
+    if (location.pathname + location.hash === "/home#New-Arrivals")
+      return "new-arrivals";
+    if (pathname === "/home") return "home";
+    if (pathname === "/home/our-story") return "our-story";
+    if (pathname === "/shop") return "shop";
+    if (pathname === "/profile/saved-items") return "saved-items";
+    if (pathname === "/profile/account-settings") return "account-settings";
+    return "home";
+  };
+  const activeLink = getActiveLink();
+
+  const navItems = [
+    { id: "home", pathName: "home", name: "Home" },
+    { id: "shop", pathName: "shop", name: "Shop All" },
+    { id: "new-arrivals", pathName: "home#New-Arrivals", name: "New Arrivals" },
+    { id: "our-story", pathName: "home/our-story", name: "Our Story" },
+    { id: "saved-items", pathName: "profile/saved-items", name: "Saved Items" },
+    {
+      id: "account-settings",
+      pathName: "profile/account-settings",
+      name: "Account Settings",
+    },
+  ];
 
   return (
     <>
@@ -49,42 +77,49 @@ export default function Header() {
 
         {/* Navigation Links */}
         <nav className="flex flex-col gap-2 p-6 flex-grow overflow-y-auto">
-          <Link
-            className="font-headline-lg text-primary py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
+          {navItems.map((item) => {
+            const isActive = activeLink === item.id;
+            return (
+              <Link
+                key={item.id}
+                className={`font-headline-lg py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors ${isActive ? "text-primary" : "text-on-surface"}`}
+                to={`/${item.pathName}`}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
+
+          {/* <Link
+            className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
             to={"/shop"}
           >
             Shop All
           </Link>
           <Link
             className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
-            to={"/home"}
+            to={"/home#New-Arrivals"}
           >
             New Arrivals
           </Link>
-          <a
+          <Link
             className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
-            href="#"
-          >
-            Collections
-          </a>
-          <a
-            className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
-            href="#"
+            to={"/home/our-story"}
           >
             Our Story
-          </a>
+          </Link>
           <Link
             className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
             to={"profile/saved-items"}
           >
             Saved Items
           </Link>
-          <a
+          <Link
             className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
-            href="#"
+            to={"/profile/account-settings"}
           >
-            Account
-          </a>
+            Account Settings
+          </Link> */}
         </nav>
 
         {/* Brand Details / Footer */}
