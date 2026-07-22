@@ -76,6 +76,9 @@ export default function Profile() {
             <Link
               className="flex items-center justify-between p-5 hover:bg-[#f5f3ee] transition-colors border-b border-[#f0eee9] group"
               to="/orders"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
             >
               <div className="flex items-center gap-4">
                 <span className="material-symbols-outlined text-[#8c4b3e]">
@@ -93,6 +96,9 @@ export default function Profile() {
             <Link
               className="flex items-center justify-between p-5 hover:bg-[#f5f3ee] transition-colors border-b border-[#f0eee9] group"
               to="/profile/saved-items"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
             >
               <div className="flex items-center gap-4">
                 <span className="material-symbols-outlined text-[#8c4b3e]">
@@ -110,6 +116,9 @@ export default function Profile() {
             <Link
               className="flex items-center justify-between p-5 hover:bg-[#f5f3ee] transition-colors border-b border-[#f0eee9] group"
               to="/addresses"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
             >
               <div className="flex items-center gap-4">
                 <span className="material-symbols-outlined text-[#8c4b3e]">
@@ -132,6 +141,9 @@ export default function Profile() {
             <Link
               className="flex items-center justify-between p-5 hover:bg-[#f5f3ee] transition-colors border-b border-[#f0eee9] group"
               to="/payment"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
             >
               <div className="flex items-center gap-4">
                 <span className="material-symbols-outlined text-[#8c4b3e]">
@@ -149,6 +161,9 @@ export default function Profile() {
             <Link
               className="flex items-center justify-between p-5 hover:bg-[#f5f3ee] transition-colors group"
               to="/profile/account-settings"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
             >
               <div className="flex items-center gap-4">
                 <span className="material-symbols-outlined text-[#8c4b3e]">

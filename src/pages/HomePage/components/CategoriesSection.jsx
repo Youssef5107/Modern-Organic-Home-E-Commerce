@@ -14,13 +14,22 @@ export default function CategoriesSection() {
         <Link
           to={"/shop"}
           className="font-label-md text-label-md text-primary underline underline-offset-4 hover:text-primary-container transition-colors"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "auto" });
+          }}
         >
           View All Categories
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
         {/* Living Room Card */}
-        <Link to={"/shop/living-rooms"} className="group cursor-pointer">
+        <Link
+          to={"/shop/living-rooms"}
+          className="group cursor-pointer"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "auto" });
+          }}
+        >
           <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
@@ -40,7 +49,13 @@ export default function CategoriesSection() {
         </Link>
 
         {/* Bedroom Card */}
-        <Link to={"/shop/bedrooms"} className="group cursor-pointer">
+        <Link
+          to={"/shop/bedrooms"}
+          className="group cursor-pointer"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "auto" });
+          }}
+        >
           <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
@@ -60,7 +75,13 @@ export default function CategoriesSection() {
         </Link>
 
         {/* Dining Card */}
-        <Link to={"/shop/dining-rooms"} className="group cursor-pointer">
+        <Link
+          to={"/shop/dining-rooms"}
+          className="group cursor-pointer"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "auto" });
+          }}
+        >
           <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"

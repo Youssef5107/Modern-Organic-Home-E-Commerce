@@ -26,6 +26,9 @@ export default function HeroSection() {
             <Link
               to={"/shop"}
               className="bg-primary text-on-primary px-8 py-4 rounded-full font-label-md text-label-md hover:shadow-lg transition-all active:scale-95"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
             >
               Explore Collection
             </Link>

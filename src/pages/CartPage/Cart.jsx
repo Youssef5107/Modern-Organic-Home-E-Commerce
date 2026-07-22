@@ -290,7 +290,21 @@ export default function Cart() {
                 </span>
               </div>
             </div>
-
+            <div className="mb-8">
+              <label className="font-label-sm text-on-surface-variant block mb-2">
+                PROMO CODE
+              </label>
+              <div className="flex gap-2">
+                <input
+                  className="flex-grow bg-surface-container-low border border-outline-variant rounded-lg px-4 py-2 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant/40"
+                  placeholder="Enter code"
+                  type="text"
+                />
+                <button className="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-label-md hover:opacity-90 transition-opacity">
+                  Apply
+                </button>
+              </div>
+            </div>
             <Link
               to="/cart/checkout"
               className="w-full bg-primary text-on-primary py-4 rounded-xl font-label-md text-lg tracking-wide hover:bg-primary-container transition-all active:scale-[0.98] duration-200 shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
