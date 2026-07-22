@@ -1,18 +1,18 @@
 import "./App.css";
 import "./index.css";
-import Home from "./components/HomePage/Home";
-import BottomNavBar from "./components/BottomNavBar";
-import Header from "./components/Header";
-import Shop from "./components/ShopPage/Shop";
-import Cart from "./components/CartPage/Cart";
-import Profile from "./components/ProfilePage/Profile";
-import Checkout from "./components/CheckoutPage/Checkout";
+import Home from "./pages/HomePage/Home";
+import BottomNavBar from "./app/components/BottomNavBar";
+import Header from "./app/components/Header";
+import Shop from "./pages/ShopPage/Shop";
+import Cart from "./pages/CartPage/Cart";
+import Profile from "./pages/ProfilePage/Profile";
+import Checkout from "./pages/CheckoutPage/Checkout";
 import { Route, Routes, Navigate } from "react-router-dom";
-import CeramicsCollection from "./components/ceramicsCollectionPage/ceramicsCollection";
-import LivingRoomCollection from "./components/livingRoomCollectionPage/LivingRoomCollection";
-import DiningCollection from "./components/diningCollectionPage/DiningCollection";
-import BedroomCollection from "./components/bedroomCollectionPage/BedroomCollection";
-import SavedItems from "./components/savedItemsPage/SavedItems";
+import CeramicsCollection from "./pages/ceramicsCollectionPage/ceramicsCollection";
+import LivingRoomCollection from "./pages/livingRoomCollectionPage/LivingRoomCollection";
+import DiningCollection from "./pages/diningCollectionPage/DiningCollection";
+import BedroomCollection from "./pages/bedroomCollectionPage/BedroomCollection";
+import SavedItems from "./pages/savedItemsPage/SavedItems";
 
 function App() {
   return (

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import data from "../data/products.json";
+import data from "../../data/products.json";
 
 export default function BottomNavBar() {
   const location = useLocation();

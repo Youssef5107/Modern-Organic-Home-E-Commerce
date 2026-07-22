@@ -49,18 +49,18 @@ export default function Header() {
 
         {/* Navigation Links */}
         <nav className="flex flex-col gap-2 p-6 flex-grow overflow-y-auto">
-          <a
+          <Link
             className="font-headline-lg text-primary py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
-            href="#"
+            to={"/shop"}
           >
             Shop All
-          </a>
-          <a
+          </Link>
+          <Link
             className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
-            href="#"
+            to={"/home"}
           >
             New Arrivals
-          </a>
+          </Link>
           <a
             className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
             href="#"
@@ -73,12 +73,12 @@ export default function Header() {
           >
             Our Story
           </a>
-          <a
+          <Link
             className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
-            href="#"
+            to={"profile/saved-items"}
           >
-            Journal
-          </a>
+            Saved Items
+          </Link>
           <a
             className="font-headline-lg text-on-surface py-3 px-2 rounded-lg hover:bg-primary/5 transition-colors"
             href="#"
