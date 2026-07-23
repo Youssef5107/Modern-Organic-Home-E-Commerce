@@ -15,6 +15,7 @@ import BedroomCollection from "./pages/bedroomCollectionPage/BedroomCollection";
 import SavedItems from "./pages/savedItemsPage/SavedItems";
 import AccountSettings from "./pages/accountSettingsPage/AccountSettings";
 import OurStory from "./pages/ourStoryPage/OurStory";
+import CardDetailsView from "./pages/cardDetailsViewPage/CardDetailsView";
 
 function App() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/home/our-story" element={<OurStory />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/shop/card-details-view" element={<CardDetailsView />} />
           <Route path="/shop/ceramics" element={<CeramicsCollection />} />
           <Route path="/shop/living-rooms" element={<LivingRoomCollection />} />
           <Route path="/shop/dining-rooms" element={<DiningCollection />} />

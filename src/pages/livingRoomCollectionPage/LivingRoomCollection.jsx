@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleFavorite,
   toggleAddedProducts,
+  viewCardDetails,
 } from "../../features/togglreFavorites/toggleProductsInfoSlice";
 import data from "../../data/products.json";
 
@@ -77,8 +79,12 @@ export default function LivingRoomCollection() {
           const isAdded = addedIds.includes(product.id);
           console.log(isFavorited);
           return (
-            <div
+            <Link
               key={product.id}
+              to={`/shop/card-details-view#${product.name}`}
+              onClick={() => {
+                dispatch(viewCardDetails(product.id));
+              }}
               className="group flex flex-col cursor-pointer"
             >
               <div className="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container">
@@ -129,7 +135,7 @@ export default function LivingRoomCollection() {
                   {product.price}
                 </p>
               </div>
-            </div>
+            </Link>
           );
         })}
       </section>

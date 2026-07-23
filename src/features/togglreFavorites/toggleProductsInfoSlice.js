@@ -34,6 +34,7 @@ const initialState = {
   favoriteIds: loadFavorites(),
   addedIds: loadAddedProducts(),
   quantities: loadStoredQuantities(),
+  selectedCardId: null,
 };
 
 export const toggleProductsInfoSlice = createSlice({
@@ -85,6 +86,10 @@ export const toggleProductsInfoSlice = createSlice({
         );
       }
     },
+    viewCardDetails: (state, action) => {
+      const productId = action.payload;
+      state.selectedCardId = productId;
+    },
   },
 });
 
@@ -93,6 +98,7 @@ export const {
   toggleAddedProducts,
   incrementQuantity,
   decrementQuantity,
+  viewCardDetails,
 } = toggleProductsInfoSlice.actions;
 
 export default toggleProductsInfoSlice.reducer;
