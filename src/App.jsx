@@ -23,11 +23,12 @@ function App() {
   return (
     <>
       {pathName == "/profile/account-settings" ||
-      pathName == "/profile/saved-items" ? null : (
+      pathName == "/profile/saved-items" ||
+      pathName.includes("card-details-view") ? null : (
         <Header />
       )}
       <main
-        className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName == "/profile/account-settings" ? "pb-20" : "pb-32"}`}
+        className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName == "/profile/account-settings" || pathName.includes("card-details-view") ? "pb-20" : "pb-32"}`}
       >
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
