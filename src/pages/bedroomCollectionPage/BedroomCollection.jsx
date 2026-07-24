@@ -61,7 +61,7 @@ export default function BedroomCollection() {
             <div key={product.id} className="product-card group">
               <div className="relative aspect-square rounded-xl overflow-hidden bg-surface-container mb-4 cursor-pointer">
                 <Link
-                  to={`/shop/dining-rooms/card-details-view#${product.name}`}
+                  to={`/shop/bedrooms/card-details-view#${product.name}`}
                   className="product-card group"
                   onClick={() => {
                     dispatch(viewCardDetails(product.id));
