@@ -58,9 +58,14 @@ function App() {
           <Route path="/shop/dining-rooms" element={<DiningCollection />} />
           <Route path="/shop/bedrooms" element={<BedroomCollection />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/cart/card-details-view" element={<CardDetailsView />} />
           <Route path="cart/checkout" element={<Checkout />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/saved-items" element={<SavedItems />} />
+          <Route
+            path="/profile/saved-items/card-details-view"
+            element={<CardDetailsView />}
+          />
           <Route
             path="/profile/account-settings"
             element={<AccountSettings />}

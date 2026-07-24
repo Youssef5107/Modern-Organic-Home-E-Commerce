@@ -25,6 +25,7 @@ export default function BottomNavBar() {
     if (pathname === "/shop/dining-rooms") return "shop";
     if (pathname === "/shop/bedrooms") return "shop";
     if (pathname === "/shop") return "shop";
+    if (pathname.includes("/card-details-view")) return "shop";
     if (pathname === "/cart") return "cart";
     if (pathname === "/cart/checkout") return "cart";
     if (pathname === "/profile") return "profile";

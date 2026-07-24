@@ -5,6 +5,7 @@ import {
   toggleAddedProducts,
   incrementQuantity,
   decrementQuantity,
+  viewCardDetails,
 } from "../../features/togglreFavorites/toggleProductsInfoSlice";
 
 export default function Cart() {
@@ -74,11 +75,20 @@ export default function Cart() {
                     className="flex flex-col sm:flex-row gap-base md:gap-stack-sm bg-surface-container-lowest p-4 rounded-xl organic-shadow group transition-all duration-300"
                   >
                     <div className="w-full sm:w-32 h-40 flex-shrink-0 bg-surface-container rounded-lg overflow-hidden relative border border-surface-variant/20">
-                      <img
-                        className="w-full h-full object-cover"
-                        src={product.image_url}
-                        alt={product.name}
-                      />
+                      <Link
+                        to={`/cart/card-details-view#${product.name}`}
+                        className="product-card group"
+                        onClick={() => {
+                          dispatch(viewCardDetails(product.id));
+                          window.scrollTo({ top: 0, behavior: "auto" });
+                        }}
+                      >
+                        <img
+                          className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
+                          alt={product.name}
+                          src={product.image_url}
+                        />
+                      </Link>
                     </div>
                     <div className="flex-grow flex flex-col justify-between py-1">
                       <div className="flex justify-between items-start">

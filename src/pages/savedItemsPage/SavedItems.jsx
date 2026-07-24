@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../../features/togglreFavorites/toggleProductsInfoSlice";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import data from "../../data/products.json";
+import { viewCardDetails } from "../../features/togglreFavorites/toggleProductsInfoSlice";
 
 export default function SavedItems() {
   const muiIconStyle = { color: "inherit", fontSize: "24px" };
@@ -70,11 +71,20 @@ export default function SavedItems() {
                   className="group flex flex-col animate-in fade-in duration-700"
                 >
                   <div className="relative aspect-square overflow-hidden rounded-xl bg-surface-container-low product-card-shadow transition-all duration-300">
-                    <img
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      src={product.image_url}
-                    />
+                    <Link
+                      to={`/profile/saved-items/card-details-view#${product.name}`}
+                      className="product-card group"
+                      onClick={() => {
+                        dispatch(viewCardDetails(product.id));
+                        window.scrollTo({ top: 0, behavior: "auto" });
+                      }}
+                    >
+                      <img
+                        className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
+                        alt={product.name}
+                        src={product.image_url}
+                      />
+                    </Link>
                     <button
                       className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity card-favorite-btn ${isFavorited ? "card-favorite-btn-active" : ""}`}
                       onClick={(e) => {
