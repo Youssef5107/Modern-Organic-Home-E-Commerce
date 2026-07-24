@@ -4,7 +4,7 @@ import {
   toggleFavorite,
   toggleAddedProducts,
   viewCardDetails,
-} from "../../features/togglreFavorites/toggleProductsInfoSlice";
+} from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 import data from "../../data/products.json";
 
 const livingRoomProducts = data.collections.find(

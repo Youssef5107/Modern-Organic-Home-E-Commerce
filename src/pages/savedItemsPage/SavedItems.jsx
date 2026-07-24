@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleFavorite } from "../../features/togglreFavorites/toggleProductsInfoSlice";
+import { toggleFavorite } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import data from "../../data/products.json";
-import { viewCardDetails } from "../../features/togglreFavorites/toggleProductsInfoSlice";
+import { viewCardDetails } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
 export default function SavedItems() {
   const muiIconStyle = { color: "inherit", fontSize: "24px" };

@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   toggleFavorite,
   toggleAddedProducts,
-} from "../../features/togglreFavorites/toggleProductsInfoSlice";
+} from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 import data from "../../data/products.json";
 import { useNavigate } from "react-router-dom";
 

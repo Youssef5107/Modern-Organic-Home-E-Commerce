@@ -4,7 +4,7 @@ import {
   toggleFavorite,
   toggleAddedProducts,
   viewCardDetails,
-} from "../../../features/togglreFavorites/toggleProductsInfoSlice";
+} from "../../../features/toggleProductsInfo/toggleProductsInfoSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const newArrivals = data.collections

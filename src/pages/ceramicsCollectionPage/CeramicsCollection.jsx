@@ -5,7 +5,7 @@ import {
   toggleFavorite,
   toggleAddedProducts,
   viewCardDetails,
-} from "../../features/togglreFavorites/toggleProductsInfoSlice";
+} from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
 const ceramicsProducts = data.collections.find(
   (collection) => collection.id === "ceramics",

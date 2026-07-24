@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import toggleProductsInfoSlice from "../features/togglreFavorites/toggleProductsInfoSlice";
+import toggleProductsInfoSlice from "../features/toggleProductsInfo/toggleProductsInfoSlice";
 
 export const store = configureStore({
   reducer: {

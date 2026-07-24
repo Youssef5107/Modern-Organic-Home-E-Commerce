@@ -6,7 +6,7 @@ import {
   incrementQuantity,
   decrementQuantity,
   viewCardDetails,
-} from "../../features/togglreFavorites/toggleProductsInfoSlice";
+} from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
 export default function Cart() {
   const dispatch = useDispatch();
