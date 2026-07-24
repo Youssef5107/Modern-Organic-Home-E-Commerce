@@ -18,13 +18,35 @@ export default function CardDetailsView() {
   const selectedCard = allProducts.find(
     (product) => product.id == selectedCardId,
   );
-  const isFavorited = favoriteIds.includes(selectedCard.id);
-  console.log(selectedCard);
+
+  const isFavorited = selectedCard
+    ? favoriteIds.includes(selectedCard.id)
+    : false;
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
-  const isAdded = addedIds.includes(selectedCard.id);
+  const isAdded = selectedCard ? addedIds.includes(selectedCard.id) : false;
 
   const [isReviewFormOpen, setIsReviewFormOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [rating, setRating] = useState(0);
+
+  const handleToggleReviewForm = () => {
+    if (isReviewFormOpen) {
+      setIsClosing(true);
+    } else {
+      setIsReviewFormOpen(true);
+      setIsClosing(false);
+    }
+  };
+
+  // Callback when animation completes
+  const handleAnimationEnd = () => {
+    if (isClosing) {
+      setIsReviewFormOpen(false); // Unmount after exit animation finishes
+      setIsClosing(false);
+    }
+  };
+
+  if (!selectedCard) return null;
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-on-surface animate-page-enter">
@@ -59,10 +81,16 @@ export default function CardDetailsView() {
           {/* Hero Section / Gallery */}
           <section className="mt-base md:mt-stack-md grid grid-cols-1 lg:grid-cols-2 gap-gutter items-start">
             <div className="relative aspect-[1.79] lg:aspect-square rounded-xl overflow-hidden organic-shadow bg-surface-container-low">
-              <img src={selectedCard.image_url} className="w-fill h-full" />
+              <img
+                src={selectedCard.image_url}
+                className="w-full h-full object-cover"
+                alt={selectedCard.name}
+              />
               <div className="absolute top-4 right-4">
                 <button
-                  className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-opacity card-favorite-btn ${isFavorited ? "card-favorite-btn-active" : ""}`}
+                  className={`w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-opacity card-favorite-btn ${
+                    isFavorited ? "card-favorite-btn-active" : ""
+                  }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     dispatch(toggleFavorite(selectedCard.id));
@@ -97,8 +125,7 @@ export default function CardDetailsView() {
                     star
                   </span>
                   <span className="font-label-md text-label-md ml-1">
-                    {selectedCard.rating} ({selectedCard.review_count}{" "}
-                    reviews){" "}
+                    {selectedCard.rating} ({selectedCard.review_count} reviews)
                   </span>
                 </div>
               </div>
@@ -206,16 +233,21 @@ export default function CardDetailsView() {
               </div>
 
               <button
-                onClick={() => setIsReviewFormOpen(!isReviewFormOpen)}
+                onClick={handleToggleReviewForm}
                 className="font-label-md text-label-md text-primary underline underline-offset-4 hover:text-primary-container transition-colors"
               >
-                {isReviewFormOpen ? "Cancel" : "Write a review"}
+                {isReviewFormOpen && !isClosing ? "Cancel" : "Write a review"}
               </button>
             </div>
 
-            {/* Review Form */}
+            {/* ANIMATED REVIEW FORM */}
             {isReviewFormOpen && (
-              <div className="mb-stack-lg bg-surface-container-low p-gutter rounded-xl border border-outline-variant/20">
+              <div
+                onAnimationEnd={handleAnimationEnd}
+                className={`mb-stack-lg bg-surface-container-low p-gutter rounded-xl border border-outline-variant/20 ${
+                  isClosing ? "animate-page-exit" : "animate-page-enter"
+                }`}
+              >
                 <h4 className="font-label-md text-label-md mb-4">
                   YOUR FEEDBACK
                 </h4>
@@ -231,7 +263,9 @@ export default function CardDetailsView() {
                         <span
                           className="material-symbols-outlined"
                           style={{
-                            fontVariationSettings: `'FILL' ${rating >= starIndex ? 1 : 0}`,
+                            fontVariationSettings: `'FILL' ${
+                              rating >= starIndex ? 1 : 0
+                            }`,
                           }}
                         >
                           star
@@ -252,8 +286,11 @@ export default function CardDetailsView() {
 
             {/* List of Comments */}
             <div className="space-y-stack-md">
-              {selectedCard.reviews.map((review) => (
-                <div className="flex flex-col space-y-2 pb-stack-sm border-b border-outline-variant/20">
+              {selectedCard.reviews?.map((review, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col space-y-2 pb-stack-sm border-b border-outline-variant/20"
+                >
                   <div className="flex justify-between items-start">
                     <div>
                       <span className="font-label-md text-label-md text-on-surface">

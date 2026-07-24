@@ -132,7 +132,7 @@
 @keyframes page-fade-in {
   from {
     opacity: 0;
-    transform: translateY(20px); /* A gentler lift for page transitions */
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -140,8 +140,23 @@
   }
 }
 
+@keyframes page-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
 .animate-page-enter {
   animation: page-fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-page-exit {
+  animation: page-fade-out 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .card-favorite-btn {
