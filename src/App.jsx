@@ -8,7 +8,7 @@ import Cart from "./pages/CartPage/Cart";
 import Profile from "./pages/ProfilePage/Profile";
 import Checkout from "./pages/CheckoutPage/Checkout";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
-import CeramicsCollection from "./pages/ceramicsCollectionPage/ceramicsCollection";
+import CeramicsCollection from "./pages/ceramicsCollectionPage/CeramicsCollection";
 import LivingRoomCollection from "./pages/livingRoomCollectionPage/LivingRoomCollection";
 import DiningCollection from "./pages/diningCollectionPage/DiningCollection";
 import BedroomCollection from "./pages/bedroomCollectionPage/BedroomCollection";
