@@ -142,7 +142,6 @@ export default function CeramicsCollection() {
                   />
                 </Link>
 
-                {/* Favorite Button */}
                 <button
                   className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-all card-favorite-btn ${
                     isFavorited
@@ -218,12 +217,13 @@ export default function CeramicsCollection() {
                 placeholder="Email address"
                 type="email"
               />
-              <button
+              <Link
+                to={"/home"}
                 className="bg-primary text-on-primary font-label-md text-label-md px-8 py-4 rounded-xl hover:opacity-90 transition-opacity active:scale-[0.98]"
                 type="submit"
               >
                 Subscribe
-              </button>
+              </Link>
             </form>
           </div>
           <div className="hidden md:flex justify-end">
