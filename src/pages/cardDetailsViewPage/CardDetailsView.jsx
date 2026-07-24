@@ -1,6 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { toggleFavorite } from "../../features/togglreFavorites/toggleProductsInfoSlice";
+import {
+  toggleFavorite,
+  toggleAddedProducts,
+} from "../../features/togglreFavorites/toggleProductsInfoSlice";
 import data from "../../data/products.json";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +20,8 @@ export default function CardDetailsView() {
   );
   const isFavorited = favoriteIds.includes(selectedCard.id);
   console.log(selectedCard);
+  const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
+  const isAdded = addedIds.includes(selectedCard.id);
 
   const [isReviewFormOpen, setIsReviewFormOpen] = useState(false);
   const [rating, setRating] = useState(0);
@@ -128,8 +133,27 @@ export default function CardDetailsView() {
 
               {/* Add to Cart */}
               <div className="pt-stack-md">
-                <button className="w-full bg-primary text-on-primary py-4 rounded-xl font-label-md text-label-md hover:bg-primary-container transition-all shadow-md active:scale-95 duration-150 flex items-center justify-center gap-2">
-                  ADD TO CART — $185.00
+                <button
+                  className={`w-full py-4 rounded-xl font-label-md text-label-md transition-all shadow-md active:scale-95 duration-150 flex items-center justify-center gap-2 ${
+                    isAdded
+                      ? "bg-surface border-2 border-primary text-primary hover:bg-primary/5"
+                      : "bg-primary text-on-primary hover:bg-primary-container"
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(toggleAddedProducts(selectedCard.id));
+                  }}
+                >
+                  {isAdded ? (
+                    <>
+                      <span className="material-symbols-outlined text-[20px]">
+                        check_circle
+                      </span>
+                      Added to Cart — Remove
+                    </>
+                  ) : (
+                    `ADD TO CART — $${selectedCard.price}`
+                  )}
                 </button>
               </div>
             </div>
