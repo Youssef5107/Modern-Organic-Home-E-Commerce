@@ -79,20 +79,22 @@ export default function LivingRoomCollection() {
           const isAdded = addedIds.includes(product.id);
           console.log(isFavorited);
           return (
-            <Link
-              key={product.id}
-              to={`/shop/card-details-view#${product.name}`}
-              onClick={() => {
-                dispatch(viewCardDetails(product.id));
-              }}
-              className="group flex flex-col cursor-pointer"
-            >
-              <div className="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container">
-                <img
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  alt="A premium solid walnut coffee table with a smooth, hand-finished matte texture, positioned in a bright, minimalist living room with floor-to-ceiling windows. The lighting is warm and natural, casting soft, diffused shadows. The aesthetic is modern organic with a palette of deep wood tones and creamy neutrals."
-                  src={product.image_url}
-                />
+            <div key={product.id} className="product-card group">
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-surface-container mb-4 cursor-pointer">
+                <Link
+                  to={`/shop/dining-rooms/card-details-view#${product.name}`}
+                  className="product-card group"
+                  onClick={() => {
+                    dispatch(viewCardDetails(product.id));
+                    window.scrollTo({ top: 0, behavior: "auto" });
+                  }}
+                >
+                  <img
+                    className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
+                    alt={product.name}
+                    src={product.image_url}
+                  />
+                </Link>
                 <button
                   className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity card-favorite-btn ${isFavorited ? "card-favorite-btn-active" : ""}`}
                   onClick={(e) => {
@@ -135,7 +137,7 @@ export default function LivingRoomCollection() {
                   {product.price}
                 </p>
               </div>
-            </Link>
+            </div>
           );
         })}
       </section>

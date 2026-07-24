@@ -2,8 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { toggleFavorite } from "../../features/togglreFavorites/toggleProductsInfoSlice";
 import data from "../../data/products.json";
+import { useNavigate } from "react-router-dom";
 
 export default function CardDetailsView() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const selectedCardId = useSelector(
     (state) => state.ProductsInfo.selectedCardId,
@@ -24,6 +26,9 @@ export default function CardDetailsView() {
       {/* TopAppBar */}
       <header className="fixed top-0 left-0 w-full z-50 bg-surface shadow-sm opacity-90 px-5 md:px-margin-desktop h-16 flex justify-between items-center">
         <button
+          onClick={() =>
+            window.history.state?.idx > 0 ? navigate(-1) : navigate("/")
+          }
           aria-label="Go back"
           className="hover:bg-surface-variant/50 transition-colors duration-200 p-2 rounded-full active:scale-95 transition-transform duration-150"
         >

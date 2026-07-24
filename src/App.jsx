@@ -34,8 +34,25 @@ function App() {
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
           <Route path="/home/our-story" element={<OurStory />} />
+          <Route path="/home/card-details-view" element={<CardDetailsView />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/shop/card-details-view" element={<CardDetailsView />} />
+          <Route
+            path="/shop/ceramics/card-details-view"
+            element={<CardDetailsView />}
+          />
+          <Route
+            path="/shop/living-rooms/card-details-view"
+            element={<CardDetailsView />}
+          />
+          <Route
+            path="/shop/dining-rooms/card-details-view"
+            element={<CardDetailsView />}
+          />
+          <Route
+            path="/shop/bedrooms/card-details-view"
+            element={<CardDetailsView />}
+          />
           <Route path="/shop/ceramics" element={<CeramicsCollection />} />
           <Route path="/shop/living-rooms" element={<LivingRoomCollection />} />
           <Route path="/shop/dining-rooms" element={<DiningCollection />} />

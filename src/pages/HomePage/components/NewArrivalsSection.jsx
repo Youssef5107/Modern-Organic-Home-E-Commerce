@@ -1,7 +1,9 @@
 import data from "../../../data/products.json";
+import { Link } from "react-router-dom";
 import {
   toggleFavorite,
   toggleAddedProducts,
+  viewCardDetails,
 } from "../../../features/togglreFavorites/toggleProductsInfoSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -27,11 +29,20 @@ export default function NewArrivalsSection() {
           return (
             <div className="group flex flex-col">
               <div className="relative aspect-square bg-surface-container rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-md transition-all duration-300">
-                <img
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  src={product.image_url}
-                  alt={product.name}
-                />
+                <Link
+                  to={`/home/card-details-view#${product.name}`}
+                  className="product-card group"
+                  onClick={() => {
+                    dispatch(viewCardDetails(product.id));
+                    window.scrollTo({ top: 0, behavior: "auto" });
+                  }}
+                >
+                  <img
+                    className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
+                    alt={product.name}
+                    src={product.image_url}
+                  />
+                </Link>
                 <button
                   className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-all card-favorite-btn ${
                     isFavorited

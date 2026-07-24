@@ -1,8 +1,10 @@
 import data from "../../data/products.json";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleFavorite,
   toggleAddedProducts,
+  viewCardDetails,
 } from "../../features/togglreFavorites/toggleProductsInfoSlice";
 
 const bedroomProducts = data.collections.find(
@@ -58,11 +60,20 @@ export default function BedroomCollection() {
           return (
             <div key={product.id} className="product-card group">
               <div className="relative aspect-square rounded-xl overflow-hidden bg-surface-container mb-4 cursor-pointer">
-                <img
-                  className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
-                  alt={product.name}
-                  src={product.image_url}
-                />
+                <Link
+                  to={`/shop/dining-rooms/card-details-view#${product.name}`}
+                  className="product-card group"
+                  onClick={() => {
+                    dispatch(viewCardDetails(product.id));
+                    window.scrollTo({ top: 0, behavior: "auto" });
+                  }}
+                >
+                  <img
+                    className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
+                    alt={product.name}
+                    src={product.image_url}
+                  />
+                </Link>
 
                 {/* Favorite Button */}
                 <button

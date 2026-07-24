@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   toggleFavorite,
   toggleAddedProducts,
+  viewCardDetails,
 } from "../../features/togglreFavorites/toggleProductsInfoSlice";
 
 const ceramicsProducts = data.collections.find(
@@ -86,11 +87,20 @@ export default function Shop() {
                   className="group relative overflow-hidden bg-white rounded-xl [transition:transform_0.3s,box-shadow_0.3s] hover:-translate-y-1 hover:shadow-[0_12px_24px_rgba(111,52,41,0.08)]"
                 >
                   <div className="aspect-[4/5] overflow-hidden">
-                    <img
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      src={product.image_url}
-                    />
+                    <Link
+                      to={`/shop/card-details-view#${product.name}`}
+                      className="product-card group"
+                      onClick={() => {
+                        dispatch(viewCardDetails(product.id));
+                        window.scrollTo({ top: 0, behavior: "auto" });
+                      }}
+                    >
+                      <img
+                        className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
+                        alt={product.name}
+                        src={product.image_url}
+                      />
+                    </Link>
                     <button
                       className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-all card-favorite-btn ${
                         isFavorited
@@ -167,11 +177,20 @@ export default function Shop() {
                   className="group relative overflow-hidden bg-white rounded-xl [transition:transform_0.3s,box-shadow_0.3s] hover:-translate-y-1 hover:shadow-[0_12px_24px_rgba(111,52,41,0.08)] md:col-span-1"
                 >
                   <div className="aspect-video overflow-hidden">
-                    <img
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      src={product.image_url}
-                    />
+                    <Link
+                      to={`/shop/card-details-view#${product.name}`}
+                      className="product-card group"
+                      onClick={() => {
+                        dispatch(viewCardDetails(product.id));
+                        window.scrollTo({ top: 0, behavior: "auto" });
+                      }}
+                    >
+                      <img
+                        className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
+                        alt={product.name}
+                        src={product.image_url}
+                      />
+                    </Link>
                     <button
                       className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-all card-favorite-btn ${
                         isFavorited
@@ -252,11 +271,20 @@ export default function Shop() {
                   className="group relative overflow-hidden bg-white rounded-xl product-card-hover transition-all duration-300 md:col-span-1"
                 >
                   <div className="aspect-video overflow-hidden">
-                    <img
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      src={product.image_url}
-                    />
+                    <Link
+                      to={`/shop/card-details-view#${product.name}`}
+                      className="product-card group"
+                      onClick={() => {
+                        dispatch(viewCardDetails(product.id));
+                        window.scrollTo({ top: 0, behavior: "auto" });
+                      }}
+                    >
+                      <img
+                        className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
+                        alt={product.name}
+                        src={product.image_url}
+                      />
+                    </Link>
                     <button
                       className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-all card-favorite-btn ${
                         isFavorited
@@ -335,11 +363,20 @@ export default function Shop() {
               return (
                 <div key={product.id} className="group flex flex-col gap-4">
                   <div className="aspect-square bg-surface-container rounded-xl overflow-hidden relative">
-                    <img
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      src={product.image_url}
-                    />
+                    <Link
+                      to={`/shop/card-details-view#${product.name}`}
+                      className="product-card group"
+                      onClick={() => {
+                        dispatch(viewCardDetails(product.id));
+                        window.scrollTo({ top: 0, behavior: "auto" });
+                      }}
+                    >
+                      <img
+                        className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
+                        alt={product.name}
+                        src={product.image_url}
+                      />
+                    </Link>
                     <button
                       className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-all card-favorite-btn ${
                         isFavorited
