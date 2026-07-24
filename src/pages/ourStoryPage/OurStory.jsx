@@ -25,7 +25,7 @@ export default function OurStory() {
   }, [location]);
 
   return (
-    <div className="font-body-md overflow-x-hidden min-h-screen bg-background text-on-background">
+    <div className="font-body-md overflow-x-hidden min-h-screen bg-background text-on-background animate-page-enter">
       <div className="grain-overlay"></div>
 
       <main className="max-w-container-max mx-auto">

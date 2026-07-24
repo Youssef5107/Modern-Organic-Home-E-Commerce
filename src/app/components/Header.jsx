@@ -151,6 +151,9 @@ export default function Header() {
           <Link
             to={"/cart"}
             className="hidden md:flex hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 duration-200 items-center justify-center"
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "auto" });
+            }}
           >
             <ShoppingBagIcon style={muiIconStyle} />
           </Link>

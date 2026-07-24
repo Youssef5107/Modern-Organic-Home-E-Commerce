@@ -27,7 +27,7 @@ export default function CardDetailsView() {
   const [rating, setRating] = useState(0);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-on-surface">
+    <div className="flex flex-col min-h-screen bg-background text-on-surface animate-page-enter">
       {/* TopAppBar */}
       <header className="fixed top-0 left-0 w-full z-50 bg-surface shadow-sm opacity-90 px-5 md:px-margin-desktop h-16 flex justify-between items-center">
         <button

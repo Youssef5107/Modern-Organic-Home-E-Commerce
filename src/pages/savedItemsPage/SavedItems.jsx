@@ -19,7 +19,7 @@ export default function SavedItems() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col font-body-md text-body-md bg-surface-bright text-on-surface antialiased">
+    <div className="min-h-screen flex flex-col font-body-md text-body-md bg-surface-bright text-on-surface antialiased animate-page-enter">
       {/* TopAppBar */}
       <header className="fixed top-0 left-0 w-full z-50 bg-surface-bright dark:bg-surface-dim shadow-sm shadow-primary/5 px-margin-mobile md:px-margin-desktop py-4 flex justify-between items-center">
         <div className="flex items-center gap-4">

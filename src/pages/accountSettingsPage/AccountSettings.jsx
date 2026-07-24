@@ -7,7 +7,7 @@ export default function AccountSettings() {
   const [smsAlerts, setSmsAlerts] = useState(false);
 
   return (
-    <div className="bg-surface font-body-md text-on-surface selection:bg-primary-fixed min-h-screen">
+    <div className="bg-surface font-body-md text-on-surface selection:bg-primary-fixed min-h-screen animate-page-enter">
       {/* Top App Bar */}
       <header className="w-full top-0 sticky z-50 bg-surface shadow-sm shadow-primary/5 flex items-center justify-between px-margin-mobile h-16">
         <Link
