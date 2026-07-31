@@ -1,22 +1,27 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch --env-file=.env --experimental-strip-types --experimental-sqlite ./src/server.js"
+    "dev": "nodemon server.js",
+    "build": "tsc",
+    "seed": "prisma db seed",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push"
   },
-  "author": "",
-  "license": "ISC",
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "dependencies": {
-    "@prisma/client": "^7.9.1",
-    "bcryptjs": "^3.0.3",
+    "@prisma/client": "5.22",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
     "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "nodemon": "^3.1.14",
-    "pg": "^8.22.0",
-    "prisma": "^7.9.1"
+    "nodemon": "^3.1.14"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "prisma": "5.22",
+    "tsx": "^4.19.0"
   }
 }

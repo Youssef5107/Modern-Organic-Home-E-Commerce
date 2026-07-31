@@ -1,13 +1,97 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
-generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+datasource db {
+  provider = "postgresql" // or "mysql" / "sqlite" depending on your setup
+  url      = env("DATABASE_URL")
 }
 
-datasource db {
-  provider = "postgresql"
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  name        String
+  description String?
+  products    Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id           String   @id @default(uuid())
+  slug         String   @unique
+  name         String
+  series       String?
+  glaze        String?
+  price        Float
+  tags         String[]
+  imageUrl     String?  @map("image_url")
+  isFavorite   Boolean  @default(false) @map("is_favorite")
+  isNewArrival Boolean  @default(false) @map("is_new_arrival")
+  about        String?
+  material     String?
+  technique    String?
+  rating       Float    @default(0)
+  reviewCount  Int      @default(0) @map("review_count")
+
+  categoryId   String   @map("category_id")
+  category     Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  reviews      Review[]
+  favorites    Favorite[]
+  cartItems    CartItem[]
+
+  @@map("products")
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  name      String
+  date      String
+  rating    Float
+  comment   String
+  productId String   @map("product_id")
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  name      String?
+  password  String     // Remember to hash passwords when creating real users
+  createdAt DateTime   @default(now()) @map("created_at")
+
+  favorites Favorite[]
+  cartItems CartItem[]
+
+  @@map("users")
+}
+
+model Favorite {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  productId String   @map("product_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId]) // Prevents duplicate favorites for the same product
+  @@map("favorites")
+}
+
+model CartItem {
+  id        String   @id @default(uuid())
+  quantity  Int      @default(1)
+  userId    String   @map("user_id")
+  productId String   @map("product_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId]) // Ensures one cart line item per product per user
+  @@map("cart_items")
 }
