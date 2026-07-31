@@ -1,4 +1,4 @@
-import data from "../../data/products.json";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,15 +7,29 @@ import {
   viewCardDetails,
 } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
-const bedroomProducts = data.collections.find(
-  (collection) => collection.id === "bedroom",
-);
-
 export default function BedroomCollection() {
+  const [collection, setCollection] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:4003/api/shop/collections/ceramics")
+      .then((res) => res.json())
+      .then((data) => {
+        setCollection(data);
+        console.log(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
   const dispatch = useDispatch();
   const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
 
+  if (loading) return;
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md animate-page-enter">
       {/* Filter & Sort Bar */}
@@ -53,7 +67,7 @@ export default function BedroomCollection() {
 
       {/* Product Grid */}
       <section className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter reveal-on-scroll">
-        {bedroomProducts?.products.map((product) => {
+        {collection?.products.map((product) => {
           const isFavorited = favoriteIds.includes(product.id);
           const isAdded = addedIds.includes(product.id);
 
@@ -122,8 +136,7 @@ export default function BedroomCollection() {
                   </p>
                 </div>
                 <span className="font-label-md text-label-md text-primary">
-                  {data.currency}
-                  {product.price}
+                  ${product.price}
                 </span>
               </div>
             </div>
