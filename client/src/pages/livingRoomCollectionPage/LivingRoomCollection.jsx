@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleFavorite,
   toggleAddedProducts,
   viewCardDetails,
 } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
+
 import data from "../../data/products.json";
 
 const livingRoomProducts = data.collections.find(
@@ -12,6 +14,14 @@ const livingRoomProducts = data.collections.find(
 );
 
 export default function LivingRoomCollection() {
+  const [collection, setCollection] = useState(null);
+  useEffect(() => {
+    fetch("http://localhost:5003/api/shop/living-rooms")
+      .then((res) => res.json())
+      .then(setCollection)
+      .then(console.log(collection));
+  }, []);
+
   const dispatch = useDispatch();
   const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
