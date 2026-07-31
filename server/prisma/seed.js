@@ -740,7 +740,7 @@ const jsonData = {
           series: "Aged patina finish",
           price: 32.0,
           image_url:
-            "https://lh3.googleusercontent.com/aida-public/AB6AXuDhCVH5o7eG1-LuAe3xBaAe6DsGruYeprfBy_ptg4OzLXn0_zEIlbAg756W2gnDnrYVs_xhdtUjL2upYB4OiYK0RiiofIVit3wVSPcmJo47zg56tGcWsNhzxrCjPA1cFhCyxiaRTxprLHHsSdMCDB7fBxRqa1nmPD2RSUFHtyySbLxgUI76sTb7-0EF7ktqacXrVVquadwZd1uC0c8DhoHG4K9Mq9_DnU0fEc8i6n-YnTDJGII2pS4",
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuDhCVH5o7eG1-LuAa3xBaAe6DsGruYeprfBy_ptg4OzLXn0_zEIlbAg756W2gnDnrYVs_xhdtUjL2upYB4OiYK0RiiofIVit3wVSPcmJo47zg56tGcWsNhzxrCjPA1cFhCyxiaRTxprLHHsSdMCDB7fBxRqa1nmPD2RSUFHtyySbLxgUI76sTb7-0EF7ktqacXrVVquadwZd1uC0c8DhoHG4K9Mq9_DnU0fEc8i6n-YnTDJGII2pS4",
           is_favorite: false,
           is_new_arrival: false,
           about:

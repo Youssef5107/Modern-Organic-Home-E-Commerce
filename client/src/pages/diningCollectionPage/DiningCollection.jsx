@@ -1,4 +1,4 @@
-import data from "../../data/products.json";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,14 +7,29 @@ import {
   viewCardDetails,
 } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
-const diningRoomProducts = data.collections.find(
-  (collection) => collection.id === "dining",
-);
-
 export default function DiningCollection() {
+  const [collection, setCollection] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:4003/api/shop/collections/dining")
+      .then((res) => res.json())
+      .then((data) => {
+        setCollection(data);
+        console.log(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
   const dispatch = useDispatch();
   const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
+
+  if (loading) return;
 
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-stack-md pb-32 animate-page-enter">
@@ -89,7 +104,7 @@ export default function DiningCollection() {
           ></div>
         </div>
 
-        {diningRoomProducts?.products.map((product) => {
+        {collection?.products.map((product) => {
           const isFavorited = favoriteIds.includes(product.id);
           const isAdded = addedIds.includes(product.id);
 
@@ -158,8 +173,7 @@ export default function DiningCollection() {
                   </p>
                 </div>
                 <span className="font-label-md text-label-md text-primary">
-                  {data.currency}
-                  {product.price}
+                  ${product.price}
                 </span>
               </div>
             </div>
