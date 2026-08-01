@@ -1,4 +1,4 @@
-import data from "../../../data/products.json";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   toggleFavorite,
@@ -7,15 +7,35 @@ import {
 } from "../../../features/toggleProductsInfo/toggleProductsInfoSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const newArrivals = data.collections
-  .flatMap((collection) => collection.products || [])
-  .filter((product) => product.is_new_arrival)
-  .slice(0, 3);
-
 export default function NewArrivalsSection() {
+  const [newArrivals, setNewArrivals] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const dispatch = useDispatch();
   const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
+
+  useEffect(() => {
+    fetch("http://localhost:4003/api/shop/collections")
+      .then((res) => res.json())
+      .then((data) => {
+        const collections = data?.collections || [];
+        const arrivals = collections
+          .flatMap((collection) => collection.products || [])
+          .filter((product) => product.is_new_arrival)
+          .slice(0, 3);
+
+        setNewArrivals(arrivals);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch new arrivals:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return null;
+  if (!newArrivals.length) return null;
   return (
     <>
       <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-stack-md">
@@ -84,8 +104,7 @@ export default function NewArrivalsSection() {
                   </p>
                 </div>
                 <span className="font-label-md text-label-md text-primary">
-                  {data.currency}
-                  {product.price}
+                  ${product.price}
                 </span>
               </div>
             </div>

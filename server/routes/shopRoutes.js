@@ -4,6 +4,62 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const router = express.Router();
 
+router.get("/collections", async (req, res) => {
+  try {
+    const categories = await prisma.category.findMany({
+      include: {
+        products: {
+          include: {
+            reviews: true,
+          },
+        },
+      },
+    });
+
+    // Format all collections and their products to match your frontend structure
+    const formattedCollections = categories.map((category) => ({
+      id: category.slug,
+      title: category.name,
+      description: category.description ?? "",
+      products: category.products.map((p) => {
+        const reviewCount = p.reviews.length;
+        const avgRating =
+          reviewCount > 0
+            ? p.reviews.reduce((acc, r) => acc + r.rating, 0) / reviewCount
+            : (p.rating ?? 0);
+
+        return {
+          id: p.slug ?? p.id,
+          name: p.name,
+          series: p.series ?? null,
+          price: Number(p.price),
+          tags: p.tags ?? [],
+          glaze: p.glaze ?? null,
+          image_url: p.imageUrl ?? null,
+          is_favorite: p.isFavorite ?? false,
+          is_new_arrival: p.isNewArrival ?? false,
+          about: p.about ?? "",
+          material: p.material ?? null,
+          technique: p.technique ?? null,
+          rating: Number(avgRating.toFixed(1)),
+          review_count: p.reviewCount ?? reviewCount,
+          reviews: p.reviews.map((r) => ({
+            name: r.name ?? "Anonymous",
+            date: r.date,
+            rating: r.rating,
+            comment: r.comment,
+          })),
+        };
+      }),
+    }));
+
+    res.json({ collections: formattedCollections });
+  } catch (error) {
+    console.error("Error fetching all collections:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/collections/:categorySlug", async (req, res) => {
   try {
     const { categorySlug } = req.params;
