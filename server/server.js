@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import shopRoutes from "./routes/shopRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
-import testRoutes from "./routes/testRoutes.js";
+import testRoutes from "./test/testRoutes.js";
 import { fileURLToPath } from "url";
 import path from "path";
 
