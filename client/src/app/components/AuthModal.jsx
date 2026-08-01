@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { registerApi } from "../../features/apis/apiSlice";
+import { useDispatch } from "react-redux";
 
 export default function AuthModal({ onClose }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("login");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -148,6 +154,9 @@ export default function AuthModal({ onClose }) {
                       id="login-email"
                       type="email"
                       placeholder="hello@example.com"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
                       className="w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all"
                     />
                   </div>
@@ -171,6 +180,9 @@ export default function AuthModal({ onClose }) {
                       id="login-password"
                       type="password"
                       placeholder="••••••••"
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
                       className="w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all"
                     />
                   </div>
@@ -178,6 +190,9 @@ export default function AuthModal({ onClose }) {
                   <button
                     type="submit"
                     disabled={isSubmitting}
+                    onClick={() => {
+                      dispatch(registerApi({ email, password }));
+                    }}
                     className="w-full mt-4 bg-primary text-on-primary py-4 rounded-xl font-label-md text-label-md shadow-lg shadow-primary/10 hover:shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
