@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerApi } from "../../features/apis/apiSlice";
+import { loginApi } from "../../features/apis/apiSlice";
 import { useDispatch } from "react-redux";
 
 export default function AuthModal({ onClose }) {
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -153,6 +155,7 @@ export default function AuthModal({ onClose }) {
                     <input
                       id="login-email"
                       type="email"
+                      value={email}
                       placeholder="hello@example.com"
                       onChange={(e) => {
                         setEmail(e.target.value);
@@ -179,6 +182,7 @@ export default function AuthModal({ onClose }) {
                     <input
                       id="login-password"
                       type="password"
+                      value={password}
                       placeholder="••••••••"
                       onChange={(e) => {
                         setPassword(e.target.value);
@@ -191,7 +195,7 @@ export default function AuthModal({ onClose }) {
                     type="submit"
                     disabled={isSubmitting}
                     onClick={() => {
-                      dispatch(registerApi({ email, password }));
+                      dispatch(loginApi({ email, password }));
                     }}
                     className="w-full mt-4 bg-primary text-on-primary py-4 rounded-xl font-label-md text-label-md shadow-lg shadow-primary/10 hover:shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                   >
@@ -228,7 +232,11 @@ export default function AuthModal({ onClose }) {
                     <input
                       id="reg-name"
                       type="text"
+                      value={userName}
                       placeholder="Elias Thorne"
+                      onChange={(e) => {
+                        setUserName(e.target.value);
+                      }}
                       className="w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all"
                     />
                   </div>
@@ -243,7 +251,11 @@ export default function AuthModal({ onClose }) {
                     <input
                       id="reg-email"
                       type="email"
+                      value={email}
                       placeholder="hello@example.com"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
                       className="w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all"
                     />
                   </div>
@@ -258,7 +270,11 @@ export default function AuthModal({ onClose }) {
                     <input
                       id="reg-password"
                       type="password"
+                      value={password}
                       placeholder="Minimum 8 characters"
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
                       className="w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all"
                     />
                   </div>
@@ -266,6 +282,12 @@ export default function AuthModal({ onClose }) {
                   <button
                     type="submit"
                     disabled={isSubmitting}
+                    onClick={() => {
+                      dispatch(registerApi(userName, email, password));
+                      setUserName("");
+                      setEmail("");
+                      setPassword("");
+                    }}
                     className="w-full mt-4 bg-primary text-on-primary py-4 rounded-xl font-label-md text-label-md shadow-lg shadow-primary/10 hover:shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
