@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import shopRoutes from "./routes/shopRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -17,6 +18,7 @@ app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
 app.use("/api/shop", shopRoutes);
+app.use("/api/auth", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);

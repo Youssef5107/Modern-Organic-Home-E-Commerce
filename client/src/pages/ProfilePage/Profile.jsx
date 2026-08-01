@@ -1,6 +1,38 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Profile() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // default: logged out preview
+
+  if (!isLoggedIn) {
+    return (
+      <div className="max-w-[1280px] mx-auto px-5 md:px-16 mt-2 animate-page-enter">
+        <section className="flex flex-col items-center justify-center py-24 translate-y-[10px] animate-[fade-in_0.6s_cubic-bezier(0.2,0.8,0.2,1)_0s_forwards] reveal-on-scroll">
+          <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-[0_4px_20px_rgba(111,52,41,0.04)] ring-4 ring-[#f5f3ee] mb-6">
+            <div className="w-full h-full bg-[#eae8e3] flex items-center justify-center">
+              <span className="material-symbols-outlined text-[#534340] text-[48px] md:text-[64px]">
+                person
+              </span>
+            </div>
+          </div>
+          <h2 className="font-headline-lg text-headline-lg text-[#1b1c19] text-center">
+            You're not logged in
+          </h2>
+          <p className="font-body-md text-label-sm text-[#534340] mt-2 text-center max-w-xs">
+            Log in to view your orders, saved items, and account settings.
+          </p>
+          <Link
+            to={"/profile/auth"}
+            onClick={() => setIsLoggedIn(true)}
+            className="mt-8 px-8 py-3 bg-[#6f3429] text-white rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity active:scale-95"
+          >
+            Log In
+          </Link>
+        </section>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="max-w-[1280px] mx-auto px-5 md:px-16 mt-2 animate-page-enter ">
@@ -182,7 +214,10 @@ export default function Profile() {
 
         {/* Log Out */}
         <section className="mt-16 mb-12 flex justify-center translate-y-[10px] animate-[fade-in_0.6s_cubic-bezier(0.2,0.8,0.2,1)_0.3s_forwards] reveal-on-scroll">
-          <button className="flex items-center gap-2 text-[#ba1a1a] font-label-md text-label-md hover:underline active:scale-95 transition-transform px-8 py-4">
+          <button
+            onClick={() => setIsLoggedIn(false)}
+            className="flex items-center gap-2 text-[#ba1a1a] font-label-md text-label-md hover:underline active:scale-95 transition-transform px-8 py-4"
+          >
             <span className="material-symbols-outlined">logout</span>
             Log Out
           </button>

@@ -16,6 +16,7 @@ import SavedItems from "./pages/savedItemsPage/SavedItems";
 import AccountSettings from "./pages/accountSettingsPage/AccountSettings";
 import OurStory from "./pages/ourStoryPage/OurStory";
 import CardDetailsView from "./pages/cardDetailsViewPage/CardDetailsView";
+import AuthModal from "./app/components/AuthModal";
 
 function App() {
   const location = useLocation();
@@ -61,6 +62,7 @@ function App() {
           <Route path="/cart/card-details-view" element={<CardDetailsView />} />
           <Route path="cart/checkout" element={<Checkout />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/auth" element={<AuthModal />} />
           <Route path="/profile/saved-items" element={<SavedItems />} />
           <Route
             path="/profile/saved-items/card-details-view"

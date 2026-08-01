@@ -28,9 +28,7 @@ export default function BottomNavBar() {
     if (pathname.includes("/card-details-view")) return "shop";
     if (pathname === "/cart") return "cart";
     if (pathname === "/cart/checkout") return "cart";
-    if (pathname === "/profile") return "profile";
-    if (pathname === "/profile/saved-items") return "profile";
-    if (pathname === "/profile/account-settings") return "profile";
+    if (pathname.includes("/profile")) return "profile";
     return "home";
   };
 
