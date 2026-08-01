@@ -1,5 +1,5 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import data from "../../data/products.json";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleFavorite,
@@ -7,23 +7,33 @@ import {
   viewCardDetails,
 } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
-const ceramicsProducts = data.collections.find(
-  (collection) => collection.id === "ceramics",
-);
-const livingRoomProducts = data.collections.find(
-  (collection) => collection.id === "living-room",
-);
-const diningRoomProducts = data.collections.find(
-  (collection) => collection.id === "dining",
-);
-const bedroomProducts = data.collections.find(
-  (collection) => collection.id === "bedroom",
-);
-
 export default function Shop() {
+  const [collections, setCollections] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const dispatch = useDispatch();
   const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
+
+  useEffect(() => {
+    fetch("http://localhost:4003/api/shop/collections")
+      .then((res) => res.json())
+      .then((data) => {
+        setCollections(data?.collections || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch shop collections:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  const ceramicsProducts = collections.find((c) => c.id === "ceramics");
+  const livingRoomProducts = collections.find((c) => c.id === "living-room");
+  const diningRoomProducts = collections.find((c) => c.id === "dining");
+  const bedroomProducts = collections.find((c) => c.id === "bedroom");
+
+  if (loading) return null;
 
   return (
     <>
@@ -140,8 +150,7 @@ export default function Shop() {
                       {product.name}
                     </h4>
                     <p className="text-primary font-semibold">
-                      {data.currency}
-                      {product.price}
+                      ${product.price}
                     </p>
                   </div>
                 </div>
@@ -233,8 +242,7 @@ export default function Shop() {
                         </h4>
                       </div>
                       <p className="text-primary font-semibold text-lg">
-                        {data.currency}
-                        {product.price}
+                        ${product.price}
                       </p>
                     </div>
                   </div>
@@ -328,8 +336,7 @@ export default function Shop() {
                         </h4>
                       </div>
                       <p className="text-primary font-semibold text-lg">
-                        {data.currency}
-                        {product.price}
+                        ${product.price}
                       </p>
                     </div>
                   </div>
@@ -414,8 +421,7 @@ export default function Shop() {
                       {product.name}
                     </h4>
                     <p className="text-on-surface-variant font-label-sm">
-                      {data.currency}
-                      {product.price}
+                      ${product.price}
                     </p>
                   </div>
                 </div>
