@@ -1,31 +1,126 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { registerApi } from "../../features/apis/apiSlice";
-import { loginApi } from "../../features/apis/apiSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loginApi, registerApi } from "../../features/apis/apiSlice";
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function AuthModal({ onClose }) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("login");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState(null);
+  const [fieldErrors, setFieldErrors] = useState({});
 
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const validateInputs = () => {
+    const nextErrors = {};
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+    const trimmedName = userName.trim();
+
+    if (!trimmedEmail) {
+      nextErrors.email = "Email is required.";
+    } else if (!emailRegex.test(trimmedEmail)) {
+      nextErrors.email = "Please enter a valid email address.";
+    }
+
+    if (activeTab === "register") {
+      if (!trimmedName) {
+        nextErrors.name = "Name is required.";
+      }
+
+      if (!trimmedPassword) {
+        nextErrors.password = "Password is required.";
+      } else if (trimmedPassword.length < 8) {
+        nextErrors.password = "Password must be at least 8 characters.";
+      }
+    } else if (!trimmedPassword) {
+      nextErrors.password = "Password is required.";
+    }
+
+    setFieldErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length) {
+      setFeedback({
+        type: "error",
+        message: nextErrors[Object.keys(nextErrors)[0]],
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const updateField = (setter, fieldName, value) => {
+    setter(value);
+    if (fieldErrors[fieldName]) {
+      setFieldErrors((prev) => ({ ...prev, [fieldName]: undefined }));
+    }
+    if (feedback) {
+      setFeedback(null);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setFeedback(null);
+
+    if (!validateInputs()) {
+      return;
+    }
+
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    try {
+      if (activeTab === "login") {
+        const result = await dispatch(
+          loginApi({ email: email.trim(), password: password.trim() }),
+        ).unwrap();
+
+        setFeedback({
+          type: "success",
+          message: result?.message || "Signed in successfully",
+        });
+        setEmail("");
+        setPassword("");
+        setFieldErrors({});
+
+        setTimeout(() => {
+          onClose?.();
+          navigate("/");
+        }, 700);
+      } else {
+        const result = await dispatch(
+          registerApi({
+            userName: userName.trim(),
+            email: email.trim(),
+            password: password.trim(),
+          }),
+        ).unwrap();
+
+        setFeedback({
+          type: "success",
+          message: result?.message || "Account created successfully",
+        });
+        setUserName("");
+        setEmail("");
+        setPassword("");
+        setFieldErrors({});
+        setActiveTab("login");
+      }
+    } catch (error) {
+      setFeedback({ type: "error", message: error || "Something went wrong." });
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   return (
     <div className="bg-background text-on-surface min-h-screen overflow-hidden font-sans">
-      {/* Custom Keyframe Styles */}
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(10px); }
@@ -47,7 +142,6 @@ export default function AuthModal({ onClose }) {
         }
       `}</style>
 
-      {/* Background Screen (Dimmed & Blurred) */}
       <div className="fixed inset-0 z-0 select-none pointer-events-none">
         <div className="absolute inset-0 bg-black/30 z-10"></div>
         <div className="w-full h-full opacity-60 grayscale-[0.2] blur-[4px]">
@@ -55,19 +149,16 @@ export default function AuthModal({ onClose }) {
         </div>
       </div>
 
-      {/* Modal Overlay - Clicking backdrop closes modal */}
       <main
         className="fixed inset-0 z-[100] flex items-center justify-center p-margin-mobile overflow-y-auto blur-backdrop bg-on-background/20"
         onClick={(e) => {
           if (e.target === e.currentTarget && onClose) onClose();
         }}
       >
-        {/* Auth Modal Card */}
         <div
           id="auth-container"
           className="bg-surface-bright w-full max-w-md rounded-[2rem] shadow-2xl overflow-hidden auth-card-transition opacity-100 translate-y-0 animate-fade-in relative"
         >
-          {/* Top Decorative Element */}
           <div className="h-32 w-full relative overflow-hidden">
             <div
               className="w-full h-full bg-cover bg-center"
@@ -93,7 +184,6 @@ export default function AuthModal({ onClose }) {
           </div>
 
           <div className="px-8 pb-10 -mt-6 relative z-10">
-            {/* Brand Identification */}
             <div className="text-center mb-8">
               <h2 className="font-headline-md text-headline-md text-on-surface mb-2">
                 Welcome Home
@@ -103,7 +193,6 @@ export default function AuthModal({ onClose }) {
               </p>
             </div>
 
-            {/* Auth Tabs */}
             <div
               className="flex p-1 bg-surface-container rounded-full mb-8"
               role="tablist"
@@ -112,7 +201,11 @@ export default function AuthModal({ onClose }) {
                 id="tab-login"
                 role="tab"
                 aria-selected={activeTab === "login"}
-                onClick={() => setActiveTab("login")}
+                onClick={() => {
+                  setActiveTab("login");
+                  setFeedback(null);
+                  setFieldErrors({});
+                }}
                 className={`flex-1 py-2 rounded-full font-label-md text-label-md transition-all duration-300 ${
                   activeTab === "login"
                     ? "bg-primary-container text-on-primary-container shadow-sm"
@@ -125,7 +218,11 @@ export default function AuthModal({ onClose }) {
                 id="tab-register"
                 role="tab"
                 aria-selected={activeTab === "register"}
-                onClick={() => setActiveTab("register")}
+                onClick={() => {
+                  setActiveTab("register");
+                  setFeedback(null);
+                  setFieldErrors({});
+                }}
                 className={`flex-1 py-2 rounded-full font-label-md text-label-md transition-all duration-300 ${
                   activeTab === "register"
                     ? "bg-primary-container text-on-primary-container shadow-sm"
@@ -136,9 +233,25 @@ export default function AuthModal({ onClose }) {
               </button>
             </div>
 
-            {/* Forms Container */}
+            {feedback && (
+              <div
+                role="alert"
+                className={`mb-5 rounded-2xl border px-4 py-3 text-sm ${
+                  feedback.type === "error"
+                    ? "border-red-200 bg-red-50 text-red-700"
+                    : "border-emerald-200 bg-emerald-50 text-emerald-700"
+                }`}
+              >
+                <div className="flex items-start gap-2">
+                  <span className="material-symbols-outlined text-base">
+                    {feedback.type === "error" ? "error" : "check_circle"}
+                  </span>
+                  <span>{feedback.message}</span>
+                </div>
+              </div>
+            )}
+
             <div className="relative overflow-hidden">
-              {/* Login Form */}
               {activeTab === "login" && (
                 <form
                   id="form-login"
@@ -157,11 +270,18 @@ export default function AuthModal({ onClose }) {
                       type="email"
                       value={email}
                       placeholder="hello@example.com"
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                      }}
-                      className="w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all"
+                      onChange={(e) =>
+                        updateField(setEmail, "email", e.target.value)
+                      }
+                      className={`w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all ${
+                        fieldErrors.email ? "ring-2 ring-red-300" : ""
+                      }`}
                     />
+                    {fieldErrors.email && (
+                      <p className="ml-1 text-sm text-red-600">
+                        {fieldErrors.email}
+                      </p>
+                    )}
                   </div>
 
                   <div className="space-y-1">
@@ -184,19 +304,23 @@ export default function AuthModal({ onClose }) {
                       type="password"
                       value={password}
                       placeholder="••••••••"
-                      onChange={(e) => {
-                        setPassword(e.target.value);
-                      }}
-                      className="w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all"
+                      onChange={(e) =>
+                        updateField(setPassword, "password", e.target.value)
+                      }
+                      className={`w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all ${
+                        fieldErrors.password ? "ring-2 ring-red-300" : ""
+                      }`}
                     />
+                    {fieldErrors.password && (
+                      <p className="ml-1 text-sm text-red-600">
+                        {fieldErrors.password}
+                      </p>
+                    )}
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    onClick={() => {
-                      dispatch(loginApi({ email, password }));
-                    }}
                     className="w-full mt-4 bg-primary text-on-primary py-4 rounded-xl font-label-md text-label-md shadow-lg shadow-primary/10 hover:shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
@@ -215,7 +339,6 @@ export default function AuthModal({ onClose }) {
                 </form>
               )}
 
-              {/* Register Form */}
               {activeTab === "register" && (
                 <form
                   id="form-register"
@@ -234,11 +357,18 @@ export default function AuthModal({ onClose }) {
                       type="text"
                       value={userName}
                       placeholder="Elias Thorne"
-                      onChange={(e) => {
-                        setUserName(e.target.value);
-                      }}
-                      className="w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all"
+                      onChange={(e) =>
+                        updateField(setUserName, "name", e.target.value)
+                      }
+                      className={`w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all ${
+                        fieldErrors.name ? "ring-2 ring-red-300" : ""
+                      }`}
                     />
+                    {fieldErrors.name && (
+                      <p className="ml-1 text-sm text-red-600">
+                        {fieldErrors.name}
+                      </p>
+                    )}
                   </div>
 
                   <div className="space-y-1">
@@ -253,11 +383,18 @@ export default function AuthModal({ onClose }) {
                       type="email"
                       value={email}
                       placeholder="hello@example.com"
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                      }}
-                      className="w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all"
+                      onChange={(e) =>
+                        updateField(setEmail, "email", e.target.value)
+                      }
+                      className={`w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all ${
+                        fieldErrors.email ? "ring-2 ring-red-300" : ""
+                      }`}
                     />
+                    {fieldErrors.email && (
+                      <p className="ml-1 text-sm text-red-600">
+                        {fieldErrors.email}
+                      </p>
+                    )}
                   </div>
 
                   <div className="space-y-1">
@@ -272,22 +409,23 @@ export default function AuthModal({ onClose }) {
                       type="password"
                       value={password}
                       placeholder="Minimum 8 characters"
-                      onChange={(e) => {
-                        setPassword(e.target.value);
-                      }}
-                      className="w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all"
+                      onChange={(e) =>
+                        updateField(setPassword, "password", e.target.value)
+                      }
+                      className={`w-full px-4 py-3 bg-surface-container-low border-none rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary/20 transition-all ${
+                        fieldErrors.password ? "ring-2 ring-red-300" : ""
+                      }`}
                     />
+                    {fieldErrors.password && (
+                      <p className="ml-1 text-sm text-red-600">
+                        {fieldErrors.password}
+                      </p>
+                    )}
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    onClick={() => {
-                      dispatch(registerApi(userName, email, password));
-                      setUserName("");
-                      setEmail("");
-                      setPassword("");
-                    }}
                     className="w-full mt-4 bg-primary text-on-primary py-4 rounded-xl font-label-md text-label-md shadow-lg shadow-primary/10 hover:shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
@@ -302,7 +440,6 @@ export default function AuthModal({ onClose }) {
               )}
             </div>
 
-            {/* Social Auth Dividers */}
             <div className="relative my-8 text-center">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-outline-variant/30"></div>
@@ -345,7 +482,6 @@ export default function AuthModal({ onClose }) {
             </div>
           </div>
 
-          {/* Footer Actions */}
           <div className="px-8 py-4 bg-surface-container-low text-center">
             <p className="font-label-sm text-label-sm text-on-surface-variant">
               Handcrafted curated collection © {new Date().getFullYear()}

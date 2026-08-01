@@ -18,18 +18,31 @@ export default function BottomNavBar() {
   }, 0);
 
   const getActiveTab = () => {
-    if (pathname === "/" || pathname === "/home") return "home";
-    if (pathname === "/home/our-story") return "home";
-    if (pathname === "/shop/ceramics") return "shop";
-    if (pathname === "/shop/living-rooms") return "shop";
-    if (pathname === "/shop/dining-rooms") return "shop";
-    if (pathname === "/shop/bedrooms") return "shop";
-    if (pathname === "/shop") return "shop";
-    if (pathname.includes("/card-details-view")) return "shop";
-    if (pathname === "/cart") return "cart";
-    if (pathname === "/cart/checkout") return "cart";
-    if (pathname.includes("/profile")) return "profile";
-    return "home";
+    if (
+      pathname === "/" ||
+      pathname === "/home" ||
+      pathname === "/home/our-story"
+    )
+      return "home";
+    if (
+      pathname === "/shop" ||
+      pathname === "/shop/ceramics" ||
+      pathname === "/shop/living-rooms" ||
+      pathname === "/shop/dining-rooms" ||
+      pathname === "/shop/bedrooms" ||
+      pathname.includes("/card-details-view")
+    )
+      return "shop";
+
+    if (pathname === "/cart" || pathname === "/cart/checkout") return "cart";
+    if (
+      pathname === "/profile" ||
+      pathname === "/Profile" ||
+      pathname.includes("auth") ||
+      pathname === "/profile/saved-items" ||
+      pathname === "/profile/account-settings"
+    )
+      return "profile";
   };
 
   const activeTab = getActiveTab();
