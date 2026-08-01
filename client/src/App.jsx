@@ -8,6 +8,12 @@ import Cart from "./pages/CartPage/Cart";
 import Profile from "./pages/ProfilePage/Profile";
 import Checkout from "./pages/CheckoutPage/Checkout";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import {
+  loadUserPreferences,
+  syncUserPreferences,
+} from "./features/toggleProductsInfo/toggleProductsInfoSlice";
 import CeramicsCollection from "./pages/ceramicsCollectionPage/CeramicsCollection";
 import LivingRoomCollection from "./pages/livingRoomCollectionPage/LivingRoomCollection";
 import DiningCollection from "./pages/diningCollectionPage/DiningCollection";
@@ -17,10 +23,37 @@ import AccountSettings from "./pages/accountSettingsPage/AccountSettings";
 import OurStory from "./pages/ourStoryPage/OurStory";
 import CardDetailsView from "./pages/cardDetailsViewPage/CardDetailsView";
 import AuthModal from "./app/components/AuthModal";
+import LogoutConfirm from "./app/components/LogoutConfirm";
 
 function App() {
   const location = useLocation();
   const pathName = location.pathname;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("authToken")) {
+      dispatch(loadUserPreferences());
+    }
+
+    const handlePreferencesChanged = () => {
+      if (typeof window !== "undefined" && localStorage.getItem("authToken")) {
+        dispatch(syncUserPreferences());
+      }
+    };
+
+    window.addEventListener(
+      "user-preferences-changed",
+      handlePreferencesChanged,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "user-preferences-changed",
+        handlePreferencesChanged,
+      );
+    };
+  }, [dispatch]);
+
   return (
     <>
       {pathName == "/profile/account-settings" ||
@@ -72,6 +105,7 @@ function App() {
             path="/profile/account-settings"
             element={<AccountSettings />}
           />
+          <Route path="/profile/logout" element={<LogoutConfirm />} />
         </Routes>
       </main>
       <BottomNavBar />

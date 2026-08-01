@@ -3,6 +3,22 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const API_BASE_URL =
   import.meta.env.VITE_API_URL || "http://localhost:4003/api";
 
+const getStoredAuthUser = () => {
+  if (typeof window === "undefined") return null;
+
+  try {
+    return JSON.parse(localStorage.getItem("authUser") || "null");
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const getStoredToken = () => {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem("authToken");
+};
+
 export const loginApi = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
@@ -26,6 +42,7 @@ export const loginApi = createAsyncThunk(
 
       if (typeof window !== "undefined" && data.token) {
         localStorage.setItem("authToken", data.token);
+        localStorage.setItem("authUser", JSON.stringify(data.user || null));
       }
 
       return data;
@@ -69,7 +86,9 @@ const initialState = {
   isLoading: false,
   error: null,
   successMessage: null,
-  token: null,
+  token: getStoredToken(),
+  user: getStoredAuthUser(),
+  isLogoutConfirmOpen: false,
 };
 
 export const authModalApi = createSlice({
@@ -82,6 +101,21 @@ export const authModalApi = createSlice({
     clearAuthFeedback: (state) => {
       state.error = null;
       state.successMessage = null;
+    },
+    logoutUser: (state) => {
+      state.user = null;
+      state.token = null;
+      state.error = null;
+      state.successMessage = null;
+      state.response = null;
+      state.isLogoutConfirmOpen = false;
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("authUser");
+      }
+    },
+    setLogoutConfirmOpen: (state, action) => {
+      state.isLogoutConfirmOpen = action.payload;
     },
   },
   extraReducers(builder) {
@@ -97,6 +131,7 @@ export const authModalApi = createSlice({
         state.error = null;
         state.successMessage = "Signed in successfully";
         state.token = action.payload.token || null;
+        state.user = action.payload.user || null;
       })
       .addCase(loginApi.rejected, (state, action) => {
         state.isLoading = false;
@@ -121,6 +156,11 @@ export const authModalApi = createSlice({
   },
 });
 
-export const { changeResult, clearAuthFeedback } = authModalApi.actions;
+export const {
+  changeResult,
+  clearAuthFeedback,
+  logoutUser,
+  setLogoutConfirmOpen,
+} = authModalApi.actions;
 
 export default authModalApi.reducer;

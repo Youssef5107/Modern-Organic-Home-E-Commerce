@@ -2,6 +2,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginApi, registerApi } from "../../features/apis/apiSlice";
+import {
+  loadUserPreferences,
+  syncUserPreferences,
+} from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -89,10 +93,12 @@ export default function AuthModal({ onClose }) {
         setEmail("");
         setPassword("");
         setFieldErrors({});
+        await dispatch(syncUserPreferences());
+        await dispatch(loadUserPreferences());
 
         setTimeout(() => {
           onClose?.();
-          navigate("/");
+          navigate("/profile");
         }, 700);
       } else {
         const result = await dispatch(
@@ -174,7 +180,7 @@ export default function AuthModal({ onClose }) {
               type="button"
               onClick={() => {
                 window.history.state?.idx > 0 ? navigate(-1) : navigate("/");
-                onClose();
+                onClose?.();
               }}
               aria-label="Close modal"
               className="absolute top-4 right-4 z-20 p-2 text-on-surface-variant/70 hover:text-primary transition-colors rounded-full hover:bg-surface-bright/30 backdrop-blur-sm"

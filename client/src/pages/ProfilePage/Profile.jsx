@@ -1,8 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { setLogoutConfirmOpen } from "../../features/apis/apiSlice";
+
+const getStoredUser = () => {
+  try {
+    return JSON.parse(localStorage.getItem("authUser") || "null");
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 
 export default function Profile() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // default: logged out preview
+  const dispatch = useDispatch();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(() =>
+    Boolean(localStorage.getItem("authToken")),
+  );
+  const [user, setUser] = useState(() => getStoredUser());
+
+  useEffect(() => {
+    const syncAuthState = () => {
+      setIsLoggedIn(Boolean(localStorage.getItem("authToken")));
+      setUser(getStoredUser());
+    };
+
+    syncAuthState();
+    window.addEventListener("auth-state-changed", syncAuthState);
+
+    return () =>
+      window.removeEventListener("auth-state-changed", syncAuthState);
+  }, []);
 
   if (!isLoggedIn) {
     return (
@@ -23,7 +52,6 @@ export default function Profile() {
           </p>
           <Link
             to={"/profile/auth"}
-            onClick={() => setIsLoggedIn(true)}
             className="mt-8 px-8 py-3 bg-[#6f3429] text-white rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity active:scale-95"
           >
             Log In
@@ -54,7 +82,7 @@ export default function Profile() {
           </div>
           <div className="text-center mt-6">
             <h2 className="font-headline-lg text-headline-lg text-[#1b1c19]">
-              Your Name
+              {user?.name || "Your Name"}
             </h2>
             <p className="font-label-sm text-label-sm text-[#534340] uppercase tracking-widest mt-1">
               Member
@@ -214,13 +242,14 @@ export default function Profile() {
 
         {/* Log Out */}
         <section className="mt-16 mb-12 flex justify-center translate-y-[10px] animate-[fade-in_0.6s_cubic-bezier(0.2,0.8,0.2,1)_0.3s_forwards] reveal-on-scroll">
-          <button
-            onClick={() => setIsLoggedIn(false)}
+          <Link
+            to={"/profile/logout"}
+            onClick={() => dispatch(setLogoutConfirmOpen(true))}
             className="flex items-center gap-2 text-[#ba1a1a] font-label-md text-label-md hover:underline active:scale-95 transition-transform px-8 py-4"
           >
             <span className="material-symbols-outlined">logout</span>
             Log Out
-          </button>
+          </Link>
         </section>
       </div>
     </>

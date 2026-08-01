@@ -1,4 +1,13 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:4003/api";
+
+const persistList = (key, value) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+};
 
 const loadFavorites = () => {
   try {
@@ -30,12 +39,103 @@ const loadStoredQuantities = () => {
   }
 };
 
+const emitPreferencesChanged = (state) => {
+  if (typeof window !== "undefined") {
+    queueMicrotask(() => {
+      window.dispatchEvent(
+        new CustomEvent("user-preferences-changed", {
+          detail: {
+            favoriteIds: state.favoriteIds,
+            addedIds: state.addedIds,
+            quantities: state.quantities,
+          },
+        }),
+      );
+    });
+  }
+};
+
 const initialState = {
   favoriteIds: loadFavorites(),
   addedIds: loadAddedProducts(),
   quantities: loadStoredQuantities(),
   selectedCardId: null,
+  isSyncing: false,
 };
+
+export const loadUserPreferences = createAsyncThunk(
+  "products/loadPreferences",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        return rejectWithValue("not-authenticated");
+      }
+
+      const response = await fetch(`${API_BASE_URL}/auth/preferences`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Unable to load saved items");
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message || "Unable to load saved items");
+    }
+  },
+);
+
+export const syncUserPreferences = createAsyncThunk(
+  "products/syncPreferences",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        return rejectWithValue("not-authenticated");
+      }
+
+      const state = getState();
+      const persistedFavorites = loadFavorites();
+      const persistedAddedIds = loadAddedProducts();
+      const persistedQuantities = loadStoredQuantities();
+      const favoriteIds = state.ProductsInfo.favoriteIds ?? persistedFavorites;
+      const addedIds = state.ProductsInfo.addedIds ?? persistedAddedIds;
+      const quantities = state.ProductsInfo.quantities ?? persistedQuantities;
+      const cartItems = addedIds.map((productId) => ({
+        productId,
+        quantity: quantities[productId] || 1,
+      }));
+
+      const response = await fetch(`${API_BASE_URL}/auth/sync`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          favorites: favoriteIds,
+          cartItems,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.message || "Unable to save your preferences");
+      }
+
+      return true;
+    } catch (error) {
+      return rejectWithValue(
+        error.message || "Unable to save your preferences",
+      );
+    }
+  },
+);
 
 export const toggleProductsInfoSlice = createSlice({
   name: "favorites",
@@ -51,10 +151,8 @@ export const toggleProductsInfoSlice = createSlice({
         state.favoriteIds.push(productId);
       }
 
-      localStorage.setItem(
-        "favorite_products",
-        JSON.stringify(state.favoriteIds),
-      );
+      persistList("favorite_products", state.favoriteIds);
+      emitPreferencesChanged(state);
     },
     toggleAddedProducts: (state, action) => {
       const productId = action.payload;
@@ -66,7 +164,8 @@ export const toggleProductsInfoSlice = createSlice({
         state.addedIds.push(productId);
       }
 
-      localStorage.setItem("added_products", JSON.stringify(state.addedIds));
+      persistList("added_products", state.addedIds);
+      emitPreferencesChanged(state);
     },
     incrementQuantity: (state, action) => {
       const id = action.payload;
@@ -75,6 +174,7 @@ export const toggleProductsInfoSlice = createSlice({
         "cartQuantities",
         JSON.stringify(current(state.quantities)),
       );
+      emitPreferencesChanged(state);
     },
     decrementQuantity: (state, action) => {
       const id = action.payload;
@@ -85,11 +185,84 @@ export const toggleProductsInfoSlice = createSlice({
           JSON.stringify(current(state.quantities)),
         );
       }
+      emitPreferencesChanged(state);
+    },
+    setUserPreferences: (state, action) => {
+      const {
+        favorites = [],
+        cartItems = [],
+        quantities = {},
+      } = action.payload || {};
+      state.favoriteIds = favorites;
+      state.addedIds = cartItems.map((item) => item.productId);
+      state.quantities = quantities;
+      persistList("favorite_products", state.favoriteIds);
+      persistList("added_products", state.addedIds);
+      localStorage.setItem("cartQuantities", JSON.stringify(state.quantities));
     },
     viewCardDetails: (state, action) => {
       const productId = action.payload;
       state.selectedCardId = productId;
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(loadUserPreferences.pending, (state) => {
+        state.isSyncing = true;
+      })
+      .addCase(loadUserPreferences.fulfilled, (state, action) => {
+        state.isSyncing = false;
+        const persistedFavorites = loadFavorites();
+        const persistedAddedIds = loadAddedProducts();
+        const persistedQuantities = loadStoredQuantities();
+        const hasServerFavorites =
+          Array.isArray(action.payload?.favorites) &&
+          action.payload.favorites.length > 0;
+        const hasServerCartItems =
+          Array.isArray(action.payload?.cartItems) &&
+          action.payload.cartItems.length > 0;
+        const hasServerQuantities =
+          action.payload?.quantities &&
+          typeof action.payload.quantities === "object" &&
+          Object.keys(action.payload.quantities).length > 0;
+
+        const favorites = hasServerFavorites
+          ? action.payload.favorites
+          : persistedFavorites;
+        const cartItems = hasServerCartItems
+          ? action.payload.cartItems
+          : persistedAddedIds.map((productId) => ({
+              productId,
+              quantity: persistedQuantities[productId] || 1,
+            }));
+        const quantities = hasServerQuantities
+          ? action.payload.quantities
+          : persistedQuantities;
+
+        state.favoriteIds = favorites;
+        state.addedIds = cartItems
+          .map((item) => item?.productId)
+          .filter(Boolean);
+        state.quantities = quantities;
+        persistList("favorite_products", state.favoriteIds);
+        persistList("added_products", state.addedIds);
+        localStorage.setItem(
+          "cartQuantities",
+          JSON.stringify(state.quantities),
+        );
+      })
+      .addCase(loadUserPreferences.rejected, (state) => {
+        state.isSyncing = false;
+      })
+      .addCase(syncUserPreferences.pending, (state) => {
+        state.isSyncing = true;
+      })
+      .addCase(syncUserPreferences.fulfilled, (state) => {
+        state.isSyncing = false;
+      })
+      .addCase(syncUserPreferences.rejected, (state) => {
+        state.isSyncing = false;
+      });
   },
 });
 
@@ -98,6 +271,7 @@ export const {
   toggleAddedProducts,
   incrementQuantity,
   decrementQuantity,
+  setUserPreferences,
   viewCardDetails,
 } = toggleProductsInfoSlice.actions;
 
