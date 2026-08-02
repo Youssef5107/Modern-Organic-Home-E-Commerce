@@ -319,7 +319,7 @@ export default function Cart() {
               </div>
             </div>
             <Link
-              to="/cart/checkout"
+              to="/cart/checkout/shipment"
               className="w-full bg-primary text-on-primary py-4 rounded-xl font-label-md text-lg tracking-wide hover:bg-primary-container transition-all active:scale-[0.98] duration-200 shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
               onClick={() => {
                 window.scrollTo({ top: 0, behavior: "auto" });

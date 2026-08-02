@@ -4,9 +4,8 @@ import Home from "./pages/HomePage/Home";
 import BottomNavBar from "./app/components/BottomNavBar";
 import Header from "./app/components/Header";
 import Shop from "./pages/ShopPage/Shop";
-import Cart from "./pages/CartPage/Cart";
-import Profile from "./pages/ProfilePage/Profile";
-import Checkout from "./pages/CheckoutPage/Checkout";
+import Cart from "./pages/cartPage/Cart";
+import Profile from "./pages/profilePage/Profile";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -25,6 +24,8 @@ import CardDetailsView from "./pages/cardDetailsViewPage/CardDetailsView";
 import AuthModal from "./app/components/AuthModal";
 import LogoutConfirm from "./app/components/LogoutConfirm";
 import { useSelector } from "react-redux";
+import Shipment from "./pages/checkoutPages/shipmentPage/Shipment";
+import Payment from "./pages/checkoutPages/paymentPage/payment";
 
 function App() {
   const location = useLocation();
@@ -67,7 +68,7 @@ function App() {
         <Header />
       )}
       <main
-        className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName == "/profile/account-settings" || pathName.includes("card-details-view") ? "pb-20" : "pb-32"}`}
+        className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName == "/profile/account-settings" || pathName.includes("card-details-view") || pathName == "/cart/checkout/payment" ? "pb-20" : "pb-32"}`}
       >
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
@@ -98,7 +99,8 @@ function App() {
           <Route path="/shop/bedrooms" element={<BedroomCollection />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/card-details-view" element={<CardDetailsView />} />
-          <Route path="cart/checkout" element={<Checkout />} />
+          <Route path="cart/checkout/shipment" element={<Shipment />} />
+          <Route path="cart/checkout/payment" element={<Payment />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/auth" element={<AuthModal />} />
           <Route path="/profile/saved-items" element={<SavedItems />} />

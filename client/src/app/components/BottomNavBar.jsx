@@ -34,7 +34,7 @@ export default function BottomNavBar() {
     )
       return "shop";
 
-    if (pathname === "/cart" || pathname === "/cart/checkout") return "cart";
+    if (pathname === "/cart" || pathname.includes("/checkout")) return "cart";
     if (
       pathname === "/profile" ||
       pathname === "/Profile" ||

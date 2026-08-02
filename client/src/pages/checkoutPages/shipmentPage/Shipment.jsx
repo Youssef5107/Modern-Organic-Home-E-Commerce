@@ -1,4 +1,5 @@
-export default function Checkout() {
+import { Link } from "react-router-dom";
+export default function Shipment() {
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md md:py-stack-lg animate-page-enter">
       {/* Progress Stepper */}
@@ -285,10 +286,17 @@ export default function Checkout() {
 
             {/* Actions */}
             <div className="space-y-4">
-              <button className="w-full bg-primary text-on-primary py-4 rounded-xl font-label-md shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-[0.98] duration-200">
-                Continue to Payment
-              </button>
-              <p className="text-center text-on-surface-variant font-label-sm flex items-center justify-center gap-2">
+              <Link
+                to={"/cart/checkout/payment"}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "auto" });
+                }}
+              >
+                <button className="w-full bg-primary text-on-primary py-4 rounded-xl font-label-md shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-[0.98] duration-200">
+                  Continue to Payment
+                </button>
+              </Link>
+              <p className="text-center text-on-surface-variant font-label-sm flex items-center justify-center gap-2 mt-5">
                 <span className="material-symbols-outlined text-[14px]">
                   shield_lock
                 </span>
