@@ -42,15 +42,14 @@ const loadStoredQuantities = () => {
 
 const emitPreferencesChanged = (state) => {
   if (typeof window !== "undefined") {
+    const detail = {
+      favoriteIds: [...state.favoriteIds],
+      addedIds: [...state.addedIds],
+      quantities: { ...state.quantities },
+    };
     queueMicrotask(() => {
       window.dispatchEvent(
-        new CustomEvent("user-preferences-changed", {
-          detail: {
-            favoriteIds: state.favoriteIds,
-            addedIds: state.addedIds,
-            quantities: state.quantities,
-          },
-        }),
+        new CustomEvent("user-preferences-changed", { detail }),
       );
     });
   }

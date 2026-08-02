@@ -1193,6 +1193,7 @@ async function main() {
         description: collectionData.description,
         products: {
           create: collectionData.products.map((p) => ({
+            id: p.id,
             slug: p.id,
             name: p.name,
             series: p.series ?? null,

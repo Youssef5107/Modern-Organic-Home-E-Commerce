@@ -2,10 +2,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginApi, registerApi } from "../../features/apis/apiSlice";
-import {
-  loadUserPreferences,
-  syncUserPreferences,
-} from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -93,8 +89,8 @@ export default function AuthModal({ onClose }) {
         setEmail("");
         setPassword("");
         setFieldErrors({});
-        await dispatch(syncUserPreferences());
-        await dispatch(loadUserPreferences());
+
+        window.dispatchEvent(new Event("auth-state-changed"));
 
         setTimeout(() => {
           onClose?.();
