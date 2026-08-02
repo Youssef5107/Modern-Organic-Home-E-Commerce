@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { loadUserPreferences } from "../toggleProductsInfo/toggleProductsInfoSlice";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_URL || "http://localhost:4003/api";
@@ -21,17 +22,12 @@ const getStoredToken = () => {
 
 export const loginApi = createAsyncThunk(
   "auth/login",
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password }, { dispatch, rejectWithValue }) => {
     try {
       const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
@@ -44,6 +40,8 @@ export const loginApi = createAsyncThunk(
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("authUser", JSON.stringify(data.user || null));
       }
+
+      dispatch(loadUserPreferences());
 
       return data;
     } catch (error) {

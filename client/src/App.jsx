@@ -24,11 +24,15 @@ import OurStory from "./pages/ourStoryPage/OurStory";
 import CardDetailsView from "./pages/cardDetailsViewPage/CardDetailsView";
 import AuthModal from "./app/components/AuthModal";
 import LogoutConfirm from "./app/components/LogoutConfirm";
+import { useSelector } from "react-redux";
 
 function App() {
   const location = useLocation();
   const pathName = location.pathname;
   const dispatch = useDispatch();
+  const isLogoutConfirmOpen = useSelector(
+    (state) => state.apis.isLogoutConfirmOpen,
+  );
 
   useEffect(() => {
     if (typeof window !== "undefined" && localStorage.getItem("authToken")) {
@@ -58,7 +62,8 @@ function App() {
     <>
       {pathName == "/profile/account-settings" ||
       pathName == "/profile/saved-items" ||
-      pathName.includes("card-details-view") ? null : (
+      pathName.includes("card-details-view") ||
+      isLogoutConfirmOpen ? null : (
         <Header />
       )}
       <main
@@ -105,10 +110,10 @@ function App() {
             path="/profile/account-settings"
             element={<AccountSettings />}
           />
-          <Route path="/profile/logout" element={<LogoutConfirm />} />
         </Routes>
       </main>
-      <BottomNavBar />
+      {isLogoutConfirmOpen ? null : <BottomNavBar />}
+      <LogoutConfirm />{" "}
     </>
   );
 }

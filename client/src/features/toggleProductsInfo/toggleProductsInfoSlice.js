@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { logoutUser } from "../apis/apiSlice";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_URL || "http://localhost:4003/api";
@@ -212,44 +213,39 @@ export const toggleProductsInfoSlice = createSlice({
       })
       .addCase(loadUserPreferences.fulfilled, (state, action) => {
         state.isSyncing = false;
-        const persistedFavorites = loadFavorites();
-        const persistedAddedIds = loadAddedProducts();
-        const persistedQuantities = loadStoredQuantities();
-        const hasServerFavorites =
-          Array.isArray(action.payload?.favorites) &&
-          action.payload.favorites.length > 0;
-        const hasServerCartItems =
-          Array.isArray(action.payload?.cartItems) &&
-          action.payload.cartItems.length > 0;
-        const hasServerQuantities =
-          action.payload?.quantities &&
-          typeof action.payload.quantities === "object" &&
-          Object.keys(action.payload.quantities).length > 0;
-
-        const favorites = hasServerFavorites
+        const favorites = Array.isArray(action.payload?.favorites)
           ? action.payload.favorites
-          : persistedFavorites;
-        const cartItems = hasServerCartItems
+          : [];
+        const cartItems = Array.isArray(action.payload?.cartItems)
           ? action.payload.cartItems
-          : persistedAddedIds.map((productId) => ({
-              productId,
-              quantity: persistedQuantities[productId] || 1,
-            }));
-        const quantities = hasServerQuantities
-          ? action.payload.quantities
-          : persistedQuantities;
+          : [];
 
         state.favoriteIds = favorites;
         state.addedIds = cartItems
           .map((item) => item?.productId)
           .filter(Boolean);
-        state.quantities = quantities;
+        state.quantities = cartItems.reduce((acc, item) => {
+          if (item?.productId) acc[item.productId] = item.quantity || 1;
+          return acc;
+        }, {});
+
         persistList("favorite_products", state.favoriteIds);
         persistList("added_products", state.addedIds);
         localStorage.setItem(
           "cartQuantities",
           JSON.stringify(state.quantities),
         );
+      })
+      .addCase(logoutUser, (state) => {
+        state.favoriteIds = [];
+        state.addedIds = [];
+        state.quantities = {};
+        state.selectedCardId = null;
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("favorite_products");
+          localStorage.removeItem("added_products");
+          localStorage.removeItem("cartQuantities");
+        }
       })
       .addCase(loadUserPreferences.rejected, (state) => {
         state.isSyncing = false;

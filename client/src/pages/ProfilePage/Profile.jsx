@@ -242,14 +242,13 @@ export default function Profile() {
 
         {/* Log Out */}
         <section className="mt-16 mb-12 flex justify-center translate-y-[10px] animate-[fade-in_0.6s_cubic-bezier(0.2,0.8,0.2,1)_0.3s_forwards] reveal-on-scroll">
-          <Link
-            to={"/profile/logout"}
+          <button
             onClick={() => dispatch(setLogoutConfirmOpen(true))}
             className="flex items-center gap-2 text-[#ba1a1a] font-label-md text-label-md hover:underline active:scale-95 transition-transform px-8 py-4"
           >
             <span className="material-symbols-outlined">logout</span>
             Log Out
-          </Link>
+          </button>
         </section>
       </div>
     </>

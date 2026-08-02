@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logoutUser, setLogoutConfirmOpen } from "../../features/apis/apiSlice";
-import { Link } from "react-router-dom";
 
 export default function LogoutConfirm() {
   const dispatch = useDispatch();
@@ -10,8 +9,6 @@ export default function LogoutConfirm() {
 
   const handleLogout = () => {
     dispatch(logoutUser());
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("authUser");
     dispatch(setLogoutConfirmOpen(false));
     window.dispatchEvent(new Event("auth-state-changed"));
     navigate("/profile");
@@ -36,13 +33,12 @@ export default function LogoutConfirm() {
           You&apos;ll need to sign in again to view your saved items and cart.
         </p>
         <div className="mt-8 flex justify-end gap-3">
-          <Link
-            to={"/profile"}
+          <button
             onClick={() => dispatch(setLogoutConfirmOpen(false))}
             className="rounded-full border border-outline-variant/30 px-5 py-2.5 font-label-md text-label-md text-primary hover:bg-surface-container transition-colors"
           >
             Cancel
-          </Link>
+          </button>
           <button
             onClick={handleLogout}
             className="rounded-full bg-primary px-5 py-2.5 font-label-md text-label-md text-on-primary hover:opacity-90 active:scale-95 transition-all"
