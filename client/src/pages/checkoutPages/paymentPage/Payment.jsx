@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Payment() {
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
@@ -182,12 +183,16 @@ export default function Payment() {
                   )}
                 </div>
 
-                <button
+                <Link
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: "auto" });
+                  }}
+                  to={"/cart/checkout/review"}
                   className="w-full bg-primary text-white h-14 rounded-full font-label-md text-label-md hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center"
                   type="submit"
                 >
                   Continue to Review
-                </button>
+                </Link>
               </form>
 
               {/* Footer Security */}

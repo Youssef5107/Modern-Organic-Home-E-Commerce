@@ -26,6 +26,7 @@ import LogoutConfirm from "./app/components/LogoutConfirm";
 import { useSelector } from "react-redux";
 import Shipment from "./pages/checkoutPages/shipmentPage/Shipment";
 import Payment from "./pages/checkoutPages/paymentPage/payment";
+import Review from "./pages/checkoutPages/reviewPage/Review";
 
 function App() {
   const location = useLocation();
@@ -68,7 +69,7 @@ function App() {
         <Header />
       )}
       <main
-        className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName == "/profile/account-settings" || pathName.includes("card-details-view") || pathName == "/cart/checkout/payment" ? "pb-20" : "pb-32"}`}
+        className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName == "/profile/account-settings" || pathName.includes("card-details-view") || pathName == "/cart/checkout/payment" || pathName == "/cart/checkout/review" ? "pb-20" : "pb-32"}`}
       >
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
@@ -101,6 +102,7 @@ function App() {
           <Route path="/cart/card-details-view" element={<CardDetailsView />} />
           <Route path="cart/checkout/shipment" element={<Shipment />} />
           <Route path="cart/checkout/payment" element={<Payment />} />
+          <Route path="cart/checkout/review" element={<Review />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/auth" element={<AuthModal />} />
           <Route path="/profile/saved-items" element={<SavedItems />} />
