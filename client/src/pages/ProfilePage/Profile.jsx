@@ -82,7 +82,7 @@ export default function Profile() {
           </div>
           <div className="text-center mt-6">
             <h2 className="font-headline-lg text-headline-lg text-[#1b1c19]">
-              {user?.name || "Your Name"}
+              {user?.name.toUpperCase() || "Your Name"}
             </h2>
             <p className="font-label-sm text-label-sm text-[#534340] uppercase tracking-widest mt-1">
               Member
