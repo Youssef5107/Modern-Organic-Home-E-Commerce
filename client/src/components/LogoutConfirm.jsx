@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logoutUser, setLogoutConfirmOpen } from "../../features/apis/apiSlice";
+import { logoutUser, setLogoutConfirmOpen } from "../features/apis/apiSlice";
 
 export default function LogoutConfirm() {
   const dispatch = useDispatch();

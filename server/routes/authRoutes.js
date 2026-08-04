@@ -2,9 +2,11 @@ import express from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import Stripe from "stripe";
 
 const prisma = new PrismaClient();
 const router = express.Router();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const JWT_SECRET = process.env.JWT_SECRET || "dev-secret";
 
@@ -230,6 +232,72 @@ router.post("/sync", async (req, res) => {
     });
 
     return res.status(200).json({ message: "Preferences synced successfully" });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
+router.post("/stripe/ensure-customer", async (req, res) => {
+  const authUser = getAuthenticatedUser(req);
+
+  if (!authUser) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: authUser.userId },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.stripeCustomerId) {
+      return res.status(200).json({ stripeCustomerId: user.stripeCustomerId });
+    }
+
+    const customer = await stripe.customers.create({
+      email: user.email,
+      name: user.name || undefined,
+    });
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { stripeCustomerId: customer.id },
+    });
+
+    return res.status(200).json({ stripeCustomerId: customer.id });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
+router.post("/stripe/create-setup-intent", async (req, res) => {
+  const authUser = getAuthenticatedUser(req);
+
+  if (!authUser) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: authUser.userId },
+    });
+
+    if (!user || !user.stripeCustomerId) {
+      return res
+        .status(400)
+        .json({ message: "No Stripe customer found for this user." });
+    }
+
+    const setupIntent = await stripe.setupIntents.create({
+      customer: user.stripeCustomerId,
+      payment_method_types: ["card"],
+    });
+
+    return res.status(200).json({ clientSecret: setupIntent.client_secret });
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Something went wrong" });

@@ -1,8 +1,8 @@
 import "./App.css";
 import "./index.css";
 import Home from "./pages/HomePage/Home";
-import BottomNavBar from "./app/components/BottomNavBar";
-import Header from "./app/components/Header";
+import BottomNavBar from "./components/BottomNavBar";
+import Header from "./components/Header";
 import Shop from "./pages/ShopPage/Shop";
 import Cart from "./pages/cartPage/Cart";
 import Profile from "./pages/profilePage/Profile";
@@ -21,13 +21,13 @@ import SavedItems from "./pages/savedItemsPage/SavedItems";
 import AccountSettings from "./pages/accountSettingsPage/AccountSettings";
 import OurStory from "./pages/ourStoryPage/OurStory";
 import CardDetailsView from "./pages/cardDetailsViewPage/CardDetailsView";
-import AuthModal from "./app/components/AuthModal";
-import LogoutConfirm from "./app/components/LogoutConfirm";
+import AuthModal from "./components/AuthModal";
+import LogoutConfirm from "./components/LogoutConfirm";
 import { useSelector } from "react-redux";
 import Shipment from "./pages/checkoutPages/shipmentPage/Shipment";
 import Payment from "./pages/checkoutPages/paymentPage/payment";
 import Review from "./pages/checkoutPages/reviewPage/Review";
-
+import PaymentMethods from "./pages/paymentMethodsPage/PaymentMethods";
 function App() {
   const location = useLocation();
   const pathName = location.pathname;
@@ -110,6 +110,7 @@ function App() {
             path="/profile/saved-items/card-details-view"
             element={<CardDetailsView />}
           />
+          <Route path="/profile/payment-methods" element={<PaymentMethods />} />
           <Route
             path="/profile/account-settings"
             element={<AccountSettings />}

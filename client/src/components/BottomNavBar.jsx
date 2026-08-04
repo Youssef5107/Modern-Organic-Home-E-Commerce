@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import data from "../../data/products.json";
+import data from "../data/products.json";
 
 export default function BottomNavBar() {
   const location = useLocation();
@@ -40,6 +40,7 @@ export default function BottomNavBar() {
       pathname === "/Profile" ||
       pathname.includes("auth") ||
       pathname === "/profile/saved-items" ||
+      pathname.includes("payment-methods") ||
       pathname === "/profile/account-settings"
     )
       return "profile";
