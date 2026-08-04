@@ -29,6 +29,7 @@ import Payment from "./pages/checkoutPages/paymentPage/payment";
 import Review from "./pages/checkoutPages/reviewPage/Review";
 import PaymentMethods from "./pages/paymentMethodsPage/PaymentMethods";
 import { ToastNotification } from "./components/ToastNotification";
+import ComingSoon from "./pages/commingSoonPage/ComingSoon";
 function App() {
   const location = useLocation();
   const pathName = location.pathname;
@@ -116,6 +117,7 @@ function App() {
             path="/profile/account-settings"
             element={<AccountSettings />}
           />
+          <Route path="/profile/order-history" element={<ComingSoon />} />
         </Routes>
       </main>
       {isLogoutConfirmOpen ? null : <BottomNavBar />}

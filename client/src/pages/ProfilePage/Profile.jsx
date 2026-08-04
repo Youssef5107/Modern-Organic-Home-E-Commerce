@@ -135,7 +135,7 @@ export default function Profile() {
           <div className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(111,52,41,0.04)] border border-[#f0eee9]">
             <Link
               className="flex items-center justify-between p-5 hover:bg-[#f5f3ee] transition-colors border-b border-[#f0eee9] group"
-              to="/orders"
+              to="/profile/order-history"
               onClick={() => {
                 window.scrollTo({ top: 0, behavior: "auto" });
               }}
