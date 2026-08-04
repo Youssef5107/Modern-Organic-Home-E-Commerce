@@ -61,6 +61,7 @@ model User {
   email     String     @unique
   name      String?
   password  String     // Remember to hash passwords when creating real users
+  stripeCustomerId String?    @unique @map("stripe_customer_id")
   createdAt DateTime   @default(now()) @map("created_at")
 
   favorites Favorite[]
