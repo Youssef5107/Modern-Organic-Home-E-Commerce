@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,12 +11,57 @@ export default function DiningCollection() {
   const [collection, setCollection] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // --- Filter & Sort States ---
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
+  const [showNewArrivalsOnly, setShowNewArrivalsOnly] = useState(false);
+  const [maxPrice, setMaxPrice] = useState(2000);
+
+  const [sortOption, setSortOption] = useState("featured");
+  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
+
+  // Animation state key to force grid animation replay on filter change
+  const [animationKey, setAnimationKey] = useState(0);
+
+  const sortDropdownRef = useRef(null);
+
+  const categories = [
+    { id: "all", label: "All collection" },
+    { id: "ceramics", label: "Ceramics" },
+    { id: "serveware", label: "Serveware" },
+    { id: "textiles", label: "Textiles" },
+  ];
+
+  const sortOptions = [
+    { id: "featured", label: "Featured" },
+    { id: "price-asc", label: "Price: Low to High" },
+    { id: "price-desc", label: "Price: High to Low" },
+  ];
+
+  // Helper function to update state and restart entrance animation
+  const triggerGridAnimation = () => {
+    setAnimationKey((prev) => prev + 1);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        sortDropdownRef.current &&
+        !sortDropdownRef.current.contains(event.target)
+      ) {
+        setIsSortDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   useEffect(() => {
     fetch("http://localhost:4003/api/shop/collections/dining")
       .then((res) => res.json())
       .then((data) => {
         setCollection(data);
-        console.log(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -29,82 +74,247 @@ export default function DiningCollection() {
   const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
 
-  if (loading) return;
+  // --- Filter and Sort Logic ---
+  const filteredProducts = useMemo(() => {
+    if (!collection?.products) return [];
+
+    return collection.products
+      .filter((product) => {
+        if (activeCategory !== "all") {
+          const matchTarget = (
+            product.category ||
+            product.series ||
+            ""
+          ).toLowerCase();
+          if (!matchTarget.includes(activeCategory.toLowerCase())) {
+            return false;
+          }
+        }
+
+        if (showNewArrivalsOnly && !product.is_new_arrival) {
+          return false;
+        }
+
+        if (product.price > maxPrice) {
+          return false;
+        }
+
+        return true;
+      })
+      .sort((a, b) => {
+        if (sortOption === "price-asc") return a.price - b.price;
+        if (sortOption === "price-desc") return b.price - a.price;
+        return 0;
+      });
+  }, [collection, activeCategory, showNewArrivalsOnly, maxPrice, sortOption]);
+
+  if (loading) return null;
+
+  const totalProductCount =
+    filteredProducts.length + (activeCategory === "all" ? 1 : 0);
 
   return (
-    <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-stack-md pb-32 animate-page-enter">
-      {/* Collection Intro */}
-      <section className="mb-stack-lg reveal-on-scroll">
-        <div className="max-w-2xl">
-          <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-            Elevate your gathering rituals with our curated collection of
-            handcrafted kitchenware. From artisanal ceramics to sustainably
-            sourced wood, each piece is designed for the tactile beauty of daily
-            use.
-          </p>
-        </div>
-      </section>
-
-      {/* Filter & Sort Bar */}
-      <section className="flex flex-col md:flex-row md:items-center justify-between gap-gutter mb-stack-md reveal-on-scroll">
-        <div className="flex items-center gap-3 overflow-x-auto no-scrollbar pb-2 md:pb-0">
-          <button className="whitespace-nowrap px-4 py-2 rounded-xl bg-secondary-container/30 text-primary font-label-md text-label-md border border-primary/10">
-            All Dining
-          </button>
-          <button className="whitespace-nowrap px-4 py-2 rounded-xl bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant/30 transition-colors">
-            Ceramics
-          </button>
-          <button className="whitespace-nowrap px-4 py-2 rounded-xl bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant/30 transition-colors">
-            Serveware
-          </button>
-          <button className="whitespace-nowrap px-4 py-2 rounded-xl bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant/30 transition-colors">
-            Textiles
-          </button>
-        </div>
-        <div className="flex items-center justify-between md:justify-end gap-4 border-t md:border-t-0 border-outline-variant pt-4 md:pt-0">
-          <button className="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
-            <span className="material-symbols-outlined text-sm">tune</span>
-            Filter
-          </button>
-          <button className="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
-            Sort: Featured
-            <span className="material-symbols-outlined text-sm">
-              expand_more
-            </span>
-          </button>
-        </div>
-      </section>
-
-      {/* Product Grid */}
-      <section className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-gutter gap-y-stack-md reveal-on-scroll">
-        {/* Featured Editorial Card */}
-        <div className="col-span-2 row-span-1 md:row-span-2 relative group overflow-hidden rounded-xl bg-surface-container mb-stack-sm md:mb-0">
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent z-10"></div>
-          <div className="absolute bottom-0 left-0 p-8 z-20">
-            <span className="inline-block px-3 py-1 bg-surface/20 backdrop-blur-md rounded-full text-on-primary font-label-sm text-label-sm mb-4">
-              Editorial Lookbook
-            </span>
-            <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-primary mb-2">
-              The Art of Slow Dining
-            </h3>
-            <p className="text-on-primary/80 font-body-md text-body-md max-w-sm mb-6">
-              Discover how tactile ceramics transform a simple meal into a
-              mindful experience.
+    <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md animate-page-enter">
+      {/* Header & Description Section */}
+      <section className="mb-stack-md reveal-on-scroll">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="max-w-2xl">
+            <p className="font-label-md text-label-md text-primary mb-2 uppercase tracking-widest">
+              COLLECTION
             </p>
-            <button className="px-6 py-3 bg-on-primary text-primary rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity">
-              Explore Story
+            <h2 className="font-headline-xl text-headline-xl text-on-surface mb-4">
+              Gather & Dine
+            </h2>
+            <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+              Elevate your gathering rituals with our curated collection of
+              handcrafted kitchenware. From artisanal ceramics to sustainably
+              sourced wood, each piece is designed for the tactile beauty of
+              daily use.
+            </p>
+          </div>
+          <div className="flex items-center gap-1.5 text-on-surface-variant font-label-md text-label-md self-end">
+            <span className="text-primary font-semibold">
+              {totalProductCount}
+            </span>{" "}
+            Products
+          </div>
+        </div>
+      </section>
+
+      {/* Filter & Sort Bar (High Z-Index so Dropdown floats ABOVE cards) */}
+      <section className="relative z-50 mb-stack-md reveal-on-scroll">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-gutter">
+          {/* Categories */}
+          <div className="flex items-center gap-3 overflow-x-auto no-scrollbar pb-2 md:pb-0">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => {
+                  setActiveCategory(cat.id);
+                  triggerGridAnimation();
+                }}
+                className={`whitespace-nowrap px-4 py-2 rounded-xl font-label-md text-label-md transition-colors cursor-pointer ${
+                  activeCategory === cat.id
+                    ? "bg-secondary-container/50 text-primary border border-primary/20 shadow-sm"
+                    : "bg-surface-container-low text-on-surface-variant hover:bg-surface-variant/30"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between md:justify-end gap-4 border-t md:border-t-0 border-outline-variant pt-4 md:pt-0">
+            {/* Filter Toggle Button */}
+            <button
+              onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-label-md transition-colors cursor-pointer ${
+                isFilterPanelOpen || showNewArrivalsOnly || maxPrice < 2000
+                  ? "bg-primary/10 text-primary"
+                  : "text-on-surface-variant hover:bg-surface-container-low"
+              }`}
+            >
+              <span className="material-symbols-outlined text-sm">tune</span>
+              Filter
+            </button>
+
+            {/* Animated Modern Sort Dropdown */}
+            <div className="relative" ref={sortDropdownRef}>
+              <button
+                onClick={() => setIsSortDropdownOpen((prev) => !prev)}
+                className={`flex items-center gap-2 px-4 py-2 bg-surface-container-low/50 hover:bg-surface-container-low rounded-xl text-on-surface font-label-md text-label-md transition-all cursor-pointer ${
+                  isSortDropdownOpen ? "ring-2 ring-primary/20" : ""
+                }`}
+              >
+                Sort
+              </button>
+
+              {/* Animated Dropdown Panel */}
+              <div
+                className={`absolute right-0 top-full mt-2 w-48 bg-surface rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-outline-variant/20 py-2 z-50 transition-all duration-200 ease-out origin-top-right ${
+                  isSortDropdownOpen
+                    ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+                }`}
+              >
+                {sortOptions.map((opt) => (
+                  <button
+                    key={opt.id}
+                    onClick={() => {
+                      setSortOption(opt.id);
+                      setIsSortDropdownOpen(false);
+                      triggerGridAnimation();
+                    }}
+                    className="w-full text-left px-4 py-2.5 flex items-center gap-3 hover:bg-surface-container-low text-on-surface font-body-sm text-body-sm transition-colors cursor-pointer"
+                  >
+                    <span className="w-4 flex justify-center text-primary">
+                      {sortOption === opt.id && (
+                        <span className="material-symbols-outlined text-[16px] font-bold">
+                          check
+                        </span>
+                      )}
+                    </span>
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Animated Expandable Filter Drawer */}
+        <div
+          className={`transition-all duration-300 ease-in-out overflow-hidden ${
+            isFilterPanelOpen
+              ? "max-h-40 opacity-100 mt-4"
+              : "max-h-0 opacity-0 mt-0"
+          }`}
+        >
+          <div className="p-5 bg-surface-container-low rounded-xl border border-outline-variant/30 flex flex-wrap items-center gap-8">
+            {/* New Arrivals Toggle */}
+            <label className="flex items-center gap-2 cursor-pointer font-label-md text-label-md text-on-surface">
+              <input
+                type="checkbox"
+                checked={showNewArrivalsOnly}
+                onChange={(e) => {
+                  setShowNewArrivalsOnly(e.target.checked);
+                  triggerGridAnimation();
+                }}
+                className="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer"
+              />
+              New Arrivals Only
+            </label>
+
+            {/* Max Price Range Slider */}
+            <div className="flex items-center gap-3 flex-1 max-w-xs">
+              <span className="font-label-md text-label-md text-on-surface-variant min-w-[100px]">
+                Max Price: ${maxPrice}
+              </span>
+              <input
+                type="range"
+                min="10"
+                max="2000"
+                step="10"
+                value={maxPrice}
+                onChange={(e) => {
+                  setMaxPrice(Number(e.target.value));
+                  triggerGridAnimation();
+                }}
+                className="w-full accent-primary cursor-pointer"
+              />
+            </div>
+
+            {/* Reset Filters */}
+            <button
+              onClick={() => {
+                setActiveCategory("all");
+                setShowNewArrivalsOnly(false);
+                setMaxPrice(2000);
+                setSortOption("featured");
+                triggerGridAnimation();
+              }}
+              className="font-label-sm text-label-sm text-primary underline hover:opacity-80 ml-auto cursor-pointer"
+            >
+              Reset All
             </button>
           </div>
-          <div
-            className="h-full min-h-[400px] w-full bg-cover bg-center"
-            aria-label="A warm, sun-drenched close-up shot of a rustic wooden dining table set with organic ceramic bowls, linen napkins, and handcrafted glassware. The lighting is soft and golden, highlighting the textures of the materials. Minimalist and high-end lifestyle aesthetic with earthy tones like terracotta and sage."
-            style={{
-              backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuA7Li7wbBl9mw2RtRuu0H04ZRy1iN03Ly-fbBdbjqoPnFApceIccpOMQ5HE_Ah_6SUTe2TihZZdWI8xtTnYez3QlOPLx5Z3dzKTQKb1ngkEsXINjKwrZJhLVh7nt99WlMxZG1ihwEK4rSwrvdMzZWaHcF9VskTTlItpIP4NStseJyMN1q8J1RS6SHu8XWHvletVjqWmOe6dCP_WCckolvqkSgEs7q_Lg0eFmFuvSFjt-v_o09LE188')`,
-            }}
-          ></div>
         </div>
+      </section>
 
-        {collection?.products.map((product) => {
+      {/* Product Grid - Key prop forces page entrance animation to replay */}
+      <section
+        key={animationKey}
+        className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-gutter gap-y-stack-md reveal-on-scroll animate-page-enter relative z-0"
+      >
+        {activeCategory === "all" && (
+          <div className="col-span-2 row-span-1 md:row-span-2 relative group overflow-hidden rounded-xl bg-surface-container mb-stack-sm md:mb-0">
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent z-10"></div>
+            <div className="absolute bottom-0 left-0 p-8 z-20">
+              <span className="inline-block px-3 py-1 bg-surface/20 backdrop-blur-md rounded-full text-on-primary font-label-sm text-label-sm mb-4">
+                Editorial Lookbook
+              </span>
+              <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-primary mb-2">
+                The Art of Slow Dining
+              </h3>
+              <p className="text-on-primary/80 font-body-md text-body-md max-w-sm mb-6">
+                Discover how tactile ceramics transform a simple meal into a
+                mindful experience.
+              </p>
+              <button className="px-6 py-3 bg-on-primary text-primary rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity">
+                Explore Story
+              </button>
+            </div>
+            <div
+              className="h-full min-h-[400px] w-full bg-cover bg-center"
+              aria-label="Artisanal ceramic lifestyle image"
+              style={{
+                backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuA7Li7wbBl9mw2RtRuu0H04ZRy1iN03Ly-fbBdbjqoPnFApceIccpOMQ5HE_Ah_6SUTe2TihZZdWI8xtTnYez3QlOPLx5Z3dzKTQKb1ngkEsXINjKwrZJhLVh7nt99WlMxZG1ihwEK4rSwrvdMzZWaHcF9VskTTlItpIP4NStseJyMN1q8J1RS6SHu8XWHvletVjqWmOe6dCP_WCckolvqkSgEs7q_Lg0eFmFuvSFjt-v_o09LE188')`,
+              }}
+            ></div>
+          </div>
+        )}
+
+        {filteredProducts.map((product) => {
           const isFavorited = favoriteIds.includes(product.id);
           const isAdded = addedIds.includes(product.id);
 
@@ -181,15 +391,15 @@ export default function DiningCollection() {
         })}
       </section>
 
-      {/* Pagination / Load More */}
-      <div className="mt-stack-lg flex flex-col items-center gap-6">
-        <p className="font-label-sm text-label-sm text-outline">
-          Showing 8 of 32 items
+      {/* Pagination / Progress Bar Section */}
+      <div className="mt-stack-lg flex flex-col items-center gap-4">
+        <p className="font-body-md text-body-md text-on-surface-variant">
+          Showing {totalProductCount} products
         </p>
-        <div className="w-48 h-1 bg-surface-container-highest rounded-full overflow-hidden">
-          <div className="w-1/4 h-full bg-primary transition-all duration-500"></div>
+        <div className="w-64 h-1 bg-surface-container-high rounded-full overflow-hidden">
+          <div className="w-full h-full bg-primary/80 transition-all duration-500"></div>
         </div>
-        <button className="px-8 py-3 bg-surface border border-outline/20 text-on-surface font-label-md text-label-md rounded-full hover:bg-surface-container-low transition-colors active:scale-95">
+        <button className="mt-2 px-8 py-3.5 bg-[#5D2B22] text-white rounded-full font-label-md text-label-md hover:bg-[#4A221B] active:scale-95 transition-all shadow-md">
           Load More Pieces
         </button>
       </div>
