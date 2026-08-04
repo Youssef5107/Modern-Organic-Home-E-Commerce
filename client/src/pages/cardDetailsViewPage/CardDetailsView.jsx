@@ -1,33 +1,61 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   toggleFavorite,
   toggleAddedProducts,
 } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
-import data from "../../data/products.json";
 import { useNavigate } from "react-router-dom";
 
 export default function CardDetailsView() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const selectedCardId = useSelector(
     (state) => state.ProductsInfo.selectedCardId,
   );
   const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
-  const allProducts = data.collections.flatMap((col) => col.products || []);
-  const selectedCard = allProducts.find(
-    (product) => product.id == selectedCardId,
-  );
-
-  const isFavorited = selectedCard
-    ? favoriteIds.includes(selectedCard.id)
-    : false;
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
-  const isAdded = selectedCard ? addedIds.includes(selectedCard.id) : false;
+
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [isReviewFormOpen, setIsReviewFormOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [rating, setRating] = useState(0);
+
+  useEffect(() => {
+    if (!selectedCardId) return;
+
+    fetch("http://localhost:4003/api/shop/collections")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch collections");
+        return res.json();
+      })
+      .then((data) => {
+        const allProducts = data.collections.flatMap(
+          (col) => col.products || [],
+        );
+        const product = allProducts.find((p) => p.id == selectedCardId);
+
+        if (!product) throw new Error("Product not found");
+
+        setSelectedCard(product);
+        setError(null);
+      })
+      .catch((err) => {
+        console.error("Error loading product:", err);
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [selectedCardId]);
+
+  const isFavorited = selectedCard
+    ? favoriteIds.includes(selectedCard.id)
+    : false;
+  const isAdded = selectedCard ? addedIds.includes(selectedCard.id) : false;
 
   const handleToggleReviewForm = () => {
     if (isReviewFormOpen) {
@@ -38,15 +66,34 @@ export default function CardDetailsView() {
     }
   };
 
-  // Callback when animation completes
   const handleAnimationEnd = () => {
     if (isClosing) {
-      setIsReviewFormOpen(false); // Unmount after exit animation finishes
+      setIsReviewFormOpen(false);
       setIsClosing(false);
     }
   };
 
-  if (!selectedCard) return null;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-background">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (error || !selectedCard) {
+    return (
+      <div className="flex flex-col justify-center items-center min-h-screen bg-background text-on-surface">
+        <p className="text-body-lg mb-4">Product not found.</p>
+        <button
+          onClick={() => navigate("/")}
+          className="px-6 py-2 bg-primary text-on-primary rounded-full font-label-md"
+        >
+          Back to Home
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-on-surface animate-page-enter">
@@ -114,8 +161,7 @@ export default function CardDetailsView() {
 
               <div className="flex items-center gap-4">
                 <span className="font-headline-md text-headline-md text-primary">
-                  {data.currency}
-                  {selectedCard.price}
+                  ${selectedCard.price}
                 </span>
                 <div className="flex items-center text-on-surface-variant">
                   <span
@@ -125,7 +171,8 @@ export default function CardDetailsView() {
                     star
                   </span>
                   <span className="font-label-md text-label-md ml-1">
-                    {selectedCard.rating} ({selectedCard.review_count} reviews)
+                    {selectedCard.rating ?? 5} ({selectedCard.review_count ?? 0}{" "}
+                    reviews)
                   </span>
                 </div>
               </div>
@@ -195,39 +242,18 @@ export default function CardDetailsView() {
                 </h3>
                 <div className="flex items-center gap-2">
                   <div className="flex text-primary">
-                    <span
-                      className="material-symbols-outlined"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      star
-                    </span>
-                    <span
-                      className="material-symbols-outlined"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      star
-                    </span>
-                    <span
-                      className="material-symbols-outlined"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      star
-                    </span>
-                    <span
-                      className="material-symbols-outlined"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      star
-                    </span>
-                    <span
-                      className="material-symbols-outlined"
-                      style={{ fontVariationSettings: "'FILL' 0.5" }}
-                    >
-                      star
-                    </span>
+                    {[...Array(5)].map((_, i) => (
+                      <span
+                        key={i}
+                        className="material-symbols-outlined"
+                        style={{ fontVariationSettings: "'FILL' 1" }}
+                      >
+                        star
+                      </span>
+                    ))}
                   </div>
                   <span className="font-body-md text-body-md text-on-surface-variant">
-                    Based on {selectedCard.review_count} reviews
+                    Based on {selectedCard.review_count ?? 0} reviews
                   </span>
                 </div>
               </div>

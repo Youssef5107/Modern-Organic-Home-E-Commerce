@@ -125,4 +125,59 @@ router.get("/collections/:categorySlug", async (req, res) => {
   }
 });
 
+router.get("/products/:productId", async (req, res) => {
+  try {
+    const { productId } = req.params;
+
+    // Find by slug or ID
+    const product = await prisma.product.findFirst({
+      where: {
+        OR: [{ slug: productId }, { id: productId }],
+      },
+      include: {
+        reviews: true,
+      },
+    });
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    const reviewCount = product.reviews.length;
+    const avgRating =
+      reviewCount > 0
+        ? product.reviews.reduce((acc, r) => acc + r.rating, 0) / reviewCount
+        : (product.rating ?? 0);
+
+    // Format output to match frontend structure
+    const formattedProduct = {
+      id: product.slug ?? product.id,
+      name: product.name,
+      series: product.series ?? null,
+      price: Number(product.price),
+      tags: product.tags ?? [],
+      glaze: product.glaze ?? null,
+      image_url: product.imageUrl ?? null,
+      is_favorite: product.isFavorite ?? false,
+      is_new_arrival: product.isNewArrival ?? false,
+      about: product.about ?? "",
+      material: product.material ?? null,
+      technique: product.technique ?? null,
+      rating: Number(avgRating.toFixed(1)),
+      review_count: product.reviewCount ?? reviewCount,
+      reviews: product.reviews.map((r) => ({
+        name: r.name ?? "Anonymous",
+        date: r.date,
+        rating: r.rating,
+        comment: r.comment,
+      })),
+    };
+
+    res.json(formattedProduct);
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 export default router;
