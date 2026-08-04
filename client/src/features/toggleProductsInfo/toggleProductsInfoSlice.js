@@ -61,6 +61,7 @@ const initialState = {
   quantities: loadStoredQuantities(),
   selectedCardId: null,
   isSyncing: false,
+  notification: null,
 };
 
 export const loadUserPreferences = createAsyncThunk(
@@ -145,10 +146,18 @@ export const toggleProductsInfoSlice = createSlice({
       const productId = action.payload;
       const index = state.favoriteIds.indexOf(productId);
 
-      if (state.favoriteIds.includes(productId)) {
+      if (index > -1) {
         state.favoriteIds.splice(index, 1);
+        state.notification = {
+          message: "Product has been removed from saved items successfully",
+          id: Date.now(),
+        };
       } else {
         state.favoriteIds.push(productId);
+        state.notification = {
+          message: "Product has been added to saved items successfully",
+          id: Date.now(),
+        };
       }
 
       persistList("favorite_products", state.favoriteIds);
@@ -158,14 +167,25 @@ export const toggleProductsInfoSlice = createSlice({
       const productId = action.payload;
       const index = state.addedIds.indexOf(productId);
 
-      if (state.addedIds.includes(productId)) {
+      if (index > -1) {
         state.addedIds.splice(index, 1);
+        state.notification = {
+          message: "Product has been removed from cart successfully",
+          id: Date.now(),
+        };
       } else {
         state.addedIds.push(productId);
+        state.notification = {
+          message: "Product has been added to cart successfully",
+          id: Date.now(),
+        };
       }
 
       persistList("added_products", state.addedIds);
       emitPreferencesChanged(state);
+    },
+    hideNotification: (state) => {
+      state.notification = null;
     },
     incrementQuantity: (state, action) => {
       const id = action.payload;
@@ -268,6 +288,7 @@ export const {
   decrementQuantity,
   setUserPreferences,
   viewCardDetails,
+  hideNotification,
 } = toggleProductsInfoSlice.actions;
 
 export default toggleProductsInfoSlice.reducer;

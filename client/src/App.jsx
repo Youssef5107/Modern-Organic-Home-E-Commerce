@@ -28,6 +28,7 @@ import Shipment from "./pages/checkoutPages/shipmentPage/Shipment";
 import Payment from "./pages/checkoutPages/paymentPage/payment";
 import Review from "./pages/checkoutPages/reviewPage/Review";
 import PaymentMethods from "./pages/paymentMethodsPage/PaymentMethods";
+import { ToastNotification } from "./components/ToastNotification";
 function App() {
   const location = useLocation();
   const pathName = location.pathname;
@@ -118,7 +119,7 @@ function App() {
         </Routes>
       </main>
       {isLogoutConfirmOpen ? null : <BottomNavBar />}
-      <LogoutConfirm />{" "}
+      <LogoutConfirm /> <ToastNotification />
     </>
   );
 }
