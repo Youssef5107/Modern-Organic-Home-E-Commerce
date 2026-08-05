@@ -271,12 +271,15 @@ export default function OurStory() {
               >
                 Explore the Collection
               </Link>
-              <a
-                href="#"
+              <Link
+                to={"/home/lookbook"}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "auto" });
+                }}
                 className="border border-secondary text-secondary px-10 py-5 rounded-full font-label-md hover:bg-secondary-container transition-all w-full sm:w-auto"
               >
-                Read the Journal
-              </a>
+                View Lookbook
+              </Link>
             </div>
           </div>
         </section>

@@ -128,7 +128,7 @@ export default function ShippingAddresses() {
   };
 
   return (
-    <main className="flex-grow w-full max-w-2xl mx-auto px-margin-mobile md:px-0 pt-stack-md flex flex-col gap-stack-md">
+    <section className="flex-grow w-full max-w-2xl mx-auto px-margin-mobile md:px-0 pt-stack-md flex flex-col gap-stack-md animate-page-enter">
       <div className="flex flex-col gap-base">
         <h2 className="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">
           Shipping Addresses
@@ -329,6 +329,6 @@ export default function ShippingAddresses() {
           </span>
         </button>
       )}
-    </main>
+    </section>
   );
 }

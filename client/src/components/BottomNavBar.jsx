@@ -21,7 +21,8 @@ export default function BottomNavBar() {
     if (
       pathname === "/" ||
       pathname === "/home" ||
-      pathname === "/home/our-story"
+      pathname === "/home/our-story" ||
+      pathname === "/home/lookbook"
     )
       return "home";
     if (

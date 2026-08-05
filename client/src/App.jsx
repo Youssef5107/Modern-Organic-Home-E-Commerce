@@ -18,7 +18,7 @@ import LivingRoomCollection from "./pages/livingRoomCollectionPage/LivingRoomCol
 import DiningCollection from "./pages/diningCollectionPage/DiningCollection";
 import BedroomCollection from "./pages/bedroomCollectionPage/BedroomCollection";
 import SavedItems from "./pages/savedItemsPage/SavedItems";
-import AccountSettings from "./pages/accountSettingsPage/AccountSettings";
+// import AccountSettings from "./pages/accountSettingsPage/AccountSettings";
 import OurStory from "./pages/ourStoryPage/OurStory";
 import CardDetailsView from "./pages/cardDetailsViewPage/CardDetailsView";
 import AuthModal from "./components/AuthModal";
@@ -66,14 +66,13 @@ function App() {
 
   return (
     <>
-      {pathName == "/profile/account-settings" ||
-      pathName == "/profile/saved-items" ||
+      {pathName == "/profile/saved-items" ||
       pathName.includes("card-details-view") ||
       isLogoutConfirmOpen ? null : (
         <Header />
       )}
       <main
-        className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName == "/profile/account-settings" || pathName.includes("card-details-view") || pathName == "/cart/checkout/payment" || pathName == "/cart/checkout/review" || pathName == "/home/lookbook" ? "pb-20" : "pb-32"}`}
+        className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName.includes("card-details-view") || pathName == "/cart/checkout/payment" || pathName == "/cart/checkout/review" || pathName == "/home/lookbook" ? "pb-20" : "pb-32"}`}
       >
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
@@ -120,10 +119,7 @@ function App() {
             element={<ShippingAddresses />}
           />{" "}
           <Route path="/profile/payment-methods" element={<PaymentMethods />} />
-          <Route
-            path="/profile/account-settings"
-            element={<AccountSettings />}
-          />
+          <Route path="/profile/account-settings" element={<ComingSoon />} />
           <Route path="/profile/order-history" element={<ComingSoon />} />
           <Route path="/profile/active-orders" element={<ComingSoon />} />
         </Routes>

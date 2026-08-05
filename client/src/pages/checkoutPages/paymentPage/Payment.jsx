@@ -167,6 +167,9 @@ export default function Payment() {
               <div className="flex flex-col items-center relative z-10">
                 <Link
                   to="/cart/checkout/shipment"
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: "auto" });
+                  }}
                   className="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-label-md mb-2 shadow-sm"
                 >
                   <span className="material-symbols-outlined text-[20px]">

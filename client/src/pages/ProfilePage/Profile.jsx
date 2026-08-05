@@ -88,9 +88,12 @@ export default function Profile() {
               Member
             </p>
           </div>
-          <button className="mt-6 px-6 py-2 border border-[#d8c2bd] rounded-full font-label-md text-label-md text-[#6f3429] hover:bg-[#f5f3ee] transition-colors active:scale-95">
+          <Link
+            to={"/profile/account-settings"}
+            className="mt-6 px-6 py-2 border border-[#d8c2bd] rounded-full font-label-md text-label-md text-[#6f3429] hover:bg-[#f5f3ee] transition-colors active:scale-95"
+          >
             Edit Profile
-          </button>
+          </Link>
         </section>
 
         {/* Active Orders Section */}

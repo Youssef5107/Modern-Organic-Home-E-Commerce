@@ -146,6 +146,9 @@ export default function Shipment() {
               </h2>
               <Link
                 to="/profile/shipping-addresses"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "auto" });
+                }}
                 className="flex items-center gap-1.5 font-label-md text-primary hover:underline"
               >
                 <span className="material-symbols-outlined text-[18px]">

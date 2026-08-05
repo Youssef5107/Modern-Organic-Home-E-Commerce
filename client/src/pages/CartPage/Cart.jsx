@@ -164,95 +164,40 @@ export default function Cart() {
               })
             )}
           </div>
-          {/* <!-- Recently Viewed --> */}
-          <div className="mt-stack-lg">
-            <h3 className="font-headline-md text-headline-md-mobile text-on-background mb-stack-sm">
-              Recently Viewed
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter">
-              {/* <!-- Product 1 --> */}
-              <div className="group cursor-pointer">
-                <div className="aspect-[3/4] rounded-xl overflow-hidden mb-3 relative">
-                  <img
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    data-alt="A minimalist solid oak wood stool with elegant curved legs, set against a clean white gallery wall. The wood grain is prominent and natural. Soft ambient shadows provide depth, fitting the quiet luxury and modern organic interior design style."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD79DA7l8EwiZSC63Lmcnm6lofXZdaMSz-A-IgzX8aWzS7SS94pdtiZE59HxKcjUPzBGMWP9fQobOGU3Mj5ZCDNG41MGRJkmH4y7lFylVObUB8iU2Ih-m6kspoALZBsurv3HXoWgakjafItKHxSBjMGfjEAppQmjHRh9iLDp-CzNtJaBVE71xGw3bjWg83YoEeNs41Iaj9Bgn5V75qInmu7kjZKcGSfG79Oq0FxCU1nWZcVqpkTndY"
-                  />
-                  <div className="absolute top-3 right-3">
-                    <button className="w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
-                      <span className="material-symbols-outlined text-[18px]">
-                        favorite
-                      </span>
-                    </button>
-                  </div>
-                </div>
-                <h4 className="font-label-md text-on-surface group-hover:text-primary transition-colors">
-                  Oak Stool
-                </h4>
-                <p className="font-label-sm text-on-surface-variant">$185.00</p>
+          <div className="grid grid-cols-12 gap-4 h-[250px]">
+            <div className="col-span-7 h-full rounded-2xl overflow-hidden relative group">
+              <img
+                src="https://lh3.googleusercontent.com/aida/AP1WRLti0xii382a0hO0Ib07h-qi56XRyR5lG9ZtMQV3Z3NuVmZkwf-ptHgW7Q65HdRTO4FdSaZaj-UgGdzAXSx1653fVRSK87xueYc4_Jfbpge4Z39DZDWdNX8JqlaRryh-Gmh_05Mc4v6YHoYzes8ONHjsfOb04zbSqXVeOt4J6B1uLR6X2WaohG25AfV4yrRPF7wyKkxUQRnMd-UrzbdwM1CHgBzNc_jkJaH4fJdGdZzczserbx6ip47R"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                alt="Potter's hands working with clay"
+              />
+              <div className="absolute bottom-6 left-6 text-white">
+                <span className="font-label-sm uppercase tracking-widest opacity-80">
+                  The Process
+                </span>
               </div>
-              {/* <!-- Product 2 --> */}
-              <div className="group cursor-pointer">
-                <div className="aspect-[3/4] rounded-xl overflow-hidden mb-3 relative">
-                  <img
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    data-alt="A high-end minimal abstract painting in earthy shades of beige, charcoal, and ochre, framed in a thin light wood frame. The art is hanging on a textured plaster wall. The lighting is soft and neutral, enhancing the organic feel of the composition."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQErXgpaP5_XfA-JpslfUyt5bQIcTuEFX9S3kse5S3s4S9wAxJyeZvPZCHyeG7PVEN0_ozwyrfU6h-qIjIeCq4EL5LevHyycRul1yQFONygZ6iFl_Di_78bS1hcb8j2eok4dJjGFqxzh6CuqP2bheDsFK_yrtQjItG1BEbSnAV7GoopA7vpADPoCapJNvQDNxS0qhXONfGZ8iVQTkGa9TJs6SgYs8nHmYbAGidBGklWL8C1xRgbbM"
-                  />
-                  <div className="absolute top-3 right-3">
-                    <button className="w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
-                      <span className="material-symbols-outlined text-[18px]">
-                        favorite
-                      </span>
-                    </button>
-                  </div>
-                </div>
-                <h4 className="font-label-md text-on-surface group-hover:text-primary transition-colors">
-                  Abstract Plaster Art
-                </h4>
-                <p className="font-label-sm text-on-surface-variant">$240.00</p>
+            </div>
+
+            <div className="col-span-5 flex flex-col gap-4 h-full">
+              <div className="h-1/2 rounded-2xl overflow-hidden relative group">
+                <img
+                  src="https://lh3.googleusercontent.com/aida/AP1WRLv5Z1EuRGPtTmA_T1_E5M-Zv2wR8iHCtjDC1hATHthc99CcMkyqmtiqwS9-ASE2ptj-iu6Q7sBtQiJrsabTUWg4Wr-lazZE0ABCgVT0Hhr9tl4AYg6ff_RQzVBYCdEXlvZQz6VizS_2Iq4-d9ciXb9H7JBeSH0cEqNVTNohV8M3lJida2e7r2Tn3VmtARFyWgeJzvMMI1_DjqOuGa5t4TpsU4aeB_M8mj0A-GWZCupyO4OtCNJK1ZW3Dg"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  alt="Raw clay textures"
+                />
+                <div className="absolute inset-0 bg-black/10"></div>
               </div>
-              {/* <!-- Product 3 --> */}
-              <div className="group cursor-pointer">
-                <div className="aspect-[3/4] rounded-xl overflow-hidden mb-3 relative">
-                  <img
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    data-alt="A set of four handcrafted stoneware plates in a speckled oatmeal glaze, stacked neatly on a rustic wooden table. The plates have slightly irregular, organic edges. The overall mood is warm, inviting, and celebrates artisanal craftsmanship."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWFC-UMdXbEvJQa7Pg4QYYf8iTVi-GESaVAN0ajpAUdKWV1p4xnvbs8B5smVdMb3volEwRECg7_iLWt6WYCB2677DQvJoFr4OOgctOw_rsD0HDwcS6Guz8ueiMOm47-iHqqXLHRyQYr-oJPa1V_RpUQVX6RSOY9x8Sl8ewo-z-W7kehZMI9t5Yj1x6jlXfVyL3prNfqyPARr2WmhpqveeTY74Pp4XvT-JbRk4UujB5XLrV8qmOkxc"
-                  />
-                  <div className="absolute top-3 right-3">
-                    <button className="w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
-                      <span className="material-symbols-outlined text-[18px]">
-                        favorite
-                      </span>
-                    </button>
-                  </div>
+              <div className="h-1/2 rounded-2xl overflow-hidden relative group">
+                <img
+                  src="https://lh3.googleusercontent.com/aida/AP1WRLsGKnSvfZqhyFLWzOZS2QCQCrY4wm3sXRIOhF9KwEjrq7ZVXGgp1-VvTpw5W_i7zN0v6VzTl73guLw17fQb_WYRPr4ifk2r5hC5HjlbD3M4oggwaqsSnJyCvcnUSJJrSSVNG1T6Ukwhz1n8v-FJy50ObjXNi20UuK-ovSCCLCYWxgjQ7o4goBnWt6G4O9r6Yl5MVHqjubKP5KpNXsXos6Wlq92R7mBd840fCI9XNzhNXWwmbcQZM2UlSA"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  alt="Curated vessels"
+                />
+                <div className="absolute bottom-4 right-4">
+                  <span className="font-label-sm text-on-surface-variant bg-surface-container-lowest/80 backdrop-blur-sm px-3 py-1 rounded-full">
+                    Curated Form
+                  </span>
                 </div>
-                <h4 className="font-label-md text-on-surface group-hover:text-primary transition-colors">
-                  Stoneware Set
-                </h4>
-                <p className="font-label-sm text-on-surface-variant">$72.00</p>
-              </div>
-              {/* <!-- Product 4 --> */}
-              <div className="group cursor-pointer">
-                <div className="aspect-[3/4] rounded-xl overflow-hidden mb-3 relative">
-                  <img
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    data-alt="A luxurious high-pile wool rug in a cream and charcoal geometric pattern, partially tucked under a minimalist bed frame. The room is light and airy with sheer white curtains. The image captures the soft, inviting texture of the organic wool fibers."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZbJGn3C9s2wyjJvZ9nMFYDOG2lHg6vwGJFjsMYuDXWbw_KTHmpqFX-TjAT3bDgmDOqBMFPjoyIrwhPL_oCOe3_8iohjBUHVuczQuA8WOQEQX-DzAb4OvtLN8clwSDQN_k8PperhpHr-sUFHKFTXsFTPSHQlQfJISJOxt93wckMEVGlj42wj9OwQTKo5vI-HLGObDMsNLdiZc03f4r7bBogz4I0jSBmc0IP5N9Kxo8EhlkoLCVxx4"
-                  />
-                  <div className="absolute top-3 right-3">
-                    <button className="w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
-                      <span className="material-symbols-outlined text-[18px]">
-                        favorite
-                      </span>
-                    </button>
-                  </div>
-                </div>
-                <h4 className="font-label-md text-on-surface group-hover:text-primary transition-colors">
-                  Nomad Wool Rug
-                </h4>
-                <p className="font-label-sm text-on-surface-variant">$490.00</p>
               </div>
             </div>
           </div>
