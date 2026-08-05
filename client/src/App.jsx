@@ -32,6 +32,7 @@ import { ToastNotification } from "./components/ToastNotification";
 import ComingSoon from "./pages/commingSoonPage/ComingSoon";
 import ShippingAddresses from "./pages/shippingAddressesPage/ShippingAddresses";
 import Lookbook from "./pages/lookbookPage/Lookbook";
+import OrderConfirmation from "./pages/orderConfirmationPage/OrderConfirmation";
 function App() {
   const location = useLocation();
   const pathName = location.pathname;
@@ -68,11 +69,12 @@ function App() {
     <>
       {pathName == "/profile/saved-items" ||
       pathName.includes("card-details-view") ||
-      isLogoutConfirmOpen ? null : (
+      isLogoutConfirmOpen ||
+      pathName == "/order-confirmation" ? null : (
         <Header />
       )}
       <main
-        className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName.includes("card-details-view") || pathName == "/cart/checkout/payment" || pathName == "/cart/checkout/review" || pathName == "/home/lookbook" ? "pb-20" : "pb-32"}`}
+        className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName.includes("card-details-view") || pathName == "/cart/checkout/payment" || pathName == "/cart/checkout/review" || pathName == "/home/lookbook" ? "pb-20" : pathName == "/order-confirmation" ? "pb-0" : "pb-32"}`}
       >
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
@@ -118,13 +120,16 @@ function App() {
             path="/profile/shipping-addresses"
             element={<ShippingAddresses />}
           />{" "}
+          <Route path="/order-confirmation" element={<OrderConfirmation />} />
           <Route path="/profile/payment-methods" element={<PaymentMethods />} />
           <Route path="/profile/account-settings" element={<ComingSoon />} />
           <Route path="/profile/order-history" element={<ComingSoon />} />
           <Route path="/profile/active-orders" element={<ComingSoon />} />
         </Routes>
       </main>
-      {isLogoutConfirmOpen ? null : <BottomNavBar />}
+      {isLogoutConfirmOpen || pathName == "/order-confirmation" ? null : (
+        <BottomNavBar />
+      )}
       <LogoutConfirm /> <ToastNotification />
     </>
   );
