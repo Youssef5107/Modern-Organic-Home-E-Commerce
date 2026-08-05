@@ -42,8 +42,7 @@ export default function BottomNavBar() {
       pathname.includes("auth") ||
       pathname === "/profile/saved-items" ||
       pathname.includes("payment-methods") ||
-      pathname === "/profile/shipping-addresses" ||
-      pathname === "/profile/account-settings"
+      pathname === "/profile/shipping-addresses"
     )
       return "profile";
   };
