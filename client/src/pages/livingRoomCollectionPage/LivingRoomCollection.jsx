@@ -373,12 +373,18 @@ export default function LivingRoomCollection() {
                 Discover how to blend textures and tones for a home that feels
                 truly lived-in yet refined.
               </p>
-              <button className="flex items-center gap-2 group/btn font-label-md text-label-md uppercase tracking-widest border-b border-white pb-1">
+              <Link
+                to={"/home/lookbook"}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "auto" });
+                }}
+                className="flex items-center gap-2 group/btn font-label-md text-label-md uppercase tracking-widest border-b border-white pb-1"
+              >
                 Read Lookbook
                 <span className="material-symbols-outlined group-hover/btn:translate-x-1 transition-transform">
                   arrow_forward
                 </span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>

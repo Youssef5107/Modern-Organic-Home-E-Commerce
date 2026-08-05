@@ -278,41 +278,6 @@ export default function CeramicsCollection() {
         key={animationKey}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter reveal-on-scroll animate-page-enter relative z-0"
       >
-        {activeCategory === "all" && (
-          <div className="lg:col-span-2 product-card group">
-            <div className="relative aspect-[16/9] md:aspect-[21/9] lg:aspect-[16/9] rounded-xl overflow-hidden bg-surface-container mb-4 cursor-pointer">
-              <img
-                className="product-image w-full h-full object-cover transition-transform duration-700 ease-out"
-                alt="Handcrafted ceramic vases"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk0jKdAY-ROqADg-308IK14qb7jBa_Q-fVXXWCG_9Up2RCl9f2qlzguPZRw8WZ3p_sdnhvh2ZmiBZ7yLnr0WYqapYyznAfK9fJULyBNlg7mfG67d6z6O8EctSuStrNy-GFCwGUEjOx-p0OS9Dq2nZj7Xv7ott3aKtBH9myyChUTF8bT8GKkqj6UkSS2bfctOJVdaOrqLMnW_nloimx3xwZP5o3BfCNDFrcCtqY4K7fqCGNb4iI84w"
-              />
-              <div className="absolute top-4 left-4">
-                <span className="bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full uppercase">
-                  Signature Piece
-                </span>
-              </div>
-              <button className="absolute bottom-4 right-4 bg-white/90 backdrop-blur p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity active:scale-90">
-                <span className="material-symbols-outlined text-primary">
-                  add_shopping_cart
-                </span>
-              </button>
-            </div>
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="font-headline-md text-headline-md text-on-surface mb-1">
-                  Handcrafted Ceramic Vase
-                </h3>
-                <p className="font-label-md text-label-md text-on-surface-variant">
-                  Signature Sculptural Series
-                </p>
-              </div>
-              <span className="font-label-md text-label-md text-primary">
-                $185.00
-              </span>
-            </div>
-          </div>
-        )}
-
         {filteredProducts.map((product) => {
           const isFavorited = favoriteIds.includes(product.id);
           const isAdded = addedIds.includes(product.id);

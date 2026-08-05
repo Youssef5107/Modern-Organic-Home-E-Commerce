@@ -74,7 +74,6 @@ export default function DiningCollection() {
   const favoriteIds = useSelector((state) => state.ProductsInfo.favoriteIds);
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
 
-  // --- Filter and Sort Logic ---
   const filteredProducts = useMemo(() => {
     if (!collection?.products) return [];
 
@@ -111,7 +110,7 @@ export default function DiningCollection() {
   if (loading) return null;
 
   const totalProductCount =
-    filteredProducts.length + (activeCategory === "all" ? 1 : 0);
+    filteredProducts.length + (activeCategory === "all" ? 0 : 0);
 
   return (
     <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md animate-page-enter">
@@ -286,34 +285,6 @@ export default function DiningCollection() {
         key={animationKey}
         className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-gutter gap-y-stack-md reveal-on-scroll animate-page-enter relative z-0"
       >
-        {activeCategory === "all" && (
-          <div className="col-span-2 row-span-1 md:row-span-2 relative group overflow-hidden rounded-xl bg-surface-container mb-stack-sm md:mb-0">
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent z-10"></div>
-            <div className="absolute bottom-0 left-0 p-8 z-20">
-              <span className="inline-block px-3 py-1 bg-surface/20 backdrop-blur-md rounded-full text-on-primary font-label-sm text-label-sm mb-4">
-                Editorial Lookbook
-              </span>
-              <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-primary mb-2">
-                The Art of Slow Dining
-              </h3>
-              <p className="text-on-primary/80 font-body-md text-body-md max-w-sm mb-6">
-                Discover how tactile ceramics transform a simple meal into a
-                mindful experience.
-              </p>
-              <button className="px-6 py-3 bg-on-primary text-primary rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity">
-                Explore Story
-              </button>
-            </div>
-            <div
-              className="h-full min-h-[400px] w-full bg-cover bg-center"
-              aria-label="Artisanal ceramic lifestyle image"
-              style={{
-                backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuA7Li7wbBl9mw2RtRuu0H04ZRy1iN03Ly-fbBdbjqoPnFApceIccpOMQ5HE_Ah_6SUTe2TihZZdWI8xtTnYez3QlOPLx5Z3dzKTQKb1ngkEsXINjKwrZJhLVh7nt99WlMxZG1ihwEK4rSwrvdMzZWaHcF9VskTTlItpIP4NStseJyMN1q8J1RS6SHu8XWHvletVjqWmOe6dCP_WCckolvqkSgEs7q_Lg0eFmFuvSFjt-v_o09LE188')`,
-              }}
-            ></div>
-          </div>
-        )}
-
         {filteredProducts.map((product) => {
           const isFavorited = favoriteIds.includes(product.id);
           const isAdded = addedIds.includes(product.id);
