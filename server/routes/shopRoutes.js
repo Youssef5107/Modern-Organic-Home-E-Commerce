@@ -16,7 +16,6 @@ router.get("/collections", async (req, res) => {
       },
     });
 
-    // Format all collections and their products to match your frontend structure
     const formattedCollections = categories.map((category) => ({
       id: category.slug,
       title: category.name,

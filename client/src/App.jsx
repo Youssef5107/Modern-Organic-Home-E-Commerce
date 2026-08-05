@@ -118,6 +118,7 @@ function App() {
             element={<AccountSettings />}
           />
           <Route path="/profile/order-history" element={<ComingSoon />} />
+          <Route path="/profile/active-orders" element={<ComingSoon />} />
         </Routes>
       </main>
       {isLogoutConfirmOpen ? null : <BottomNavBar />}

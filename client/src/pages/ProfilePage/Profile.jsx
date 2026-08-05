@@ -95,35 +95,37 @@ export default function Profile() {
 
         {/* Active Orders Section */}
         <section className="mt-8 translate-y-[10px] animate-[fade-in_0.6s_cubic-bezier(0.2,0.8,0.2,1)_0.1s_forwards] reveal-on-scroll">
-          <h3 className="font-label-sm text-label-sm text-[#534340] uppercase tracking-widest mb-4 px-1">
-            Active Orders
-          </h3>
-          <div className="bg-white p-6 rounded-xl shadow-[0_4px_20px_rgba(111,52,41,0.04)] border border-[#f0eee9] flex items-center gap-4 group cursor-pointer hover:shadow-md transition-shadow">
-            <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
-              <img
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                alt="Close up of a handcrafted ceramic vase"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8_m1vihBejTY8TtKxtHLpFgv-qN6cQFjA0UxmDrNCHS4J2tv4q351-rumIspoKkV-2aQsJIy1piOFbCGGtI8ExCFGn3oVzOXsWD9FNQf5ePhuTmBFBVwtMYXzANRgYXE7Xg6TJlIJqhE7iNOyDEkk4CeifAZSR6FyzpAEDiPud-56M35XA51QI_dxFLB4-VepJKdhdOE6OZrkhHS1RNUqkQkJadBnQdDGhYHoseRIOuJ9ylc2Gno"
-              />
+          <Link to={"/profile/active-orders"}>
+            <h3 className="font-label-sm text-label-sm text-[#534340] uppercase tracking-widest mb-4 px-1">
+              Active Orders
+            </h3>
+            <div className="bg-white p-6 rounded-xl shadow-[0_4px_20px_rgba(111,52,41,0.04)] border border-[#f0eee9] flex items-center gap-4 group cursor-pointer hover:shadow-md transition-shadow">
+              <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                <img
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  alt="Close up of a handcrafted ceramic vase"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8_m1vihBejTY8TtKxtHLpFgv-qN6cQFjA0UxmDrNCHS4J2tv4q351-rumIspoKkV-2aQsJIy1piOFbCGGtI8ExCFGn3oVzOXsWD9FNQf5ePhuTmBFBVwtMYXzANRgYXE7Xg6TJlIJqhE7iNOyDEkk4CeifAZSR6FyzpAEDiPud-56M35XA51QI_dxFLB4-VepJKdhdOE6OZrkhHS1RNUqkQkJadBnQdDGhYHoseRIOuJ9ylc2Gno"
+                />
+              </div>
+              <div className="flex-1">
+                <p className="font-label-sm text-label-sm text-[#7c552c] mb-1 flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[14px]">
+                    local_shipping
+                  </span>
+                  In Transit
+                </p>
+                <h4 className="font-label-md text-label-md text-[#1b1c19]">
+                  Handcrafted Ceramic Vase
+                </h4>
+                <p className="font-body-md text-label-sm text-[#534340] mt-1">
+                  Order # — Status
+                </p>
+              </div>
+              <span className="material-symbols-outlined text-[#534340]">
+                chevron_right
+              </span>
             </div>
-            <div className="flex-1">
-              <p className="font-label-sm text-label-sm text-[#7c552c] mb-1 flex items-center gap-1">
-                <span className="material-symbols-outlined text-[14px]">
-                  local_shipping
-                </span>
-                In Transit
-              </p>
-              <h4 className="font-label-md text-label-md text-[#1b1c19]">
-                Handcrafted Ceramic Vase
-              </h4>
-              <p className="font-body-md text-label-sm text-[#534340] mt-1">
-                Order # — Status
-              </p>
-            </div>
-            <span className="material-symbols-outlined text-[#534340]">
-              chevron_right
-            </span>
-          </div>
+          </Link>
         </section>
 
         {/* Account Menu List */}

@@ -187,6 +187,12 @@ export const toggleProductsInfoSlice = createSlice({
     hideNotification: (state) => {
       state.notification = null;
     },
+    showNotification: (state, action) => {
+      state.notification = {
+        message: action.payload,
+        id: Date.now(),
+      };
+    },
     incrementQuantity: (state, action) => {
       const id = action.payload;
       state.quantities[id] = (state.quantities[id] || 1) + 1;
@@ -289,6 +295,7 @@ export const {
   setUserPreferences,
   viewCardDetails,
   hideNotification,
+  showNotification,
 } = toggleProductsInfoSlice.actions;
 
 export default toggleProductsInfoSlice.reducer;

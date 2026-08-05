@@ -4,6 +4,7 @@ import cors from "cors";
 import shopRoutes from "./routes/shopRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import testRoutes from "./test/testRoutes.js";
+import stripeRoutes from "./routes/stripeRoutes.js";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use("/api/shop", shopRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/test", testRoutes);
+app.use("/api/stripe", stripeRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
