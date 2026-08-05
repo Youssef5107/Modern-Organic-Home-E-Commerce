@@ -52,7 +52,7 @@ export const loginApi = createAsyncThunk(
 
 export const registerApi = createAsyncThunk(
   "auth/register",
-  async ({ userName, email, password }, { rejectWithValue }) => {
+  async ({ userName, email, password }, { dispatch, rejectWithValue }) => {
     try {
       const response = await fetch(`${API_BASE_URL}/auth/register`, {
         method: "POST",
@@ -71,6 +71,13 @@ export const registerApi = createAsyncThunk(
       if (!response.ok) {
         return rejectWithValue(data.message || "Unable to create your account");
       }
+
+      if (typeof window !== "undefined" && data.token) {
+        localStorage.setItem("authToken", data.token);
+        localStorage.setItem("authUser", JSON.stringify(data.user || null));
+      }
+
+      dispatch(loadUserPreferences());
 
       return data;
     } catch (error) {
@@ -146,6 +153,8 @@ export const authModalApi = createSlice({
         state.error = null;
         state.successMessage =
           action.payload.message || "Account created successfully";
+        state.token = action.payload.token || null;
+        state.user = action.payload.user || null;
       })
       .addCase(registerApi.rejected, (state, action) => {
         state.isLoading = false;

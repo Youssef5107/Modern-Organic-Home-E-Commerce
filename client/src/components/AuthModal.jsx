@@ -113,7 +113,13 @@ export default function AuthModal({ onClose }) {
         setEmail("");
         setPassword("");
         setFieldErrors({});
-        setActiveTab("login");
+
+        window.dispatchEvent(new Event("auth-state-changed"));
+
+        setTimeout(() => {
+          onClose?.();
+          navigate("/profile");
+        }, 700);
       }
     } catch (error) {
       setFeedback({ type: "error", message: error || "Something went wrong." });
