@@ -31,6 +31,7 @@ import PaymentMethods from "./pages/paymentMethodsPage/PaymentMethods";
 import { ToastNotification } from "./components/ToastNotification";
 import ComingSoon from "./pages/commingSoonPage/ComingSoon";
 import ShippingAddresses from "./pages/shippingAddressesPage/ShippingAddresses";
+import Lookbook from "./pages/lookbookPage/Lookbook";
 function App() {
   const location = useLocation();
   const pathName = location.pathname;
@@ -72,12 +73,13 @@ function App() {
         <Header />
       )}
       <main
-        className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName == "/profile/account-settings" || pathName.includes("card-details-view") || pathName == "/cart/checkout/payment" || pathName == "/cart/checkout/review" ? "pb-20" : "pb-32"}`}
+        className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName == "/profile/account-settings" || pathName.includes("card-details-view") || pathName == "/cart/checkout/payment" || pathName == "/cart/checkout/review" || pathName == "/home/lookbook" ? "pb-20" : "pb-32"}`}
       >
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
           <Route path="/home/our-story" element={<OurStory />} />
+          <Route path="/home/lookbook" element={<Lookbook />} />
           <Route path="/home/card-details-view" element={<CardDetailsView />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/shop/card-details-view" element={<CardDetailsView />} />

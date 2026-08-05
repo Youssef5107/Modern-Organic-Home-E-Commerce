@@ -32,9 +32,15 @@ export default function HeroSection() {
             >
               Explore Collection
             </Link>
-            <button className="border border-secondary text-secondary px-8 py-4 rounded-full font-label-md text-label-md hover:bg-secondary/5 transition-all active:scale-95">
+            <Link
+              to={"/home/lookbook"}
+              className="border border-secondary text-secondary px-8 py-4 rounded-full font-label-md text-label-md hover:bg-secondary/5 transition-all active:scale-95"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
+            >
               View Lookbook
-            </button>
+            </Link>
           </div>
         </div>
       </div>
