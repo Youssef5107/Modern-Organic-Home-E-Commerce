@@ -18,6 +18,47 @@ const getAuthenticatedUser = (req) => {
   }
 };
 
+// --- Shipping Method Routes ---
+
+// GET user's saved shipping method preference
+router.get("/shipping-method", async (req, res) => {
+  const authUser = getAuthenticatedUser(req);
+  if (!authUser) return res.status(401).json({ message: "Unauthorized" });
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: authUser.userId },
+      select: { shippingMethod: true },
+    });
+    return res
+      .status(200)
+      .json({ shippingMethod: user?.shippingMethod || "standard" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
+// PUT update user's preferred shipping method
+router.put("/shipping-method", async (req, res) => {
+  const authUser = getAuthenticatedUser(req);
+  if (!authUser) return res.status(401).json({ message: "Unauthorized" });
+
+  const { shippingMethod } = req.body;
+
+  try {
+    const user = await prisma.user.update({
+      where: { id: authUser.userId },
+      data: { shippingMethod },
+      select: { shippingMethod: true },
+    });
+    return res.status(200).json({ shippingMethod: user.shippingMethod });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
+// --- Address Routes ---
+
 router.get("/", async (req, res) => {
   const authUser = getAuthenticatedUser(req);
   if (!authUser) return res.status(401).json({ message: "Unauthorized" });

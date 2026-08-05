@@ -1,11 +1,110 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import ShippingAddresses from "../../shippingAddressesPage/ShippingAddresses";
+
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:4003/api";
+
 export default function Shipment() {
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
+  const [productsData, setProductsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const [shippingMethod, setShippingMethod] = useState(() => {
+    return localStorage.getItem("shippingMethod") || "standard";
+  });
+
+  const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
+  const quantities = useSelector(
+    (state) => state.ProductsInfo.quantities || {},
+  );
+
+  const token = localStorage.getItem("authToken");
+
+  useEffect(() => {
+    async function initData() {
+      try {
+        if (token) {
+          const shipRes = await fetch(
+            `${API_BASE_URL}/addresses/shipping-method`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            },
+          );
+          if (shipRes.ok) {
+            const shipData = await shipRes.json();
+            if (shipData.shippingMethod) {
+              setShippingMethod(shipData.shippingMethod);
+              localStorage.setItem("shippingMethod", shipData.shippingMethod);
+            }
+          }
+        }
+
+        const prodRes = await fetch(`${API_BASE_URL}/shop/collections`);
+        if (prodRes.ok) {
+          const result = await prodRes.json();
+          const dbProducts = (result.collections || []).flatMap(
+            (col) => col.products || [],
+          );
+          setProductsData(dbProducts);
+        }
+      } catch (error) {
+        console.error("Error initializing shipment data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    initData();
+  }, [token]);
+
+  const addedProducts = productsData.filter((product) =>
+    addedIds.includes(product.id),
+  );
+
+  const subtotal = addedProducts.reduce((sum, product) => {
+    const qty = quantities[product.id] || 1;
+    return sum + (product.price || 0) * qty;
+  }, 0);
+
+  let shippingFee = 0;
+  if (shippingMethod === "express") {
+    shippingFee = 15.0;
+  } else if (shippingMethod === "standard") {
+    shippingFee = subtotal >= 300 || subtotal === 0 ? 0 : 12.5;
+  }
+
+  const taxFee = subtotal * 0.08;
+  const grandTotal = subtotal + shippingFee + taxFee;
+
+  const handleShippingChange = async (method) => {
+    if (shippingMethod === method) return;
+
+    setShippingMethod(method);
+    localStorage.setItem("shippingMethod", method);
+
+    if (token) {
+      try {
+        await fetch(`${API_BASE_URL}/addresses/shipping-method`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ shippingMethod: method }),
+        });
+      } catch (err) {
+        console.error("Failed to persist shipping method:", err);
+      }
+    }
+  };
+
   return (
-    <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md md:py-stack-lg animate-page-enter">
+    <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md md:py-stack-lg animate-page-enter relative pb-28">
       {/* Progress Stepper */}
       <nav className="flex items-center justify-center mb-stack-lg overflow-hidden">
         <div className="flex items-center w-full max-w-3xl">
-          {/* Step 1: Shipping */}
           <div className="flex flex-col items-center relative z-10">
             <div className="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md mb-2 shadow-md transition-transform hover:scale-105">
               1
@@ -16,7 +115,6 @@ export default function Shipment() {
             <div className="absolute inset-0 bg-primary w-1/2"></div>
           </div>
 
-          {/* Step 2: Payment */}
           <div className="flex flex-col items-center relative z-10">
             <div className="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md mb-2">
               2
@@ -27,7 +125,6 @@ export default function Shipment() {
           </div>
           <div className="flex-1 h-0.5 bg-outline-variant mx-2 -mt-6"></div>
 
-          {/* Step 3: Review */}
           <div className="flex flex-col items-center relative z-10">
             <div className="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md mb-2">
               3
@@ -40,102 +137,51 @@ export default function Shipment() {
       </nav>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
-        {/* Left Column: Forms */}
+        {/* Left Column */}
         <div className="lg:col-span-7 space-y-stack-md">
-          {/* Section: Shipping Address */}
           <section className="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm reveal-on-scroll">
-            <h2 className="font-headline-md text-headline-md mb-stack-sm text-on-surface">
-              Shipping Address
-            </h2>
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="md:col-span-1">
-                <label className="block font-label-sm text-on-surface-variant mb-1">
-                  First Name
-                </label>
-                <input
-                  className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface placeholder-outline-variant focus:ring-1 focus:ring-primary transition-all"
-                  placeholder="Julian"
-                  type="text"
-                />
-              </div>
-              <div className="md:col-span-1">
-                <label className="block font-label-sm text-on-surface-variant mb-1">
-                  Last Name
-                </label>
-                <input
-                  className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface placeholder-outline-variant focus:ring-1 focus:ring-primary transition-all"
-                  placeholder="Merrick"
-                  type="text"
-                />
-              </div>
-              <div className="md:col-span-2">
-                <label className="block font-label-sm text-on-surface-variant mb-1">
-                  Street Address
-                </label>
-                <input
-                  className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface placeholder-outline-variant focus:ring-1 focus:ring-primary transition-all"
-                  placeholder="123 Serenity Lane"
-                  type="text"
-                />
-              </div>
-              <div className="md:col-span-1">
-                <label className="block font-label-sm text-on-surface-variant mb-1">
-                  City
-                </label>
-                <input
-                  className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface placeholder-outline-variant focus:ring-1 focus:ring-primary transition-all"
-                  placeholder="Portland"
-                  type="text"
-                />
-              </div>
-              <div className="md:col-span-1 grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block font-label-sm text-on-surface-variant mb-1">
-                    State
-                  </label>
-                  <select className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface focus:ring-1 focus:ring-primary transition-all">
-                    <option>OR</option>
-                    <option>CA</option>
-                    <option>WA</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block font-label-sm text-on-surface-variant mb-1">
-                    ZIP
-                  </label>
-                  <input
-                    className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface placeholder-outline-variant focus:ring-1 focus:ring-primary transition-all"
-                    placeholder="97201"
-                    type="text"
-                  />
-                </div>
-              </div>
-              <div className="md:col-span-2">
-                <label className="block font-label-sm text-on-surface-variant mb-1">
-                  Phone Number
-                </label>
-                <input
-                  className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface placeholder-outline-variant focus:ring-1 focus:ring-primary transition-all"
-                  placeholder="(503) 555-0123"
-                  type="tel"
-                />
-              </div>
-            </form>
+            <div className="flex items-center justify-between mb-stack-sm flex-wrap gap-2">
+              <h2 className="font-headline-md text-headline-md text-on-surface">
+                Shipping Address
+              </h2>
+              <Link
+                to="/profile/shipping-addresses"
+                className="flex items-center gap-1.5 font-label-md text-primary hover:underline"
+              >
+                <span className="material-symbols-outlined text-[18px]">
+                  add_location
+                </span>
+                Add / Manage Address
+              </Link>
+            </div>
+
+            <ShippingAddresses
+              selectedAddressId={selectedAddressId}
+              onSelectAddress={(id) => setSelectedAddressId(id)}
+            />
           </section>
 
-          {/* Section: Shipping Method */}
+          {/* Shipping Methods */}
           <section className="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm reveal-on-scroll">
             <h2 className="font-headline-md text-headline-md mb-stack-sm text-on-surface">
               Shipping Method
             </h2>
             <div className="space-y-3">
-              <label className="flex items-center justify-between p-4 rounded-xl border border-outline-variant hover:border-primary cursor-pointer transition-colors group">
+              <label
+                onClick={() => handleShippingChange("standard")}
+                className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-colors ${
+                  shippingMethod === "standard"
+                    ? "border-primary bg-primary-container/10"
+                    : "border-outline-variant hover:border-primary"
+                }`}
+              >
                 <div className="flex items-center gap-4">
                   <input
-                    defaultChecked
-                    className="w-5 h-5 text-primary border-outline focus:ring-primary"
-                    name="shipping"
                     type="radio"
+                    name="shipping"
+                    checked={shippingMethod === "standard"}
+                    onChange={() => {}}
+                    className="w-5 h-5 text-primary border-outline focus:ring-primary"
                   />
                   <div>
                     <p className="font-label-md text-on-surface">
@@ -146,14 +192,26 @@ export default function Shipment() {
                     </p>
                   </div>
                 </div>
-                <span className="font-label-md text-on-surface">Free</span>
+                <span className="font-label-md text-on-surface">
+                  {subtotal >= 300 || subtotal === 0 ? "FREE" : "$12.50"}
+                </span>
               </label>
-              <label className="flex items-center justify-between p-4 rounded-xl border border-outline-variant hover:border-primary cursor-pointer transition-colors group">
+
+              <label
+                onClick={() => handleShippingChange("express")}
+                className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-colors ${
+                  shippingMethod === "express"
+                    ? "border-primary bg-primary-container/10"
+                    : "border-outline-variant hover:border-primary"
+                }`}
+              >
                 <div className="flex items-center gap-4">
                   <input
-                    className="w-5 h-5 text-primary border-outline focus:ring-primary"
-                    name="shipping"
                     type="radio"
+                    name="shipping"
+                    checked={shippingMethod === "express"}
+                    onChange={() => {}}
+                    className="w-5 h-5 text-primary border-outline focus:ring-primary"
                   />
                   <div>
                     <p className="font-label-md text-on-surface">
@@ -168,123 +226,88 @@ export default function Shipment() {
               </label>
             </div>
           </section>
-
-          {/* Section: Payment Method */}
-          <section className="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm opacity-60 reveal-on-scroll">
-            <div className="flex items-center justify-between mb-stack-sm">
-              <h2 className="font-headline-md text-headline-md text-on-surface">
-                Payment Method
-              </h2>
-              <span className="font-label-sm px-2 py-1 bg-surface-container text-on-surface-variant rounded">
-                Locked
-              </span>
-            </div>
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <button className="flex items-center justify-center gap-2 py-3 rounded-xl border border-outline-variant hover:bg-surface-container-low transition-all">
-                <span className="material-symbols-outlined text-primary">
-                  credit_card
-                </span>
-                <span className="font-label-md">Credit Card</span>
-              </button>
-              <button className="flex items-center justify-center gap-2 py-3 rounded-xl border border-outline-variant hover:bg-surface-container-low transition-all">
-                <span className="material-symbols-outlined text-on-background">
-                  apps
-                </span>
-                <span className="font-label-md">Apple Pay</span>
-              </button>
-            </div>
-          </section>
         </div>
 
-        {/* Right Column: Order Summary */}
+        {/* Right Column */}
         <aside className="lg:col-span-5">
           <div className="sticky top-24 bg-surface-container-low p-6 md:p-8 rounded-2xl shadow-[0_4px_24px_rgba(111,52,41,0.04)]">
             <h2 className="font-headline-md text-headline-md mb-6 text-on-surface border-b border-outline-variant pb-4">
               Order Summary
             </h2>
 
-            {/* Items List */}
             <div className="space-y-4 mb-8 max-h-64 overflow-y-auto custom-scrollbar pr-2">
-              {/* Product Item 1 */}
-              <div className="flex gap-4">
-                <div className="w-20 h-20 bg-white rounded-lg flex-shrink-0 overflow-hidden">
-                  <img
-                    className="w-full h-full object-cover"
-                    alt="Hand-Thrown Terracotta Vase in a soft, warm oatmeal glaze"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsNZ7Zaxgh6NzcvY0ZTkYLiUdlRUw5OFZoo22Yhk7EoGjIuquFtrE3c-vdfEjYjE9h6YLx0EmkMZGqSXuuuDNs6QFFB6ckOgO0OP1iiDl1v4vMvj5bsfHONWTDK1w3wCx7wECPwS59INOKXpvDo7bEo4XAxiZtXfwBV9UWOl7an9NuFV8-WaCHEAUu1X5nWkUorbiZfG6njY63cbTkb8d0_cOJ8DMzh63nrmvHK0hWWz7jGZTmrBs"
-                  />
-                </div>
-                <div className="flex-1 flex flex-col justify-between py-1">
-                  <div>
-                    <h4 className="font-label-md text-on-surface leading-tight">
-                      Hand-Thrown Terracotta Vase
-                    </h4>
-                    <p className="font-label-sm text-on-surface-variant">
-                      Sandstone • Medium
-                    </p>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="font-label-sm text-on-surface-variant">
-                      Qty: 1
-                    </span>
-                    <span className="font-label-md text-on-surface">
-                      $85.00
-                    </span>
-                  </div>
-                </div>
-              </div>
+              {loading ? (
+                <p className="font-body-md text-on-surface-variant text-center py-4">
+                  Loading order items...
+                </p>
+              ) : addedProducts.length === 0 ? (
+                <p className="font-body-md text-on-surface-variant text-center py-4">
+                  Your cart is empty.
+                </p>
+              ) : (
+                addedProducts.map((product) => {
+                  const qty = quantities[product.id] || 1;
+                  const itemPrice = (product.price * qty).toFixed(2);
 
-              {/* Product Item 2 */}
-              <div className="flex gap-4">
-                <div className="w-20 h-20 bg-white rounded-lg flex-shrink-0 overflow-hidden">
-                  <img
-                    className="w-full h-full object-cover"
-                    alt="Woven Cotton Throw blanket in a sage green hue"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0RwPreRnz8uS1dfjnDS4ERIVnHyaiTXzvoM2tnIOa79RoKHuj0daJYgvDZk5FyLi9kpriyu8AkgdgAqTFYQgdVRt1EKfRPvymhNVKYl13k93nLdwQ-ZTu1eP5vEubF-I0sREVO2_PDAjaUveSw85b7jpGbMIHMoCgtq97oLbKNLPPWD7Z3xvGlECc94-Bho6W22A3OefQxH-vEw2RZmK4A5rqw1CB9uIqgp4pPtOjVkhB72kV_xA"
-                  />
-                </div>
-                <div className="flex-1 flex flex-col justify-between py-1">
-                  <div>
-                    <h4 className="font-label-md text-on-surface leading-tight">
-                      Woven Cotton Throw
-                    </h4>
-                    <p className="font-label-sm text-on-surface-variant">
-                      Sage • 50"x70"
-                    </p>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="font-label-sm text-on-surface-variant">
-                      Qty: 1
-                    </span>
-                    <span className="font-label-md text-on-surface">
-                      $120.00
-                    </span>
-                  </div>
-                </div>
-              </div>
+                  return (
+                    <div key={product.id} className="flex gap-4">
+                      <div className="w-20 h-20 bg-white rounded-lg flex-shrink-0 overflow-hidden">
+                        <img
+                          className="w-full h-full object-cover"
+                          alt={product.name}
+                          src={product.image_url}
+                        />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between py-1">
+                        <div>
+                          <h4 className="font-label-md text-on-surface leading-tight">
+                            {product.name}
+                          </h4>
+                          {product.series && (
+                            <p className="font-label-sm text-on-surface-variant">
+                              Series: {product.series}
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="font-label-sm text-on-surface-variant">
+                            Qty: {qty}
+                          </span>
+                          <span className="font-label-md text-on-surface">
+                            ${itemPrice}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
 
-            {/* Totals */}
             <div className="space-y-3 border-t border-outline-variant pt-6 mb-8">
               <div className="flex justify-between font-label-md text-on-surface-variant">
                 <span>Subtotal</span>
-                <span>$205.00</span>
+                <span>${subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between font-label-md text-on-surface-variant">
-                <span>Shipping</span>
-                <span className="text-secondary">Calculated at next step</span>
+                <span>
+                  Shipping (
+                  {shippingMethod === "express" ? "Express" : "Standard"})
+                </span>
+                <span className="text-secondary font-medium">
+                  {shippingFee === 0 ? "FREE" : `$${shippingFee.toFixed(2)}`}
+                </span>
               </div>
               <div className="flex justify-between font-label-md text-on-surface-variant">
-                <span>Estimated Tax</span>
-                <span>$16.40</span>
+                <span>Estimated Tax (8%)</span>
+                <span>${taxFee.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between font-headline-md text-on-surface pt-2">
+              <div className="flex justify-between font-headline-md text-on-surface pt-2 border-t border-outline-variant/50">
                 <span>Total</span>
-                <span>$221.40</span>
+                <span>${grandTotal.toFixed(2)}</span>
               </div>
             </div>
 
-            {/* Actions */}
             <div className="space-y-4">
               <Link
                 to={"/cart/checkout/payment"}
@@ -292,34 +315,13 @@ export default function Shipment() {
                   window.scrollTo({ top: 0, behavior: "auto" });
                 }}
               >
-                <button className="w-full bg-primary text-on-primary py-4 rounded-xl font-label-md shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-[0.98] duration-200">
+                <button
+                  disabled={addedProducts.length === 0}
+                  className="w-full bg-primary text-on-primary py-4 rounded-xl font-label-md shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-[0.98] duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                   Continue to Payment
                 </button>
               </Link>
-              <p className="text-center text-on-surface-variant font-label-sm flex items-center justify-center gap-2 mt-5">
-                <span className="material-symbols-outlined text-[14px]">
-                  shield_lock
-                </span>
-                100% Secure Transaction
-              </p>
-            </div>
-
-            {/* Editorial Lookbook Hook */}
-            <div className="mt-stack-md rounded-xl overflow-hidden relative group cursor-pointer">
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
-              <div
-                className="h-32 bg-cover bg-center"
-                style={{
-                  backgroundImage:
-                    "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAmioSqCvZEYyPwzytJvQN1-JM4UgNFf_U43DhFW_leI_qQP_DAsPcUCA6hkgbnLKZ_sL7ce1glQ_xaY3I2RJm2CPoHNbH8w-7s9leHLCbEOZtPAKQHeeX2FexPc9fDxoJfVspKNtfr_awT5_lJn-6Uav08cgSMY_uOlwSJnfm5XaCwCA5yTAG6-zBjHjqBAab4ZRslR-LOAz396Zkh7GHDARSv4VHpnJV9nY94CrUqBP2ghgGaU_w')",
-                }}
-              ></div>
-              <div className="absolute bottom-2 left-3 text-white">
-                <p className="font-headline-md text-sm">Join the Club</p>
-                <p className="font-label-sm text-[10px] opacity-90">
-                  15% off your next order
-                </p>
-              </div>
             </div>
           </div>
         </aside>
