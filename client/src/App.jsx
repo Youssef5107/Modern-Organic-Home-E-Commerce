@@ -30,6 +30,7 @@ import Review from "./pages/checkoutPages/reviewPage/Review";
 import PaymentMethods from "./pages/paymentMethodsPage/PaymentMethods";
 import { ToastNotification } from "./components/ToastNotification";
 import ComingSoon from "./pages/commingSoonPage/ComingSoon";
+import ShippingAddresses from "./pages/shippingAddressesPage/ShippingAddresses";
 function App() {
   const location = useLocation();
   const pathName = location.pathname;
@@ -112,6 +113,10 @@ function App() {
             path="/profile/saved-items/card-details-view"
             element={<CardDetailsView />}
           />
+          <Route
+            path="/profile/shipping-addresses"
+            element={<ShippingAddresses />}
+          />{" "}
           <Route path="/profile/payment-methods" element={<PaymentMethods />} />
           <Route
             path="/profile/account-settings"

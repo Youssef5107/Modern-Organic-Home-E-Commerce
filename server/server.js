@@ -5,6 +5,7 @@ import shopRoutes from "./routes/shopRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import testRoutes from "./test/testRoutes.js";
 import stripeRoutes from "./routes/stripeRoutes.js";
+import addressesRoutes from "./routes/addressesRoutes.js";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -21,8 +22,9 @@ app.use(express.json());
 
 app.use("/api/shop", shopRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/test", testRoutes);
 app.use("/api/stripe", stripeRoutes);
+app.use("/api/addresses", addressesRoutes);
+app.use("/api/test", testRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);

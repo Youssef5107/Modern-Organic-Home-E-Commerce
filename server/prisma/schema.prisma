@@ -57,17 +57,36 @@ model Review {
 }
 
 model User {
-  id        String     @id @default(uuid())
-  email     String     @unique
-  name      String?
-  password  String     // Remember to hash passwords when creating real users
+  id               String     @id @default(uuid())
+  email            String     @unique
+  name             String?
+  password         String
   stripeCustomerId String?    @unique @map("stripe_customer_id")
-  createdAt DateTime   @default(now()) @map("created_at")
+  createdAt        DateTime   @default(now()) @map("created_at")
 
   favorites Favorite[]
   cartItems CartItem[]
+  addresses Address[]
 
   @@map("users")
+}
+
+model Address {
+  id           String   @id @default(uuid())
+  label        String   // e.g. "Home", "Studio"
+  fullName     String   @map("full_name")
+  street       String
+  city         String
+  state        String
+  postalCode   String   @map("postal_code")
+  phone        String
+  isDefault    Boolean  @default(false) @map("is_default")
+  userId       String   @map("user_id")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("addresses")
 }
 
 model Favorite {
