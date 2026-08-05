@@ -69,14 +69,28 @@ router.post("/create-setup-intent", async (req, res) => {
       where: { id: authUser.userId },
     });
 
-    if (!user || !user.stripeCustomerId) {
-      return res
-        .status(400)
-        .json({ message: "No Stripe customer found for this user." });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    let stripeCustomerId = user.stripeCustomerId;
+
+    if (!stripeCustomerId) {
+      const customer = await stripe.customers.create({
+        email: user.email,
+        name: user.name || undefined,
+      });
+
+      stripeCustomerId = customer.id;
+
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { stripeCustomerId },
+      });
     }
 
     const setupIntent = await stripe.setupIntents.create({
-      customer: user.stripeCustomerId,
+      customer: stripeCustomerId,
       payment_method_types: ["card"],
     });
 
@@ -86,7 +100,6 @@ router.post("/create-setup-intent", async (req, res) => {
     return res.status(500).json({ message: "Something went wrong" });
   }
 });
-
 router.get("/payment-methods", async (req, res) => {
   const authUser = getAuthenticatedUser(req);
 
