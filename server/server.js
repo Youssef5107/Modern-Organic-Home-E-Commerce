@@ -18,11 +18,17 @@ const PORT = process.env.PORT || 8080;
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://my-e-commerce-website-g5s9.vercel.app",
-      "https://my-e-commerce-website-g5s9-o4q9no3u3-youssef5107s-projects.vercel.app",
-    ],
+    origin: (origin, callback) => {
+      if (
+        !origin ||
+        origin.startsWith("http://localhost:") ||
+        origin.endsWith(".vercel.app")
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   }),
 );
