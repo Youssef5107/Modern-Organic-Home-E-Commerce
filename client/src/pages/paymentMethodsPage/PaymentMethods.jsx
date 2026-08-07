@@ -5,7 +5,8 @@ import AddPaymentMethodForm from "../../components/AddPaymentMethodForm";
 import { showNotification } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:4003/api";
+  import.meta.env.VITE_API_URL ||
+  "https://my-e-commerce-website-production.up.railway.app/api";
 
 const brandLabels = {
   visa: "Visa",

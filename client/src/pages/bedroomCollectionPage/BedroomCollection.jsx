@@ -56,7 +56,9 @@ export default function BedroomCollection() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:4003/api/shop/collections/ceramics")
+    fetch(
+      "https://my-e-commerce-website-production.up.railway.app/api/shop/collections/ceramics",
+    )
       .then((res) => res.json())
       .then((data) => {
         setCollection(data);

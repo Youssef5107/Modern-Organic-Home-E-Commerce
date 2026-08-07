@@ -27,7 +27,9 @@ export default function CardDetailsView() {
   useEffect(() => {
     if (!selectedCardId) return;
 
-    fetch("http://localhost:4003/api/shop/collections")
+    fetch(
+      "https://my-e-commerce-website-production.up.railway.app/api/shop/collections",
+    )
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch collections");
         return res.json();

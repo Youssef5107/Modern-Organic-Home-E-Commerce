@@ -8,7 +8,8 @@ import {
 import { getStripe } from "../lib/stripe";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:4003/api";
+  import.meta.env.VITE_API_URL ||
+  "https://my-e-commerce-website-production.up.railway.app/api";
 
 function InnerForm({ onSuccess, onCancel }) {
   const stripe = useStripe();

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:4003/api";
+  import.meta.env.VITE_API_URL ||
+  "https://my-e-commerce-website-production.up.railway.app/api";
 
 export default function ShippingAddresses() {
   const [addresses, setAddresses] = useState([]);

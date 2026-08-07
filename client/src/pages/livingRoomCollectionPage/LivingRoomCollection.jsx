@@ -55,7 +55,9 @@ export default function LivingRoomCollection() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:4003/api/shop/collections/living-room")
+    fetch(
+      "https://my-e-commerce-website-production.up.railway.app/api/shop/collections/living-room",
+    )
       .then((res) => res.json())
       .then((data) => {
         setCollection(data);

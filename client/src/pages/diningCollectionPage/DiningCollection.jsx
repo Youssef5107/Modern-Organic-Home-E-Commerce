@@ -58,7 +58,9 @@ export default function DiningCollection() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:4003/api/shop/collections/dining")
+    fetch(
+      "https://my-e-commerce-website-production.up.railway.app/api/shop/collections/dining",
+    )
       .then((res) => res.json())
       .then((data) => {
         setCollection(data);

@@ -16,7 +16,9 @@ export default function NewArrivalsSection() {
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
 
   useEffect(() => {
-    fetch("http://localhost:4003/api/shop/collections")
+    fetch(
+      "https://my-e-commerce-website-production.up.railway.app/api/shop/collections",
+    )
       .then((res) => res.json())
       .then((data) => {
         const collections = data?.collections || [];
