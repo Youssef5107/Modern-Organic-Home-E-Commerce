@@ -25,7 +25,7 @@ import AuthModal from "./components/AuthModal";
 import LogoutConfirm from "./components/LogoutConfirm";
 import { useSelector } from "react-redux";
 import Shipment from "./pages/checkoutPages/shipmentPage/Shipment";
-import Payment from "./pages/checkoutPages/paymentPage/payment";
+import Payment from "./pages/checkoutPages/paymentPage/Payment";
 import Review from "./pages/checkoutPages/reviewPage/Review";
 import PaymentMethods from "./pages/paymentMethodsPage/PaymentMethods";
 import { ToastNotification } from "./components/ToastNotification";
