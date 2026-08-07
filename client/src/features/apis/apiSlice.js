@@ -1,9 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { loadUserPreferences } from "../toggleProductsInfo/toggleProductsInfoSlice";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL ||
-  "https://my-e-commerce-website-production.up.railway.app/api";
+const API_BASE_URL = `${import.meta.env.VITE_API_URL || "https://my-e-commerce-website-production.up.railway.app"}/api`;
 
 const getStoredAuthUser = () => {
   if (typeof window === "undefined") return null;
