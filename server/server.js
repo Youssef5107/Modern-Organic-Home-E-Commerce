@@ -21,6 +21,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://my-e-commerce-website-g5s9.vercel.app",
+      "my-e-commerce-website-production.up.railway.app",
     ],
     credentials: true,
   }),
