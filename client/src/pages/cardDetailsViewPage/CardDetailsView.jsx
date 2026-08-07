@@ -5,6 +5,7 @@ import {
   toggleAddedProducts,
 } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 import { useNavigate } from "react-router-dom";
+import { fetchWithLoading } from "../../lib/fetchWithLoading";
 
 export default function CardDetailsView() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function CardDetailsView() {
   useEffect(() => {
     if (!selectedCardId) return;
 
-    fetch(
+    fetchWithLoading(
       "https://my-e-commerce-website-production.up.railway.app/api/shop/collections",
     )
       .then((res) => {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { fetchWithLoading } from "../../../lib/fetchWithLoading";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
@@ -39,7 +40,7 @@ export default function Review() {
         if (!token) return;
 
         // 1. Fetch Shipping Addresses & Selected/Default Address
-        const addrRes = await fetch(`${API_BASE_URL}/addresses`, {
+        const addrRes = await fetchWithLoading(`${API_BASE_URL}/addresses`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (addrRes.ok) {
@@ -51,7 +52,7 @@ export default function Review() {
         }
 
         // 2. Fetch User's Selected Shipping Method
-        const shipRes = await fetch(
+        const shipRes = await fetchWithLoading(
           `${API_BASE_URL}/addresses/shipping-method`,
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -65,7 +66,7 @@ export default function Review() {
         }
 
         // 3. Fetch Selected Payment Method from Stripe
-        const pmRes = await fetch(`${API_BASE_URL}/stripe/payment-methods`, {
+        const pmRes = await fetchWithLoading(`${API_BASE_URL}/stripe/payment-methods`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (pmRes.ok) {
@@ -80,7 +81,7 @@ export default function Review() {
         }
 
         // 4. Fetch Products for Order Items
-        const prodRes = await fetch(`${API_BASE_URL}/shop/collections`);
+        const prodRes = await fetchWithLoading(`${API_BASE_URL}/shop/collections`);
         if (prodRes.ok) {
           const result = await prodRes.json();
           const dbProducts = (result.collections || []).flatMap(

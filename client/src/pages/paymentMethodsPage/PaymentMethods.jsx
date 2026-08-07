@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import AddPaymentMethodForm from "../../components/AddPaymentMethodForm";
 import { showNotification } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
+import { fetchWithLoading } from "../../lib/fetchWithLoading";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
@@ -32,7 +33,7 @@ export default function PaymentMethods() {
     setError(null);
     try {
       const token = localStorage.getItem("authToken");
-      const response = await fetch(`${API_BASE_URL}/stripe/payment-methods`, {
+      const response = await fetchWithLoading(`${API_BASE_URL}/stripe/payment-methods`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -79,7 +80,7 @@ export default function PaymentMethods() {
 
     try {
       const token = localStorage.getItem("authToken");
-      const response = await fetch(
+      const response = await fetchWithLoading(
         `${API_BASE_URL}/stripe/payment-methods/${idToDelete}`,
         {
           method: "DELETE",

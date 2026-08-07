@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { fetchWithLoading } from "../../lib/fetchWithLoading";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
@@ -28,7 +29,7 @@ export default function ShippingAddresses() {
   const fetchAddresses = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/addresses`, {
+      const res = await fetchWithLoading(`${API_BASE_URL}/addresses`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -83,7 +84,7 @@ export default function ShippingAddresses() {
       : `${API_BASE_URL}/addresses`;
 
     try {
-      const res = await fetch(url, {
+      const res = await fetchWithLoading(url, {
         method,
         headers: {
           "Content-Type": "application/json",
@@ -106,7 +107,7 @@ export default function ShippingAddresses() {
 
   const handleSetDefault = async (id) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/addresses/${id}/set-default`, {
+      const res = await fetchWithLoading(`${API_BASE_URL}/addresses/${id}/set-default`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -118,7 +119,7 @@ export default function ShippingAddresses() {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/addresses/${id}`, {
+      const res = await fetchWithLoading(`${API_BASE_URL}/addresses/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

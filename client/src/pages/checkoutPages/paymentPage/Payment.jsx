@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { fetchWithLoading } from "../../../lib/fetchWithLoading";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
@@ -51,7 +52,7 @@ export default function Payment() {
 
       try {
         // Fetch saved cards from Stripe endpoint
-        const pmRes = await fetch(`${API_BASE_URL}/stripe/payment-methods`, {
+        const pmRes = await fetchWithLoading(`${API_BASE_URL}/stripe/payment-methods`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (pmRes.ok) {
@@ -67,7 +68,7 @@ export default function Payment() {
         }
 
         // Fetch user's saved shipping preference
-        const shipRes = await fetch(
+        const shipRes = await fetchWithLoading(
           `${API_BASE_URL}/addresses/shipping-method`,
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -94,7 +95,7 @@ export default function Payment() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const res = await fetch(`${API_BASE_URL}/shop/collections`);
+        const res = await fetchWithLoading(`${API_BASE_URL}/shop/collections`);
         if (res.ok) {
           const result = await res.json();
           const dbProducts = (result.collections || []).flatMap(

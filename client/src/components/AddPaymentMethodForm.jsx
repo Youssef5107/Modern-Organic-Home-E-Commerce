@@ -6,6 +6,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { getStripe } from "../lib/stripe";
+import { fetchWithLoading } from "../lib/fetchWithLoading";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
@@ -119,7 +120,7 @@ export default function AddPaymentMethodForm({ onSuccess, onCancel }) {
     const fetchSetupIntent = async () => {
       try {
         const token = localStorage.getItem("authToken");
-        const response = await fetch(
+        const response = await fetchWithLoading(
           `${API_BASE_URL}/stripe/create-setup-intent`,
           {
             method: "POST",

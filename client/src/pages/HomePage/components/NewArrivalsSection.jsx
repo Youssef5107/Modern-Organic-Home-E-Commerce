@@ -6,6 +6,7 @@ import {
   viewCardDetails,
 } from "../../../features/toggleProductsInfo/toggleProductsInfoSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchWithLoading } from "../../../lib/fetchWithLoading";
 
 export default function NewArrivalsSection() {
   const [newArrivals, setNewArrivals] = useState([]);
@@ -16,7 +17,7 @@ export default function NewArrivalsSection() {
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
 
   useEffect(() => {
-    fetch(
+    fetchWithLoading(
       "https://my-e-commerce-website-production.up.railway.app/api/shop/collections",
     )
       .then((res) => res.json())

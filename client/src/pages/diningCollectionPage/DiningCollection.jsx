@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchWithLoading } from "../../lib/fetchWithLoading";
 import {
   toggleFavorite,
   toggleAddedProducts,
@@ -58,7 +59,7 @@ export default function DiningCollection() {
   }, []);
 
   useEffect(() => {
-    fetch(
+    fetchWithLoading(
       "https://my-e-commerce-website-production.up.railway.app/api/shop/collections/dining",
     )
       .then((res) => res.json())

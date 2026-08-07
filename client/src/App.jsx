@@ -22,6 +22,7 @@ import OurStory from "./pages/ourStoryPage/OurStory";
 import CardDetailsView from "./pages/cardDetailsViewPage/CardDetailsView";
 import AuthModal from "./components/AuthModal";
 import LogoutConfirm from "./components/LogoutConfirm";
+import LoadingOverlay from "./components/LoadingOverlay";
 import { useSelector } from "react-redux";
 import Shipment from "./pages/checkoutPages/shipmentPage/Shipment";
 import Payment from "./pages/checkoutPages/paymentPage/Payment";
@@ -126,6 +127,7 @@ function App() {
           <Route path="/profile/active-orders" element={<ComingSoon />} />
         </Routes>
       </main>
+      <LoadingOverlay />
       {isLogoutConfirmOpen || pathName == "/order-confirmation" ? null : (
         <BottomNavBar />
       )}

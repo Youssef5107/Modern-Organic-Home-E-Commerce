@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ShippingAddresses from "../../shippingAddressesPage/ShippingAddresses";
+import { fetchWithLoading } from "../../../lib/fetchWithLoading";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
@@ -27,7 +28,7 @@ export default function Shipment() {
     async function initData() {
       try {
         if (token) {
-          const shipRes = await fetch(
+          const shipRes = await fetchWithLoading(
             `${API_BASE_URL}/addresses/shipping-method`,
             {
               headers: { Authorization: `Bearer ${token}` },
@@ -42,7 +43,7 @@ export default function Shipment() {
           }
         }
 
-        const prodRes = await fetch(`${API_BASE_URL}/shop/collections`);
+        const prodRes = await fetchWithLoading(`${API_BASE_URL}/shop/collections`);
         if (prodRes.ok) {
           const result = await prodRes.json();
           const dbProducts = (result.collections || []).flatMap(
@@ -87,7 +88,7 @@ export default function Shipment() {
 
     if (token) {
       try {
-        await fetch(`${API_BASE_URL}/addresses/shipping-method`, {
+        await fetchWithLoading(`${API_BASE_URL}/addresses/shipping-method`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
