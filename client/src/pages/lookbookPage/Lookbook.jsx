@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 export default function Lookbook() {
   return (
     <div className="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased animate-page-enter">
@@ -8,7 +9,7 @@ export default function Lookbook() {
           <img
             alt="Slow living hero"
             className="w-full h-full object-cover"
-            src="https://lh3.googleusercontent.com/aida/AP1WRLti0xii382a0hO0Ib07h-qi56XRyR5lG9ZtMQV3Z3NuVmZkwf-ptHgW7Q65HdRTO4FdSaZaj-UgGdzAXSx1653fVRSK87xueYc4_Jfbpge4Z39DZDWdNX8JqlaRryh-Gmh_05Mc4v6YHoYzes8ONHjsfOb04zbSqXVeOt4J6B1uLR6X2WaohG25AfV4yrRPF7wyKkxUQRnMd-UrzbdwM1CHgBzNc_jkJaH4fJdGdZzczserbx6ip47R"
+            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=80"
           />
           <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
             <div className="text-center text-white px-margin-mobile">
@@ -39,7 +40,7 @@ export default function Lookbook() {
               <img
                 alt="Earth and Form collection ceramics"
                 className="w-full h-[500px] object-cover rounded-xl shadow-lg"
-                src="https://lh3.googleusercontent.com/aida/AP1WRLv5Z1EuRGPtTmA_T1_E5M-Zv2wR8iHCtjDC1hATHthc99CcMkyqmtiqwS9-ASE2ptj-iu6Q7sBtQiJrsabTUWg4Wr-lazZE0ABCgVT0Hhr9tl4AYg6ff_RQzVBYCdEXlvZQz6VizS_2Iq4-d9ciXb9H7JBeSH0cEqNVTNohV8M3lJida2e7r2Tn3VmtARFyWgeJzvMMI1_DjqOuGa5t4TpsU4aeB_M8mj0A-GWZCupyO4OtCNJK1ZW3Dg"
+                src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1000&q=80"
               />
             </div>
             <div className="md:col-span-5 md:pl-stack-md flex flex-col justify-center">
@@ -89,17 +90,9 @@ export default function Lookbook() {
               <img
                 alt="Curated dwellings interior"
                 className="w-full h-[600px] object-cover rounded-xl shadow-lg"
-                src="https://lh3.googleusercontent.com/aida/AP1WRLsGKnSvfZqhyFLWzOZS2QCQCrY4wm3sXRIOhF9KwEjrq7ZVXGgp1-VvTpw5W_i7zN0v6VzTl73guLw17fQb_WYRPr4ifk2r5hC5HjlbD3M4oggwaqsSnJyCvcnUSJJrSSVNG1T6Ukwhz1n8v-FJy50ObjXNi20UuK-ovSCCLCYWxgjQ7o4goBnWt6G4O9r6Yl5MVHqjubKP5KpNXsXos6Wlq92R7mBd840fCI9XNzhNXWwmbcQZM2UlSA"
+                src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1200&q=80"
               />
               {/* Hotspot */}
-              <div className="absolute bottom-1/4 right-1/4 transform translate-x-1/2 translate-y-1/2 w-8 h-8 bg-surface/80 rounded-full flex items-center justify-center cursor-pointer hover:bg-surface transition-colors shadow-md group-hover:scale-110 duration-300">
-                <span
-                  className="material-symbols-outlined text-primary text-sm"
-                  data-icon="add"
-                >
-                  add
-                </span>
-              </div>
             </div>
           </div>
         </section>

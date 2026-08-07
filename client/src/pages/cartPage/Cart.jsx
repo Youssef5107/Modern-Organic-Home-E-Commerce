@@ -167,7 +167,7 @@ export default function Cart() {
           <div className="grid grid-cols-12 gap-4 h-[250px]">
             <div className="col-span-7 h-full rounded-2xl overflow-hidden relative group">
               <img
-                src="https://lh3.googleusercontent.com/aida/AP1WRLti0xii382a0hO0Ib07h-qi56XRyR5lG9ZtMQV3Z3NuVmZkwf-ptHgW7Q65HdRTO4FdSaZaj-UgGdzAXSx1653fVRSK87xueYc4_Jfbpge4Z39DZDWdNX8JqlaRryh-Gmh_05Mc4v6YHoYzes8ONHjsfOb04zbSqXVeOt4J6B1uLR6X2WaohG25AfV4yrRPF7wyKkxUQRnMd-UrzbdwM1CHgBzNc_jkJaH4fJdGdZzczserbx6ip47R"
+                src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=800&q=80"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 alt="Potter's hands working with clay"
               />
@@ -181,7 +181,7 @@ export default function Cart() {
             <div className="col-span-5 flex flex-col gap-4 h-full">
               <div className="h-1/2 rounded-2xl overflow-hidden relative group">
                 <img
-                  src="https://lh3.googleusercontent.com/aida/AP1WRLv5Z1EuRGPtTmA_T1_E5M-Zv2wR8iHCtjDC1hATHthc99CcMkyqmtiqwS9-ASE2ptj-iu6Q7sBtQiJrsabTUWg4Wr-lazZE0ABCgVT0Hhr9tl4AYg6ff_RQzVBYCdEXlvZQz6VizS_2Iq4-d9ciXb9H7JBeSH0cEqNVTNohV8M3lJida2e7r2Tn3VmtARFyWgeJzvMMI1_DjqOuGa5t4TpsU4aeB_M8mj0A-GWZCupyO4OtCNJK1ZW3Dg"
+                  src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=600&q=80"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   alt="Raw clay textures"
                 />
@@ -189,7 +189,7 @@ export default function Cart() {
               </div>
               <div className="h-1/2 rounded-2xl overflow-hidden relative group">
                 <img
-                  src="https://lh3.googleusercontent.com/aida/AP1WRLsGKnSvfZqhyFLWzOZS2QCQCrY4wm3sXRIOhF9KwEjrq7ZVXGgp1-VvTpw5W_i7zN0v6VzTl73guLw17fQb_WYRPr4ifk2r5hC5HjlbD3M4oggwaqsSnJyCvcnUSJJrSSVNG1T6Ukwhz1n8v-FJy50ObjXNi20UuK-ovSCCLCYWxgjQ7o4goBnWt6G4O9r6Yl5MVHqjubKP5KpNXsXos6Wlq92R7mBd840fCI9XNzhNXWwmbcQZM2UlSA"
+                  src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=600&q=80"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   alt="Curated vessels"
                 />
