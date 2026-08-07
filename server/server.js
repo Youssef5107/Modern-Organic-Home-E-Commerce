@@ -3,7 +3,6 @@ import express from "express";
 import cors from "cors";
 import shopRoutes from "./routes/shopRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
-import testRoutes from "./test/testRoutes.js";
 import stripeRoutes from "./routes/stripeRoutes.js";
 import addressesRoutes from "./routes/addressesRoutes.js";
 import { fileURLToPath } from "url";
@@ -17,14 +16,21 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://my-e-commerce-website-g5s9.vercel.app",
+    ],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 app.use("/api/shop", shopRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/stripe", stripeRoutes);
 app.use("/api/addresses", addressesRoutes);
-app.use("/api/test", testRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
