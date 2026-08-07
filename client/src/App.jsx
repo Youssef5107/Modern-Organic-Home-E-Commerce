@@ -18,7 +18,6 @@ import LivingRoomCollection from "./pages/livingRoomCollectionPage/LivingRoomCol
 import DiningCollection from "./pages/diningCollectionPage/DiningCollection";
 import BedroomCollection from "./pages/bedroomCollectionPage/BedroomCollection";
 import SavedItems from "./pages/savedItemsPage/SavedItems";
-// import AccountSettings from "./pages/accountSettingsPage/AccountSettings";
 import OurStory from "./pages/ourStoryPage/OurStory";
 import CardDetailsView from "./pages/cardDetailsViewPage/CardDetailsView";
 import AuthModal from "./components/AuthModal";
