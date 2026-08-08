@@ -73,7 +73,7 @@ router.get("/collections", async (req, res) => {
           material: p.material ?? null,
           technique: p.technique ?? null,
           rating: Number(avgRating.toFixed(1)),
-          review_count: p.reviewCount ?? reviewCount,
+          review_count: reviewCount,
           reviews: p.reviews.map((r) => ({
             name: r.name ?? "Anonymous",
             date: r.date,
@@ -133,7 +133,7 @@ router.get("/collections/:categorySlug", async (req, res) => {
         material: p.material ?? null,
         technique: p.technique ?? null,
         rating: Number(avgRating.toFixed(1)),
-        review_count: p.reviewCount ?? reviewCount,
+        review_count: reviewCount,
         reviews: p.reviews.map((r) => ({
           name: r.name ?? "Anonymous",
           date: r.date,
@@ -195,7 +195,7 @@ router.get("/products/:productId", async (req, res) => {
       material: product.material ?? null,
       technique: product.technique ?? null,
       rating: Number(avgRating.toFixed(1)),
-      review_count: product.reviewCount ?? reviewCount,
+      review_count: reviewCount,
       reviews: product.reviews.map((r) => ({
         name: r.name ?? "Anonymous",
         date: r.date,
@@ -238,9 +238,15 @@ router.post("/products/:productId/reviews", requireAuth, async (req, res) => {
 
     const reviewRating = Number(rating);
     const reviewComment = comment.trim();
+    const reviewDate = new Date().toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
     const createdReview = await prisma.review.create({
       data: {
         name: reviewerName,
+        date: reviewDate,
         rating: reviewRating,
         comment: reviewComment,
         productId: product.id,
@@ -263,11 +269,7 @@ router.post("/products/:productId/reviews", requireAuth, async (req, res) => {
     res.status(201).json({
       review: {
         name: createdReview.name,
-        date: new Date().toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        }),
+        date: reviewDate,
         rating: createdReview.rating,
         comment: createdReview.comment,
       },
