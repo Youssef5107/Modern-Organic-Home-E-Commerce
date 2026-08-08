@@ -1,8 +1,40 @@
 import express from "express";
+import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const router = express.Router();
+
+// Requires a valid Bearer token; attaches the decoded user to req.user.
+// NOTE: adjust JWT_SECRET / payload shape to match whatever your
+// existing /auth/login route already signs tokens with.
+const requireAuth = async (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization || "";
+    const token = authHeader.startsWith("Bearer ")
+      ? authHeader.slice("Bearer ".length)
+      : null;
+
+    if (!token) {
+      return res.status(401).json({ error: "Please log in to continue." });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.id ?? decoded.userId },
+    });
+
+    if (!user) {
+      return res.status(401).json({ error: "Please log in to continue." });
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: "Please log in to continue." });
+  }
+};
 
 router.get("/collections", async (req, res) => {
   try {
@@ -175,6 +207,75 @@ router.get("/products/:productId", async (req, res) => {
     res.json(formattedProduct);
   } catch (error) {
     console.error("Error fetching product:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/products/:productId/reviews", requireAuth, async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const { rating, comment } = req.body;
+    const reviewerName = req.user.name || req.user.email || "Anonymous";
+
+    if (!rating || !comment || !comment.trim()) {
+      return res
+        .status(400)
+        .json({ error: "Rating and comment are required." });
+    }
+
+    const product = await prisma.product.findFirst({
+      where: {
+        OR: [{ slug: productId }, { id: productId }],
+      },
+      include: {
+        reviews: true,
+      },
+    });
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    const reviewRating = Number(rating);
+    const reviewComment = comment.trim();
+    const createdReview = await prisma.review.create({
+      data: {
+        name: reviewerName,
+        rating: reviewRating,
+        comment: reviewComment,
+        productId: product.id,
+      },
+    });
+
+    const reviewCount = product.reviews.length + 1;
+    const avgRating =
+      (product.reviews.reduce((acc, r) => acc + r.rating, 0) + reviewRating) /
+      reviewCount;
+
+    await prisma.product.update({
+      where: { id: product.id },
+      data: {
+        reviewCount,
+        rating: avgRating,
+      },
+    });
+
+    res.status(201).json({
+      review: {
+        name: createdReview.name,
+        date: new Date().toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        }),
+        rating: createdReview.rating,
+        comment: createdReview.comment,
+      },
+      review_count: reviewCount,
+      rating: Number(avgRating.toFixed(1)),
+    });
+  } catch (error) {
+    console.error("Error creating review:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
