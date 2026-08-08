@@ -7,6 +7,10 @@ import {
 import { useNavigate } from "react-router-dom";
 import { fetchWithLoading } from "../../lib/fetchWithLoading";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://my-e-commerce-website-production.up.railway.app/api";
+
 export default function CardDetailsView() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,36 +28,105 @@ export default function CardDetailsView() {
   const [isReviewFormOpen, setIsReviewFormOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [rating, setRating] = useState(0);
+  const [reviewComment, setReviewComment] = useState("");
+  const [reviewError, setReviewError] = useState(null);
+  const [submittingReview, setSubmittingReview] = useState(false);
+
+  const authToken =
+    typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+  const isLoggedIn = Boolean(authToken);
 
   useEffect(() => {
     if (!selectedCardId) return;
 
-    fetchWithLoading(
-      "https://my-e-commerce-website-production.up.railway.app/api/shop/collections",
-    )
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch collections");
-        return res.json();
-      })
-      .then((data) => {
-        const allProducts = data.collections.flatMap(
-          (col) => col.products || [],
+    let isMounted = true;
+
+    async function loadProduct() {
+      try {
+        setLoading(true);
+        const res = await fetchWithLoading(
+          `${API_BASE_URL}/shop/products/${selectedCardId}`,
         );
-        const product = allProducts.find((p) => p.id == selectedCardId);
+        if (!res.ok) throw new Error("Failed to fetch product details");
+        const product = await res.json();
 
-        if (!product) throw new Error("Product not found");
-
-        setSelectedCard(product);
-        setError(null);
-      })
-      .catch((err) => {
+        if (isMounted) {
+          setSelectedCard(product);
+          setError(null);
+        }
+      } catch (err) {
         console.error("Error loading product:", err);
-        setError(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+        if (isMounted) setError(err.message);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    }
+
+    loadProduct();
+
+    return () => {
+      isMounted = false;
+    };
   }, [selectedCardId]);
+
+  const handleSubmitReview = async () => {
+    if (!isLoggedIn) {
+      setReviewError("Please log in to write a review.");
+      return;
+    }
+
+    if (!rating) {
+      setReviewError("Please select a rating.");
+      return;
+    }
+
+    if (!reviewComment.trim()) {
+      setReviewError("Please write a comment.");
+      return;
+    }
+
+    setSubmittingReview(true);
+    setReviewError(null);
+
+    try {
+      const response = await fetchWithLoading(
+        `${API_BASE_URL}/shop/products/${selectedCardId}/reviews`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: JSON.stringify({
+            rating,
+            comment: reviewComment,
+          }),
+        },
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData?.error || "Unable to submit review.");
+      }
+
+      const data = await response.json();
+      setSelectedCard((prev) => ({
+        ...prev,
+        rating: data.rating,
+        review_count: data.review_count,
+        reviews: [data.review, ...(prev?.reviews ?? [])],
+      }));
+      setRating(0);
+      setReviewComment("");
+      setIsReviewFormOpen(false);
+      setIsClosing(false);
+    } catch (err) {
+      console.error("Error submitting review:", err);
+      setReviewError(err.message);
+    } finally {
+      setSubmittingReview(false);
+    }
+  };
 
   const isFavorited = selectedCard
     ? favoriteIds.includes(selectedCard.id)
@@ -262,15 +335,25 @@ export default function CardDetailsView() {
               </div>
 
               <button
-                onClick={handleToggleReviewForm}
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    navigate("/login");
+                    return;
+                  }
+                  handleToggleReviewForm();
+                }}
                 className="font-label-md text-label-md text-primary underline underline-offset-4 hover:text-primary-container transition-colors"
               >
-                {isReviewFormOpen && !isClosing ? "Cancel" : "Write a review"}
+                {!isLoggedIn
+                  ? "Log in to write a review"
+                  : isReviewFormOpen && !isClosing
+                    ? "Cancel"
+                    : "Write a review"}
               </button>
             </div>
 
             {/* ANIMATED REVIEW FORM */}
-            {isReviewFormOpen && (
+            {isLoggedIn && isReviewFormOpen && (
               <div
                 onAnimationEnd={handleAnimationEnd}
                 className={`mb-stack-lg bg-surface-container-low p-gutter rounded-xl border border-outline-variant/20 ${
@@ -281,34 +364,45 @@ export default function CardDetailsView() {
                   YOUR FEEDBACK
                 </h4>
                 <div className="space-y-4">
-                  <div className="flex gap-1 mb-4">
-                    {[1, 2, 3, 4, 5].map((starIndex) => (
-                      <button
-                        key={starIndex}
-                        type="button"
-                        onClick={() => setRating(starIndex)}
-                        className="text-on-surface-variant hover:text-primary transition-colors"
-                      >
-                        <span
-                          className="material-symbols-outlined"
-                          style={{
-                            fontVariationSettings: `'FILL' ${
-                              rating >= starIndex ? 1 : 0
-                            }`,
-                          }}
+                  <div className="flex flex-col gap-4">
+                    <div className="flex gap-1 mb-4">
+                      {[1, 2, 3, 4, 5].map((starIndex) => (
+                        <button
+                          key={starIndex}
+                          type="button"
+                          onClick={() => setRating(starIndex)}
+                          className="text-on-surface-variant hover:text-primary transition-colors"
                         >
-                          star
-                        </span>
-                      </button>
-                    ))}
+                          <span
+                            className="material-symbols-outlined"
+                            style={{
+                              fontVariationSettings: `'FILL' ${
+                                rating >= starIndex ? 1 : 0
+                              }`,
+                            }}
+                          >
+                            star
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                    <textarea
+                      value={reviewComment}
+                      onChange={(event) => setReviewComment(event.target.value)}
+                      placeholder="Tell us about your experience with this piece..."
+                      className="w-full bg-surface-bright border border-outline-variant rounded-xl focus:ring-1 focus:ring-primary p-4 font-body-md text-body-md min-h-[120px]"
+                    />
+                    {reviewError && (
+                      <p className="text-error text-body-sm">{reviewError}</p>
+                    )}
+                    <button
+                      onClick={handleSubmitReview}
+                      disabled={submittingReview}
+                      className="bg-primary text-on-primary px-8 py-3 rounded-full font-label-md text-label-md hover:bg-primary-container transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {submittingReview ? "Submitting..." : "SUBMIT REVIEW"}
+                    </button>
                   </div>
-                  <textarea
-                    placeholder="Tell us about your experience with this piece..."
-                    className="w-full bg-surface-bright border-none rounded-xl focus:ring-1 focus:ring-primary p-4 font-body-md text-body-md min-h-[120px]"
-                  />
-                  <button className="bg-primary text-on-primary px-8 py-3 rounded-full font-label-md text-label-md hover:bg-primary-container transition-all">
-                    SUBMIT REVIEW
-                  </button>
                 </div>
               </div>
             )}
@@ -330,7 +424,11 @@ export default function CardDetailsView() {
                           <span
                             key={i}
                             className="material-symbols-outlined text-sm"
-                            style={{ fontVariationSettings: "'FILL' 1" }}
+                            style={{
+                              fontVariationSettings: `"FILL" ${
+                                review.rating >= i + 1 ? 1 : 0
+                              }`,
+                            }}
                           >
                             star
                           </span>
