@@ -23,8 +23,12 @@ const getAuthenticatedUser = (req) => {
 // GET user's saved shipping method preference
 router.get("/shipping-method", async (req, res) => {
   const authUser = getAuthenticatedUser(req);
-  if (!authUser) return res.status(401).json({ message: "Unauthorized" });
-
+  if (!authUser) {
+    return res.status(401).json({
+      message:
+        "Unauthorized. Please log in or check your credentials to access this section.",
+    });
+  }
   try {
     const user = await prisma.user.findUnique({
       where: { id: authUser.userId },
@@ -41,8 +45,12 @@ router.get("/shipping-method", async (req, res) => {
 // PUT update user's preferred shipping method
 router.put("/shipping-method", async (req, res) => {
   const authUser = getAuthenticatedUser(req);
-  if (!authUser) return res.status(401).json({ message: "Unauthorized" });
-
+  if (!authUser) {
+    return res.status(401).json({
+      message:
+        "Unauthorized. Please log in or check your credentials to access this section.",
+    });
+  }
   const { shippingMethod } = req.body;
 
   try {
@@ -61,8 +69,12 @@ router.put("/shipping-method", async (req, res) => {
 
 router.get("/", async (req, res) => {
   const authUser = getAuthenticatedUser(req);
-  if (!authUser) return res.status(401).json({ message: "Unauthorized" });
-
+  if (!authUser) {
+    return res.status(401).json({
+      message:
+        "Unauthorized. Please log in or check your credentials to access this section.",
+    });
+  }
   try {
     const addresses = await prisma.address.findMany({
       where: { userId: authUser.userId },
@@ -76,8 +88,12 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const authUser = getAuthenticatedUser(req);
-  if (!authUser) return res.status(401).json({ message: "Unauthorized" });
-
+  if (!authUser) {
+    return res.status(401).json({
+      message:
+        "Unauthorized. Please log in or check your credentials to access this section.",
+    });
+  }
   const { label, fullName, street, city, state, postalCode, phone, isDefault } =
     req.body;
 
@@ -111,8 +127,12 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const authUser = getAuthenticatedUser(req);
-  if (!authUser) return res.status(401).json({ message: "Unauthorized" });
-
+  if (!authUser) {
+    return res.status(401).json({
+      message:
+        "Unauthorized. Please log in or check your credentials to access this section.",
+    });
+  }
   const { label, fullName, street, city, state, postalCode, phone, isDefault } =
     req.body;
 
@@ -146,8 +166,12 @@ router.put("/:id", async (req, res) => {
 
 router.patch("/:id/set-default", async (req, res) => {
   const authUser = getAuthenticatedUser(req);
-  if (!authUser) return res.status(401).json({ message: "Unauthorized" });
-
+  if (!authUser) {
+    return res.status(401).json({
+      message:
+        "Unauthorized. Please log in or check your credentials to access this section.",
+    });
+  }
   try {
     await prisma.address.updateMany({
       where: { userId: authUser.userId },
@@ -167,8 +191,12 @@ router.patch("/:id/set-default", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const authUser = getAuthenticatedUser(req);
-  if (!authUser) return res.status(401).json({ message: "Unauthorized" });
-
+  if (!authUser) {
+    return res.status(401).json({
+      message:
+        "Unauthorized. Please log in or check your credentials to access this section.",
+    });
+  }
   try {
     await prisma.address.delete({
       where: { id: req.params.id },

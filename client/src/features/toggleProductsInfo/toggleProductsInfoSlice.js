@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { logoutUser } from "../apis/apiSlice";
 
-const API_BASE_URL = `${import.meta.env.VITE_API_URL || "https://my-e-commerce-website-production.up.railway.app"}/api`;
+const API_BASE_URL = `${import.meta.env.VITE_API_URL || "https://my-e-commerce-website-production.up.railway.app/api"}`;
 
 const persistList = (key, value) => {
   if (typeof window !== "undefined") {

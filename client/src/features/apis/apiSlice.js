@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { loadUserPreferences } from "../toggleProductsInfo/toggleProductsInfoSlice";
 
-const API_BASE_URL = `${import.meta.env.VITE_API_URL || "https://my-e-commerce-website-production.up.railway.app"}/api`;
+const API_BASE_URL = `${import.meta.env.VITE_API_URL || "https://my-e-commerce-website-production.up.railway.app/api"}`;
 
 const getStoredAuthUser = () => {
   if (typeof window === "undefined") return null;
@@ -53,7 +53,7 @@ export const registerApi = createAsyncThunk(
   "auth/register",
   async ({ userName, email, password }, { dispatch, rejectWithValue }) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/register`, {
+      const response = await fetch(`${API_BASE_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -139,7 +139,10 @@ router.get("/me", async (req, res) => {
   const authUser = getAuthenticatedUser(req);
 
   if (!authUser) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({
+      message:
+        "Unauthorized. Please log in or check your credentials to access this section.",
+    });
   }
 
   try {
@@ -163,7 +166,10 @@ router.get("/preferences", async (req, res) => {
   const authUser = getAuthenticatedUser(req);
 
   if (!authUser) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({
+      message:
+        "Unauthorized. Please log in or check your credentials to access this section.",
+    });
   }
 
   try {
@@ -210,7 +216,10 @@ router.post("/sync", async (req, res) => {
   const authUser = getAuthenticatedUser(req);
 
   if (!authUser) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({
+      message:
+        "Unauthorized. Please log in or check your credentials to access this section.",
+    });
   }
 
   try {
