@@ -337,7 +337,7 @@ export default function CardDetailsView() {
               <button
                 onClick={() => {
                   if (!isLoggedIn) {
-                    navigate("/login");
+                    navigate("/profile");
                     return;
                   }
                   handleToggleReviewForm();
