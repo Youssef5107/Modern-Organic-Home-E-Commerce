@@ -11,7 +11,7 @@ export default function ComingSoon() {
           <img
             alt="Modern amphora ceramic vessel"
             className="w-full h-full object-cover"
-            src="../../../public/favicon.png"
+            src="/favicon.png"
           />
         </div>
 

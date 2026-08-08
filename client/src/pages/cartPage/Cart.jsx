@@ -254,11 +254,11 @@ export default function Cart() {
               </label>
               <div className="flex gap-2">
                 <input
-                  className="flex-grow bg-surface-container-low border border-outline-variant rounded-lg px-4 py-2 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant/40"
+                  className="flex-1 min-w-0 bg-surface-container-low border border-outline-variant rounded-lg px-4 py-2 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant/40"
                   placeholder="Enter code"
                   type="text"
                 />
-                <button className="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-label-md hover:opacity-90 transition-opacity">
+                <button className="shrink-0 appearance-none bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-label-md hover:opacity-90 transition-opacity">
                   Apply
                 </button>
               </div>

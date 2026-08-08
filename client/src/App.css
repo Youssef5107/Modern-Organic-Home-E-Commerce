@@ -21,3 +21,8 @@
     font-family: var(--font-serif);
   }
 }
+
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
