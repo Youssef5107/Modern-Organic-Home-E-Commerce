@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setLogoutConfirmOpen } from "../../features/apis/apiSlice";
@@ -14,11 +14,62 @@ const getStoredUser = () => {
 
 export default function Profile() {
   const dispatch = useDispatch();
+  const fileInputRef = useRef(null);
+  const [uploadError, setUploadError] = useState(null);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(() =>
     Boolean(localStorage.getItem("authToken")),
   );
   const [user, setUser] = useState(() => getStoredUser());
+
+  const triggerFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleImageSelection = (event) => {
+    const file = event.target.files?.[0];
+    setUploadError(null);
+
+    if (!file) {
+      return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+      setUploadError("Please select a valid image file.");
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      setUploadError("Please select an image smaller than 2MB.");
+      return;
+    }
+
+    setIsUploadingImage(true);
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const profileImage = reader.result;
+      const storedUser = getStoredUser() || {};
+      const updatedUser = { ...storedUser, profileImage };
+
+      localStorage.setItem("authUser", JSON.stringify(updatedUser));
+      setUser(updatedUser);
+      setIsUploadingImage(false);
+      window.dispatchEvent(new Event("auth-state-changed"));
+    };
+
+    reader.onerror = () => {
+      console.error("Failed to read image file", file);
+      setUploadError("Unable to read the image. Please try again.");
+      setIsUploadingImage(false);
+    };
+
+    reader.readAsDataURL(file);
+    event.target.value = "";
+  };
 
   useEffect(() => {
     const syncAuthState = () => {
@@ -67,18 +118,40 @@ export default function Profile() {
         {/* Profile Header */}
         <section className="flex flex-col items-center justify-center py-8 translate-y-[10px] animate-[fade-in_0.6s_cubic-bezier(0.2,0.8,0.2,1)_0s_forwards] reveal-on-scroll">
           <div className="relative group">
-            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-[0_4px_20px_rgba(111,52,41,0.04)] ring-4 ring-[#f5f3ee]">
-              <div className="w-full h-full bg-[#eae8e3] flex items-center justify-center">
+            <button
+              type="button"
+              onClick={triggerFileInput}
+              className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-[0_4px_20px_rgba(111,52,41,0.04)] ring-4 ring-[#f5f3ee] bg-[#eae8e3] flex items-center justify-center transition-transform duration-200 hover:scale-[1.02]"
+              aria-label="Upload profile image"
+            >
+              {user?.profileImage ? (
+                <img
+                  src={user.profileImage}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
                 <span className="material-symbols-outlined text-[#534340] text-[48px] md:text-[64px]">
                   person
                 </span>
-              </div>
-            </div>
-            <button className="absolute bottom-0 right-0 bg-[#6f3429] text-white p-2 rounded-full shadow-lg active:scale-90 transition-transform">
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={triggerFileInput}
+              className="absolute bottom-0 right-0 bg-[#6f3429] text-white p-2 rounded-full shadow-lg active:scale-90 transition-transform"
+            >
               <span className="material-symbols-outlined text-[18px]">
                 photo_camera
               </span>
             </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageSelection}
+            />
           </div>
           <div className="text-center mt-6">
             <h2 className="font-headline-lg text-headline-lg text-[#1b1c19]">
@@ -95,6 +168,22 @@ export default function Profile() {
             Edit Profile
           </Link>
         </section>
+
+        {uploadError ? (
+          <div className="max-w-[1280px] mx-auto px-5 md:px-16 mt-4 animate-page-enter">
+            <div className="bg-[#fff1f0] border border-[#f1b0a7] text-[#9f3a2a] p-4 rounded-xl shadow-[0_4px_20px_rgba(111,52,41,0.04)]">
+              <p className="font-body-md text-label-sm">{uploadError}</p>
+            </div>
+          </div>
+        ) : null}
+
+        {isUploadingImage ? (
+          <div className="max-w-[1280px] mx-auto px-5 md:px-16 mt-4 animate-page-enter">
+            <div className="bg-[#f5f3ee] border border-[#d8c2bd] text-[#534340] p-4 rounded-xl shadow-[0_4px_20px_rgba(111,52,41,0.04)]">
+              <p className="font-body-md text-label-sm">Uploading image...</p>
+            </div>
+          </div>
+        ) : null}
 
         {/* Active Orders Section */}
         <section className="mt-8 translate-y-[10px] animate-[fade-in_0.6s_cubic-bezier(0.2,0.8,0.2,1)_0.1s_forwards] reveal-on-scroll">
