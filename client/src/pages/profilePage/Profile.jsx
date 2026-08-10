@@ -102,7 +102,7 @@ export default function Profile() {
         <section className="flex flex-col items-center justify-center py-24 translate-y-[10px] animate-[fade-in_0.6s_cubic-bezier(0.2,0.8,0.2,1)_0s_forwards] reveal-on-scroll">
           <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-[0_4px_20px_rgba(111,52,41,0.04)] ring-4 ring-[#f5f3ee] mb-6">
             <div className="w-full h-full bg-[#eae8e3] flex items-center justify-center">
-              <span className="material-symbols-outlined text-[#534340] text-[48px] md:text-[64px]">
+              <span className="material-symbols-outlined text-[#3f312e] text-[48px] md:text-[64px]">
                 person
               </span>
             </div>
@@ -110,7 +110,7 @@ export default function Profile() {
           <h2 className="font-headline-lg text-headline-lg text-[#1b1c19] text-center">
             You're not logged in
           </h2>
-          <p className="font-body-md text-label-sm text-[#534340] mt-2 text-center max-w-xs">
+          <p className="font-body-md text-label-sm text-[#3f312e] mt-2 text-center max-w-xs">
             Log in to view your orders, saved items, and account settings.
           </p>
           <Link
@@ -143,7 +143,7 @@ export default function Profile() {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <span className="material-symbols-outlined text-[#534340] text-[48px] md:text-[64px]">
+                <span className="material-symbols-outlined text-[#3f312e] text-[48px] md:text-[64px]">
                   person
                 </span>
               )}
@@ -151,6 +151,7 @@ export default function Profile() {
             <button
               type="button"
               onClick={triggerFileInput}
+              aria-label="Change profile photo"
               className="absolute bottom-0 right-0 bg-[#6f3429] text-white p-2 rounded-full shadow-lg active:scale-90 transition-transform"
             >
               <span className="material-symbols-outlined text-[18px]">
@@ -167,9 +168,9 @@ export default function Profile() {
           </div>
           <div className="text-center mt-6">
             <h2 className="font-headline-lg text-headline-lg text-[#1b1c19]">
-              {user?.name.toUpperCase() || "Your Name"}
+              {user?.name?.toUpperCase() || "Your Name"}
             </h2>
-            <p className="font-label-sm text-label-sm text-[#534340] uppercase tracking-widest mt-1">
+            <p className="font-label-sm text-label-sm text-[#3f312e] uppercase tracking-widest mt-1">
               Member
             </p>
           </div>
@@ -191,7 +192,7 @@ export default function Profile() {
 
         {isUploadingImage ? (
           <div className="max-w-[1280px] mx-auto px-5 md:px-16 mt-4 animate-page-enter">
-            <div className="bg-[#f5f3ee] border border-[#d8c2bd] text-[#534340] p-4 rounded-xl shadow-[0_4px_20px_rgba(111,52,41,0.04)]">
+            <div className="bg-[#f5f3ee] border border-[#d8c2bd] text-[#3f312e] p-4 rounded-xl shadow-[0_4px_20px_rgba(111,52,41,0.04)]">
               <p className="font-body-md text-label-sm">Uploading image...</p>
             </div>
           </div>
@@ -200,7 +201,7 @@ export default function Profile() {
         {/* Active Orders Section */}
         <section className="mt-8 translate-y-[10px] animate-[fade-in_0.6s_cubic-bezier(0.2,0.8,0.2,1)_0.1s_forwards] reveal-on-scroll">
           <Link to={"/profile/active-orders"}>
-            <h3 className="font-label-sm text-label-sm text-[#534340] uppercase tracking-widest mb-4 px-1">
+            <h3 className="font-label-sm text-label-sm text-[#3f312e] uppercase tracking-widest mb-4 px-1 font-semibold">
               Active Orders
             </h3>
             <div className="bg-white p-6 rounded-xl shadow-[0_4px_20px_rgba(111,52,41,0.04)] border border-[#f0eee9] flex items-center gap-4 group cursor-pointer hover:shadow-md transition-shadow">
@@ -221,11 +222,11 @@ export default function Profile() {
                 <h4 className="font-label-md text-label-md text-[#1b1c19]">
                   Handcrafted Ceramic Vase
                 </h4>
-                <p className="font-body-md text-label-sm text-[#534340] mt-1">
+                <p className="font-body-md text-label-sm text-[#3f312e] mt-1">
                   Order # — Status
                 </p>
               </div>
-              <span className="material-symbols-outlined text-[#534340]">
+              <span className="material-symbols-outlined text-[#3f312e]">
                 chevron_right
               </span>
             </div>
@@ -234,7 +235,7 @@ export default function Profile() {
 
         {/* Account Menu List */}
         <section className="mt-16 space-y-2 translate-y-[10px] animate-[fade-in_0.6s_cubic-bezier(0.2,0.8,0.2,1)_0.2s_forwards] reveal-on-scroll">
-          <h3 className="font-label-sm text-label-sm text-[#534340] uppercase tracking-widest mb-4 px-1">
+          <h3 className="font-label-sm text-label-sm text-[#3f312e] uppercase tracking-widest mb-4 px-1 font-semibold">
             Account &amp; Preferences
           </h3>
 
@@ -254,7 +255,7 @@ export default function Profile() {
                   Order History
                 </span>
               </div>
-              <span className="material-symbols-outlined text-[#d8c2bd] group-hover:translate-x-1 transition-transform">
+              <span className="material-symbols-outlined text-[#8c4b3e] group-hover:translate-x-1 transition-transform">
                 chevron_right
               </span>
             </Link>
@@ -274,7 +275,7 @@ export default function Profile() {
                   My Saved Items
                 </span>
               </div>
-              <span className="material-symbols-outlined text-[#d8c2bd] group-hover:translate-x-1 transition-transform">
+              <span className="material-symbols-outlined text-[#8c4b3e] group-hover:translate-x-1 transition-transform">
                 chevron_right
               </span>
             </Link>
@@ -294,12 +295,12 @@ export default function Profile() {
                   <span className="font-label-md text-label-md text-[#1b1c19]">
                     Shipping Addresses
                   </span>
-                  <span className="text-label-sm text-[#534340]">
+                  <span className="text-label-sm text-[#3f312e]">
                     Add or manage your addresses
                   </span>
                 </div>
               </div>
-              <span className="material-symbols-outlined text-[#d8c2bd] group-hover:translate-x-1 transition-transform">
+              <span className="material-symbols-outlined text-[#8c4b3e] group-hover:translate-x-1 transition-transform">
                 chevron_right
               </span>
             </Link>
@@ -319,7 +320,7 @@ export default function Profile() {
                   Payment Methods
                 </span>
               </div>
-              <span className="material-symbols-outlined text-[#d8c2bd] group-hover:translate-x-1 transition-transform">
+              <span className="material-symbols-outlined text-[#8c4b3e] group-hover:translate-x-1 transition-transform">
                 chevron_right
               </span>
             </Link>
@@ -339,7 +340,7 @@ export default function Profile() {
                   Account Settings
                 </span>
               </div>
-              <span className="material-symbols-outlined text-[#d8c2bd] group-hover:translate-x-1 transition-transform">
+              <span className="material-symbols-outlined text-[#8c4b3e] group-hover:translate-x-1 transition-transform">
                 chevron_right
               </span>
             </Link>
