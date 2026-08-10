@@ -237,6 +237,7 @@ export default function Header() {
         role="dialog"
         aria-modal="true"
         aria-hidden={!isMenuOpen}
+        inert={!isMenuOpen ? "" : undefined}
         aria-labelledby="navigation-heading"
         className={`fixed top-0 left-0 h-full w-[80%] max-w-[400px] bg-surface z-[70] transition-transform duration-300 ease-in-out shadow-2xl flex flex-col ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
