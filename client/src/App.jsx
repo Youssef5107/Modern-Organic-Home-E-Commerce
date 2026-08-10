@@ -42,6 +42,72 @@ function App() {
     (state) => state.apis.isLogoutConfirmOpen,
   );
 
+  const getPageMetadata = (pathname) => {
+    const pages = [
+      {
+        test: /^\/home$/,
+        title: "Home | Modern Organic Home",
+        description:
+          "Modern Organic Home offers handcrafted home goods for mindful, modern interiors.",
+      },
+      {
+        test: /^\/home\/our-story$/,
+        title: "Our Story | Modern Organic Home",
+        description:
+          "Discover the story behind Modern Organic Home and our commitment to handcrafted, sustainable design.",
+      },
+      {
+        test: /^\/home\/lookbook$/,
+        title: "Lookbook | Modern Organic Home",
+        description:
+          "Explore curated interiors and slow living inspiration in the Modern Organic Home lookbook.",
+      },
+      {
+        test: /^\/shop/,
+        title: "Shop | Modern Organic Home",
+        description:
+          "Browse handcrafted furniture, ceramics, and décor for thoughtfully curated living spaces.",
+      },
+      {
+        test: /^\/cart/,
+        title: "Cart | Modern Organic Home",
+        description:
+          "Review your selected items and prepare for checkout with Modern Organic Home.",
+      },
+      {
+        test: /^\/profile/,
+        title: "Profile | Modern Organic Home",
+        description:
+          "Manage your account, saved items, payment methods, and shipping details.",
+      },
+      {
+        test: /^\/order-confirmation$/,
+        title: "Order Confirmation | Modern Organic Home",
+        description:
+          "Thank you for your order. Your handcrafted items are on the way.",
+      },
+    ];
+
+    return (
+      pages.find((page) => page.test.test(pathname)) ?? {
+        title: "Modern Organic Home",
+        description:
+          "Modern Organic Home is a curated destination for handcrafted home décor and furniture.",
+      }
+    );
+  };
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+
+    const { title, description } = getPageMetadata(pathName);
+    document.title = title;
+    const descriptionMeta = document.querySelector('meta[name="description"]');
+    if (descriptionMeta) {
+      descriptionMeta.setAttribute("content", description);
+    }
+  }, [pathName]);
+
   useEffect(() => {
     if (typeof window !== "undefined" && localStorage.getItem("authToken")) {
       dispatch(fetchCurrentUser());
@@ -69,6 +135,12 @@ function App() {
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only fixed top-4 left-4 z-50 rounded-full bg-white px-4 py-2 text-sm font-medium text-primary shadow-lg"
+      >
+        Skip to main content
+      </a>
       {pathName == "/profile/saved-items" ||
       pathName.includes("card-details-view") ||
       isLogoutConfirmOpen ||
@@ -76,6 +148,7 @@ function App() {
         <Header />
       )}
       <main
+        id="main-content"
         className={`${pathName == "/home/our-story" || pathName == "/profile/saved-items" || pathName.includes("card-details-view") || pathName == "/cart/checkout/payment" || pathName == "/cart/checkout/review" || pathName == "/home/lookbook" ? "pb-20" : pathName == "/order-confirmation" ? "pb-0" : "pb-32"}`}
       >
         <Routes>

@@ -300,12 +300,14 @@ export default function AuthModal({ onClose }) {
                       >
                         Password
                       </label>
-                      <a
-                        href="#"
-                        className="font-label-sm text-label-sm text-primary hover:underline transition-all"
+                      <button
+                        type="button"
+                        disabled
+                        aria-disabled="true"
+                        className="font-label-sm text-label-sm text-primary hover:underline transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                       >
                         Forgot Password?
-                      </a>
+                      </button>
                     </div>
                     <input
                       id="login-password"

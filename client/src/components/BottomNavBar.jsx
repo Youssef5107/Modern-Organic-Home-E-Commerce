@@ -57,9 +57,16 @@ export default function BottomNavBar() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-2 pb-6 bg-[#fbf9f4] shadow-[0_-4px_20px_rgba(111,52,41,0.08)] rounded-t-xl">
+    <nav
+      aria-label="Bottom navigation"
+      className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-2 pb-6 bg-[#fbf9f4] shadow-[0_-4px_20px_rgba(111,52,41,0.08)] rounded-t-xl"
+    >
       {navItems.map((item) => {
         const isActive = activeTab === item.id;
+        const itemAriaLabel =
+          item.id === "cart" && cartItemCount > 0
+            ? `Cart, ${cartItemCount} items`
+            : item.label;
 
         return (
           <Link
@@ -68,6 +75,8 @@ export default function BottomNavBar() {
             onClick={() => {
               window.scrollTo({ top: 0, behavior: "auto" });
             }}
+            aria-label={itemAriaLabel}
+            aria-current={isActive ? "page" : undefined}
             className={`flex flex-col items-center justify-center px-5 py-1 transition-all active:scale-90 relative rounded-full ${
               isActive
                 ? "bg-[#e0e5cc] text-[#626753]"

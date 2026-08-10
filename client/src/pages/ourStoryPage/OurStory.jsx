@@ -236,24 +236,44 @@ export default function OurStory() {
             <h4 className="font-label-md text-on-surface">Explore</h4>
             <ul className="space-y-2 font-label-sm text-on-surface-variant">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Our Story
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Sustainability
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Shop All
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Journal
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -261,19 +281,34 @@ export default function OurStory() {
             <h4 className="font-label-md text-on-surface">Connect</h4>
             <ul className="space-y-2 font-label-sm text-on-surface-variant">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Instagram
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Pinterest
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Newsletter
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -281,8 +316,22 @@ export default function OurStory() {
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-16 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row gap-4 justify-between items-center text-label-sm text-on-surface-variant/60">
           <p>© 2024 Modern Organic Home. All rights reserved.</p>
           <div className="flex gap-8">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
+            <button
+              type="button"
+              disabled
+              aria-disabled="true"
+              className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              Privacy
+            </button>
+            <button
+              type="button"
+              disabled
+              aria-disabled="true"
+              className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              Terms
+            </button>
           </div>
         </div>
       </footer>
