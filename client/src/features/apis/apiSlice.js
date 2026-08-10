@@ -85,6 +85,84 @@ export const registerApi = createAsyncThunk(
   },
 );
 
+export const updateProfileImageApi = createAsyncThunk(
+  "auth/updateProfileImage",
+  async ({ profileImage }, { rejectWithValue }) => {
+    try {
+      const token =
+        typeof window === "undefined"
+          ? null
+          : localStorage.getItem("authToken");
+      const response = await fetch(`${API_BASE_URL}/auth/profile-image`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        body: JSON.stringify({ profileImage }),
+      });
+
+      let data;
+      const contentType = response.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        data = {
+          message: response.ok
+            ? text
+            : "Something went wrong. Please try again.",
+        };
+      }
+
+      if (!response.ok) {
+        return rejectWithValue(
+          data.message || "Unable to update profile image",
+        );
+      }
+
+      if (typeof window !== "undefined" && data.user) {
+        localStorage.setItem("authUser", JSON.stringify(data.user));
+      }
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message || "Unable to update profile image");
+    }
+  },
+);
+
+export const fetchCurrentUser = createAsyncThunk(
+  "auth/fetchCurrentUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token =
+        typeof window === "undefined"
+          ? null
+          : localStorage.getItem("authToken");
+      const response = await fetch(`${API_BASE_URL}/auth/me`, {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return rejectWithValue(data.message || "Unable to load current user");
+      }
+
+      if (typeof window !== "undefined" && data.user) {
+        localStorage.setItem("authUser", JSON.stringify(data.user));
+      }
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message || "Unable to load current user");
+    }
+  },
+);
+
 const initialState = {
   response: null,
   isLoading: false,
@@ -158,6 +236,30 @@ export const authModalApi = createSlice({
       .addCase(registerApi.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || "Unable to create your account";
+      })
+      .addCase(updateProfileImageApi.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateProfileImageApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.user || state.user;
+      })
+      .addCase(updateProfileImageApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || "Unable to update profile image";
+      })
+      .addCase(fetchCurrentUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchCurrentUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.user || state.user;
+      })
+      .addCase(fetchCurrentUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || "Unable to load current user";
       });
   },
 });

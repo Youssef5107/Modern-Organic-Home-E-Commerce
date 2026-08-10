@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { setLogoutConfirmOpen } from "../../features/apis/apiSlice";
+import {
+  setLogoutConfirmOpen,
+  updateProfileImageApi,
+} from "../../features/apis/apiSlice";
 
 const getStoredUser = () => {
   try {
@@ -50,15 +53,24 @@ export default function Profile() {
     setIsUploadingImage(true);
     const reader = new FileReader();
 
-    reader.onload = () => {
+    reader.onload = async () => {
       const profileImage = reader.result;
-      const storedUser = getStoredUser() || {};
-      const updatedUser = { ...storedUser, profileImage };
 
-      localStorage.setItem("authUser", JSON.stringify(updatedUser));
-      setUser(updatedUser);
-      setIsUploadingImage(false);
-      window.dispatchEvent(new Event("auth-state-changed"));
+      try {
+        const result = await dispatch(
+          updateProfileImageApi({ profileImage }),
+        ).unwrap();
+
+        setUser(result.user);
+        setUploadError(null);
+        window.dispatchEvent(new Event("auth-state-changed"));
+      } catch (error) {
+        setUploadError(
+          error || "Unable to upload the image. Please try again.",
+        );
+      } finally {
+        setIsUploadingImage(false);
+      }
     };
 
     reader.onerror = () => {
@@ -124,9 +136,9 @@ export default function Profile() {
               className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-[0_4px_20px_rgba(111,52,41,0.04)] ring-4 ring-[#f5f3ee] bg-[#eae8e3] flex items-center justify-center transition-transform duration-200 hover:scale-[1.02]"
               aria-label="Upload profile image"
             >
-              {user?.profileImage ? (
+              {user?.profileImageUrl ? (
                 <img
-                  src={user.profileImage}
+                  src={user.profileImageUrl}
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />

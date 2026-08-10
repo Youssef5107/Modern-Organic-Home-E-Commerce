@@ -64,6 +64,7 @@ router.post("/login", async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
+        profileImageUrl: user.profileImageUrl ?? null,
       },
     });
   } catch (err) {
@@ -128,6 +129,7 @@ router.post("/register", async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
+        profileImageUrl: user.profileImageUrl ?? null,
       },
     });
   } catch (err) {
@@ -148,12 +150,47 @@ router.get("/me", async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id: authUser.userId },
-      select: { id: true, name: true, email: true },
+      select: { id: true, name: true, email: true, profileImageUrl: true },
     });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
+    return res.status(200).json({ user });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
+router.put("/profile-image", async (req, res) => {
+  const authUser = getAuthenticatedUser(req);
+  if (!authUser) {
+    return res.status(401).json({
+      message:
+        "Unauthorized. Please log in or check your credentials to access this section.",
+    });
+  }
+
+  const { profileImage } = req.body;
+
+  if (!profileImage || typeof profileImage !== "string") {
+    return res
+      .status(400)
+      .json({ message: "A valid profileImage is required." });
+  }
+
+  if (!profileImage.startsWith("data:image/")) {
+    return res.status(400).json({ message: "Invalid image format." });
+  }
+
+  try {
+    const user = await prisma.user.update({
+      where: { id: authUser.userId },
+      data: { profileImageUrl: profileImage },
+      select: { id: true, name: true, email: true, profileImageUrl: true },
+    });
 
     return res.status(200).json({ user });
   } catch (error) {
@@ -175,7 +212,7 @@ router.get("/preferences", async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id: authUser.userId },
-      select: { id: true, name: true, email: true },
+      select: { id: true, name: true, email: true, profileImageUrl: true },
     });
 
     if (!user) {
