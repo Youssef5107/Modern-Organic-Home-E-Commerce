@@ -13,6 +13,7 @@ import {
   loadUserPreferences,
   syncUserPreferences,
 } from "./features/toggleProductsInfo/toggleProductsInfoSlice";
+import { fetchCurrentUser } from "./features/apis/apiSlice";
 import CeramicsCollection from "./pages/ceramicsCollectionPage/CeramicsCollection";
 import LivingRoomCollection from "./pages/livingRoomCollectionPage/LivingRoomCollection";
 import DiningCollection from "./pages/diningCollectionPage/DiningCollection";
@@ -43,6 +44,7 @@ function App() {
 
   useEffect(() => {
     if (typeof window !== "undefined" && localStorage.getItem("authToken")) {
+      dispatch(fetchCurrentUser());
       dispatch(loadUserPreferences());
     }
 
