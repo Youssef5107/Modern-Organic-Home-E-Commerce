@@ -35,6 +35,9 @@ export const ToastNotification = () => {
 
   return (
     <div
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
       style={{
         position: "fixed",
         bottom: "88px",

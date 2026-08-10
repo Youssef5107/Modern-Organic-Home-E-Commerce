@@ -35,6 +35,15 @@ export default function Header() {
   };
   const activeLink = getActiveLink();
 
+  const closeMenu = () => setIsMenuOpen(false);
+
+  const handleBackdropKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === " " || event.key === "Escape") {
+      event.preventDefault();
+      closeMenu();
+    }
+  };
+
   const navItems = [
     { id: "home", pathName: "home", name: "Home" },
     { id: "shop", pathName: "shop", name: "Shop All" },
@@ -214,29 +223,45 @@ export default function Header() {
       {isMenuOpen && (
         <div
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] transition-opacity duration-300"
-          onClick={() => setIsMenuOpen(false)}
+          role="button"
+          tabIndex={0}
+          aria-label="Close navigation menu"
+          onClick={closeMenu}
+          onKeyDown={handleBackdropKeyDown}
         />
       )}
 
       {/* Side Navigation Drawer */}
       <aside
+        id="header-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden={!isMenuOpen}
+        aria-labelledby="navigation-heading"
         className={`fixed top-0 left-0 h-full w-[80%] max-w-[400px] bg-surface z-[70] transition-transform duration-300 ease-in-out shadow-2xl flex flex-col ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex justify-between items-center p-6 border-b border-outline-variant/30">
-          <h2 className="font-headline-md text-primary text-xl">
+          <h2
+            id="navigation-heading"
+            className="font-headline-md text-primary text-xl"
+          >
             Modern Organic
           </h2>
           <button
             className="text-primary p-2 hover:bg-surface-container-low rounded-full transition-colors flex items-center justify-center"
             onClick={() => setIsMenuOpen(false)}
+            aria-label="Close navigation menu"
           >
             <CloseIcon style={muiIconStyle} />
           </button>
         </div>
 
-        <nav className="flex flex-col gap-2 p-6 flex-grow overflow-y-auto">
+        <nav
+          aria-label="Primary navigation"
+          className="flex flex-col gap-2 p-6 flex-grow overflow-y-auto"
+        >
           {navItems.map((item) => {
             const isActive = activeLink === item.id;
             return (
@@ -262,24 +287,27 @@ export default function Header() {
             Built by Hand, Inspired by Earth
           </p>
           <div className="flex gap-6 items-center text-primary">
-            <a
+            <button
+              type="button"
               className="hover:scale-110 transition-transform flex items-center"
-              href="#"
+              aria-label="Visit our public page"
             >
               <PublicIcon style={muiIconStyle} />
-            </a>
-            <a
+            </button>
+            <button
+              type="button"
               className="hover:scale-110 transition-transform flex items-center"
-              href="#"
+              aria-label="Share this site"
             >
               <ShareIcon style={muiIconStyle} />
-            </a>
-            <a
+            </button>
+            <button
+              type="button"
               className="hover:scale-110 transition-transform flex items-center"
-              href="#"
+              aria-label="Contact us by email"
             >
               <MailIcon style={muiIconStyle} />
-            </a>
+            </button>
           </div>
           <div className="mt-8">
             <p className="text-label-sm text-on-surface-variant">
@@ -310,6 +338,7 @@ export default function Header() {
               ref={searchInputRef}
               type="text"
               placeholder="Find on page..."
+              aria-label="Search page content"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-transparent font-body-lg text-on-surface placeholder:text-on-surface-variant/60 outline-none py-2"
@@ -364,6 +393,7 @@ export default function Header() {
               type="button"
               className="text-primary p-2 hover:bg-surface-container-low rounded-full transition-colors flex items-center justify-center ml-2"
               onClick={closeSearch}
+              aria-label="Close search"
             >
               <CloseIcon style={muiIconStyle} />
             </button>
@@ -377,6 +407,9 @@ export default function Header() {
           <button
             className="text-primary hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 duration-200 flex items-center justify-center"
             onClick={() => setIsMenuOpen(true)}
+            aria-label="Open navigation menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="header-drawer"
           >
             <MenuIcon style={muiIconStyle} />
           </button>
@@ -391,6 +424,7 @@ export default function Header() {
               setIsSearchOpen(true);
               setTimeout(() => searchInputRef.current?.focus(), 100);
             }}
+            aria-label="Open search"
           >
             <SearchIcon style={muiIconStyle} />
           </button>

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function ProductDetails() {
   return (
     <div className="bg-background text-on-background selection:bg-primary-fixed selection:text-on-primary-fixed min-h-[max(884px,100dvh)]">
@@ -14,41 +16,55 @@ export default function ProductDetails() {
           </h1>
         </div>
         <div className="flex items-center gap-2">
-          <button className="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 duration-200">
+          <button
+            type="button"
+            className="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 duration-200"
+            aria-label="Open search"
+          >
             search
           </button>
           <div className="hidden md:flex gap-6 items-center ml-8">
-            <a className="font-label-md text-label-md text-primary" href="#">
+            <Link
+              className="font-label-md text-label-md text-primary"
+              to="/shop"
+            >
               Shop
-            </a>
-            <a
-              className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors"
-              href="#"
+            </Link>
+            <button
+              type="button"
+              disabled
+              aria-disabled="true"
+              className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
               Artisans
-            </a>
-            <a
-              className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors"
-              href="#"
+            </button>
+            <button
+              type="button"
+              disabled
+              aria-disabled="true"
+              className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
               Sustainability
-            </a>
+            </button>
           </div>
         </div>
       </header>
 
       <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-stack-md pb-stack-lg">
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-2 mb-stack-sm text-on-surface-variant font-label-sm text-label-sm">
-          <a className="hover:text-primary" href="#">
+        <nav
+          aria-label="Breadcrumb"
+          className="flex items-center gap-2 mb-stack-sm text-on-surface-variant font-label-sm text-label-sm"
+        >
+          <Link className="hover:text-primary" to="/home">
             Home
-          </a>
+          </Link>
           <span className="material-symbols-outlined text-[14px]">
             chevron_right
           </span>
-          <a className="hover:text-primary" href="#">
+          <Link className="hover:text-primary" to="/shop/ceramics">
             Ceramics
-          </a>
+          </Link>
           <span className="material-symbols-outlined text-[14px]">
             chevron_right
           </span>
@@ -360,19 +376,32 @@ export default function ProductDetails() {
             </h4>
             <ul className="space-y-2 font-body-md text-body-md text-on-surface-variant">
               <li>
-                <a className="hover:text-primary transition-colors" href="#">
+                <Link
+                  className="hover:text-primary transition-colors"
+                  to="/home/our-story"
+                >
                   Our Story
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="hover:text-primary transition-colors" href="#">
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Artisans
-                </a>
+                </button>
               </li>
               <li>
-                <a className="hover:text-primary transition-colors" href="#">
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Journal
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -382,19 +411,34 @@ export default function ProductDetails() {
             </h4>
             <ul className="space-y-2 font-body-md text-body-md text-on-surface-variant">
               <li>
-                <a className="hover:text-primary transition-colors" href="#">
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Shipping
-                </a>
+                </button>
               </li>
               <li>
-                <a className="hover:text-primary transition-colors" href="#">
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Returns
-                </a>
+                </button>
               </li>
               <li>
-                <a className="hover:text-primary transition-colors" href="#">
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="hover:text-primary transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Contact
-                </a>
+                </button>
               </li>
             </ul>
           </div>
