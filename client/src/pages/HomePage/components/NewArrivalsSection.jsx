@@ -37,24 +37,24 @@ export default function NewArrivalsSection() {
       });
   }, []);
 
-  if (loading) return null;
-  if (!newArrivals.length) return null;
+  if (loading || !newArrivals.length) return null;
+
   return (
     <>
-      <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-stack-md">
+      <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-stack-md">
         New Arrivals
-      </h3>
+      </h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter">
-        {/* Product Card 1 */}
         {newArrivals.map((product) => {
           const isFavorited = favoriteIds.includes(product.id);
           const isAdded = addedIds.includes(product.id);
           return (
-            <div className="group flex flex-col">
+            <div key={product.id} className="group flex flex-col">
               <div className="relative aspect-square bg-surface-container rounded-xl overflow-hidden mb-4 shadow-sm group-hover:shadow-md transition-all duration-300">
                 <Link
                   to={`/home/card-details-view#${product.name}`}
-                  className="product-card group"
+                  className="product-card group block w-full h-full"
+                  aria-label={`View details for ${product.name}`}
                   onClick={() => {
                     dispatch(viewCardDetails(product.id));
                     window.scrollTo({ top: 0, behavior: "auto" });
@@ -66,42 +66,65 @@ export default function NewArrivalsSection() {
                     src={product.image_url}
                   />
                 </Link>
+
+                {/* Favorite button with accessible label */}
                 <button
+                  type="button"
+                  aria-label={
+                    isFavorited
+                      ? `Remove ${product.name} from favorites`
+                      : `Add ${product.name} to favorites`
+                  }
                   className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-md flex items-center justify-center text-primary transition-all card-favorite-btn ${
                     isFavorited
                       ? "opacity-100 card-favorite-btn-active bg-primary text-white"
-                      : "opacity-0 group-hover:opacity-100"
+                      : "opacity-0 group-hover:opacity-100 focus:opacity-100"
                   }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     dispatch(toggleFavorite(product.id));
                   }}
                 >
-                  <span className="material-symbols-outlined text-[18px]">
+                  <span
+                    className="material-symbols-outlined text-[18px]"
+                    aria-hidden="true"
+                  >
                     favorite
                   </span>
                 </button>
+
+                {/* Add to cart button with accessible label */}
                 <button
+                  type="button"
+                  aria-label={
+                    isAdded
+                      ? `Remove ${product.name} from cart`
+                      : `Add ${product.name} to cart`
+                  }
                   className={`absolute bottom-4 right-4 p-2 rounded-full shadow-lg transition-all flex items-center justify-center ${
                     isAdded
                       ? "bg-primary text-on-primary scale-103 shadow-[0_12px_24px_rgba(111,52,41,0.22)] opacity-100"
-                      : "bg-surface/80 text-primary opacity-0 group-hover:opacity-100 hover:scale-105"
+                      : "bg-surface/80 text-primary opacity-0 group-hover:opacity-100 focus:opacity-100 hover:scale-105"
                   }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     dispatch(toggleAddedProducts(product.id));
                   }}
                 >
-                  <span className="material-symbols-outlined text-[18px]">
+                  <span
+                    className="material-symbols-outlined text-[18px]"
+                    aria-hidden="true"
+                  >
                     add_shopping_cart
                   </span>
                 </button>
               </div>
+
               <div className="flex justify-between items-start">
                 <div>
-                  <h5 className="font-label-md text-label-md text-on-background group-hover:text-primary transition-colors">
+                  <h3 className="font-label-md text-label-md text-on-background group-hover:text-primary transition-colors">
                     {product.name}
-                  </h5>
+                  </h3>
                   <p className="font-label-sm text-label-sm text-on-surface-variant">
                     {product.series}
                   </p>

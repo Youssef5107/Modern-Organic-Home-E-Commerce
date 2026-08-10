@@ -27,29 +27,42 @@ export default function Home() {
   }, [location]);
 
   return (
-    <div className="animate-page-enter ">
+    <main className="animate-page-enter">
+      {/* Screen reader only page title for proper h1 structure */}
+      <h1 className="sr-only">Modern Home - Furniture & Interior Design</h1>
+
       {/* Hero Section */}
-      <section className="relative w-full h-[618px] md:h-[707px] overflow-hidden reveal-on-scroll">
+      <section
+        aria-label="Featured Collection"
+        className="relative w-full h-[618px] md:h-[707px] overflow-hidden reveal-on-scroll"
+      >
         <HeroSection />
       </section>
 
       {/* Categories Section */}
-      <section className="scroll-mt-24 mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal-on-scroll">
+      <section
+        aria-label="Shop by Room"
+        className="scroll-mt-24 mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal-on-scroll"
+      >
         <CategoriesSection />
       </section>
 
       {/* New Arrivals Product Cards Section */}
       <section
         id="New-Arrivals"
+        aria-label="New Arrivals"
         className="mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal-on-scroll"
       >
         <NewArrivalsSection />
       </section>
 
       {/* Editorial Content Section */}
-      <section className="mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal-on-scroll">
+      <section
+        aria-label="Our Philosophy"
+        className="mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal-on-scroll"
+      >
         <EditorialContentSection />
       </section>
-    </div>
+    </main>
   );
 }
