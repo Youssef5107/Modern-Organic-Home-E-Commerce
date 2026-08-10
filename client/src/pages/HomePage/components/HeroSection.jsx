@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
+
 export default function HeroSection() {
   return (
     <>
       <div
+        role="img"
+        aria-label="Autumn collection interior decor showcase"
         className="absolute inset-0 w-full h-full bg-cover bg-center"
         style={{
           backgroundImage:
@@ -24,7 +27,7 @@ export default function HeroSection() {
           </p>
           <div className="flex gap-4">
             <Link
-              to={"/shop"}
+              to="/shop"
               className="bg-primary text-on-primary px-8 py-4 rounded-full font-label-md text-label-md hover:shadow-lg transition-all active:scale-95"
               onClick={() => {
                 window.scrollTo({ top: 0, behavior: "auto" });
@@ -33,7 +36,7 @@ export default function HeroSection() {
               Explore Collection
             </Link>
             <Link
-              to={"/home/lookbook"}
+              to="/home/lookbook"
               className="border border-secondary text-secondary px-8 py-4 rounded-full font-label-md text-label-md hover:bg-secondary/5 transition-all active:scale-95"
               onClick={() => {
                 window.scrollTo({ top: 0, behavior: "auto" });
