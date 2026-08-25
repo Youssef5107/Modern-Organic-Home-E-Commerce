@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function HeroSection() {
   return (
-    <div className="relative w-full min-h-[calc(100svh-160px)]">
+    <div className="relative w-full min-h-[calc(100svh-145px)]">
       <div
         role="img"
         aria-label="Autumn collection interior decor showcase"
