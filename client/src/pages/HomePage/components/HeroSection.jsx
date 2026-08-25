@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function HeroSection() {
   return (
-    <>
+    <div className="relative w-full min-h-[calc(100svh-160px)]">
       <div
         role="img"
         aria-label="Autumn collection interior decor showcase"
@@ -13,7 +13,7 @@ export default function HeroSection() {
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
-      <div className="absolute bottom-0 left-0 w-full p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto">
+      <div className="absolute bottom-0 left-0 w-full pb-8 p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto">
         <div className="max-w-2xl">
           <span className="font-label-md text-label-md text-primary uppercase tracking-widest mb-4 block">
             New Season
@@ -47,6 +47,6 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

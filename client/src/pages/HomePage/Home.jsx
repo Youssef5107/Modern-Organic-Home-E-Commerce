@@ -34,7 +34,7 @@ export default function Home() {
       {/* Hero Section */}
       <section
         aria-label="Featured Collection"
-        className="relative w-full h-[618px] md:h-[707px] overflow-hidden reveal-on-scroll"
+        className="relative w-full reveal-on-scroll"
       >
         <HeroSection />
       </section>
