@@ -360,8 +360,7 @@ export default function CeramicsCollection() {
       {/* Pagination Bar */}
       <div className="mt-stack-lg flex flex-col items-center gap-4">
         <p className="font-body-md text-body-md text-on-surface-variant">
-          Showing {filteredProducts.length + (activeCategory === "all" ? 1 : 0)}{" "}
-          products
+          Showing {filteredProducts.length} products
         </p>
         <div className="w-64 h-1 bg-surface-container-high rounded-full overflow-hidden">
           <div className="w-full h-full bg-primary/80 transition-all duration-500"></div>
