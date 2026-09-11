@@ -7,9 +7,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { fetchWithLoading } from "../../lib/fetchWithLoading";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL ||
-  "https://my-e-commerce-website-production.up.railway.app/api";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export default function CardDetailsView() {
   const navigate = useNavigate();

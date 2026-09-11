@@ -5,9 +5,7 @@ import AddPaymentMethodForm from "../../components/AddPaymentMethodForm";
 import { showNotification } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 import { fetchWithLoading } from "../../lib/fetchWithLoading";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL ||
-  "https://my-e-commerce-website-production.up.railway.app/api";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const brandLabels = {
   visa: "Visa",
@@ -33,9 +31,12 @@ export default function PaymentMethods() {
     setError(null);
     try {
       const token = localStorage.getItem("authToken");
-      const response = await fetchWithLoading(`${API_BASE_URL}/stripe/payment-methods`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetchWithLoading(
+        `${API_BASE_URL}/stripe/payment-methods`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
       const data = await response.json();
 
       if (!response.ok) {
