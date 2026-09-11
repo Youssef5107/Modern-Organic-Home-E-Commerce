@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchWithLoading } from "../../lib/fetchWithLoading";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL ||
-  "https://my-e-commerce-website-production.up.railway.app/api";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export default function ShippingAddresses() {
   const [addresses, setAddresses] = useState([]);
@@ -107,10 +105,13 @@ export default function ShippingAddresses() {
 
   const handleSetDefault = async (id) => {
     try {
-      const res = await fetchWithLoading(`${API_BASE_URL}/addresses/${id}/set-default`, {
-        method: "PATCH",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetchWithLoading(
+        `${API_BASE_URL}/addresses/${id}/set-default`,
+        {
+          method: "PATCH",
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
       if (res.ok) fetchAddresses();
     } catch (err) {
       setError(err.message);

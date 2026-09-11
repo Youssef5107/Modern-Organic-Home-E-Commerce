@@ -4,9 +4,7 @@ import { useSelector } from "react-redux";
 import ShippingAddresses from "../../shippingAddressesPage/ShippingAddresses";
 import { fetchWithLoading } from "../../../lib/fetchWithLoading";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL ||
-  "https://my-e-commerce-website-production.up.railway.app/api";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export default function Shipment() {
   const [selectedAddressId, setSelectedAddressId] = useState(null);
@@ -43,7 +41,9 @@ export default function Shipment() {
           }
         }
 
-        const prodRes = await fetchWithLoading(`${API_BASE_URL}/shop/collections`);
+        const prodRes = await fetchWithLoading(
+          `${API_BASE_URL}/shop/collections`,
+        );
         if (prodRes.ok) {
           const result = await prodRes.json();
           const dbProducts = (result.collections || []).flatMap(

@@ -3,9 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { fetchWithLoading } from "../../../lib/fetchWithLoading";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL ||
-  "https://my-e-commerce-website-production.up.railway.app/api";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const brandLabels = {
   visa: "Visa",
@@ -66,9 +64,12 @@ export default function Review() {
         }
 
         // 3. Fetch Selected Payment Method from Stripe
-        const pmRes = await fetchWithLoading(`${API_BASE_URL}/stripe/payment-methods`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const pmRes = await fetchWithLoading(
+          `${API_BASE_URL}/stripe/payment-methods`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
         if (pmRes.ok) {
           const pmData = await pmRes.json();
           const methods = pmData.paymentMethods || [];
@@ -81,7 +82,9 @@ export default function Review() {
         }
 
         // 4. Fetch Products for Order Items
-        const prodRes = await fetchWithLoading(`${API_BASE_URL}/shop/collections`);
+        const prodRes = await fetchWithLoading(
+          `${API_BASE_URL}/shop/collections`,
+        );
         if (prodRes.ok) {
           const result = await prodRes.json();
           const dbProducts = (result.collections || []).flatMap(

@@ -3,9 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { fetchWithLoading } from "../../../lib/fetchWithLoading";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL ||
-  "https://my-e-commerce-website-production.up.railway.app/api";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const brandLabels = {
   visa: "Visa",
@@ -52,9 +50,12 @@ export default function Payment() {
 
       try {
         // Fetch saved cards from Stripe endpoint
-        const pmRes = await fetchWithLoading(`${API_BASE_URL}/stripe/payment-methods`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const pmRes = await fetchWithLoading(
+          `${API_BASE_URL}/stripe/payment-methods`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
         if (pmRes.ok) {
           const pmData = await pmRes.json();
           const methods = pmData.paymentMethods || [];
