@@ -8,6 +8,8 @@ import {
   viewCardDetails,
 } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 export default function Shop() {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,9 +20,7 @@ export default function Shop() {
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
 
   useEffect(() => {
-    fetchWithLoading(
-      "https://my-e-commerce-website-production.up.railway.app/api/shop/collections",
-    )
+    fetchWithLoading(`${API_BASE_URL}/shop/collections`)
       .then((res) => res.json())
       .then((data) => {
         setCollections(data?.collections || []);

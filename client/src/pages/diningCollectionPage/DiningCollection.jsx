@@ -8,6 +8,8 @@ import {
   viewCardDetails,
 } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 export default function DiningCollection() {
   const [collection, setCollection] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -59,9 +61,7 @@ export default function DiningCollection() {
   }, []);
 
   useEffect(() => {
-    fetchWithLoading(
-      "https://my-e-commerce-website-production.up.railway.app/api/shop/collections/dining",
-    )
+    fetchWithLoading(`${API_BASE_URL}/shop/collections/dining`)
       .then((res) => res.json())
       .then((data) => {
         setCollection(data);

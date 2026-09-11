@@ -8,6 +8,8 @@ import {
   viewCardDetails,
 } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 export default function LivingRoomCollection() {
   const [collection, setCollection] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -56,9 +58,7 @@ export default function LivingRoomCollection() {
   }, []);
 
   useEffect(() => {
-    fetchWithLoading(
-      "https://my-e-commerce-website-production.up.railway.app/api/shop/collections/living-room",
-    )
+    fetchWithLoading(`${API_BASE_URL}/shop/collections/living-room`)
       .then((res) => res.json())
       .then((data) => {
         setCollection(data);

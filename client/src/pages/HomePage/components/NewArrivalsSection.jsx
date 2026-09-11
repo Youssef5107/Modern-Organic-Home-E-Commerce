@@ -8,6 +8,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWithLoading } from "../../../lib/fetchWithLoading";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 export default function NewArrivalsSection() {
   const [newArrivals, setNewArrivals] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,9 +19,7 @@ export default function NewArrivalsSection() {
   const addedIds = useSelector((state) => state.ProductsInfo.addedIds);
 
   useEffect(() => {
-    fetchWithLoading(
-      "https://my-e-commerce-website-production.up.railway.app/api/shop/collections",
-    )
+    fetchWithLoading(`${API_BASE_URL}/shop/collections`)
       .then((res) => res.json())
       .then((data) => {
         const collections = data?.collections || [];

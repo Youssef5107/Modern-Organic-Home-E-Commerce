@@ -8,6 +8,8 @@ import {
   viewCardDetails,
 } from "../../features/toggleProductsInfo/toggleProductsInfoSlice";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 export default function BedroomCollection() {
   const [collection, setCollection] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -57,9 +59,7 @@ export default function BedroomCollection() {
   }, []);
 
   useEffect(() => {
-    fetchWithLoading(
-      "https://my-e-commerce-website-production.up.railway.app/api/shop/collections/ceramics",
-    )
+    fetchWithLoading(`${API_BASE_URL}/shop/collections/ceramics`)
       .then((res) => res.json())
       .then((data) => {
         setCollection(data);
