@@ -6,12 +6,12 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
-    sourcemap: true, // 👈 Generates source maps for production builds
+    sourcemap: true,
   },
   server: {
     proxy: {
       "/api": {
-        target: "https://my-e-commerce-website-production.up.railway.app",
+        target: "https://modern-organic-home-e-commerce-1.onrender.com",
         changeOrigin: true,
       },
     },
