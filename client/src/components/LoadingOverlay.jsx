@@ -1,7 +1,18 @@
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function LoadingOverlay() {
   const isLoading = useSelector((state) => state.loading.isLoading);
+  const hasStartedLoading = useRef(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  useEffect(() => {
+    if (isLoading) {
+      hasStartedLoading.current = true;
+    } else if (hasStartedLoading.current) {
+      setIsInitialLoad(false);
+    }
+  }, [isLoading]);
 
   if (!isLoading) return null;
 
@@ -16,6 +27,11 @@ export default function LoadingOverlay() {
         <p className="font-label-md text-label-md text-on-surface">
           Loading content...
         </p>
+        {isInitialLoad && (
+          <p className="mt-2 max-w-xs text-label-sm text-on-surface-variant">
+            Our server is waking up. This may take a moment.
+          </p>
+        )}
       </div>
     </div>
   );
